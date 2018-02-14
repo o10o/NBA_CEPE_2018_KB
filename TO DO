@@ -4,6 +4,8 @@
 * Données Résultat des matchs (Score, Victoire/Défaite)
 * Données Nombre de points total de KB dans le match
 * Données autres relatives à KB sur le match (temps passé sur le terrain, rebond, passe, contre, faute, évaluation globale,...)
+* Données blessure (?)
+* Données passe (?)
 * Données puissance adversaire (Année A et A-1)
 * Variable DOM/EXT
 * Variable Nombre jours depuis le dernier match
@@ -18,15 +20,27 @@
 * Variable qualité shoot au début du match (Q1/Q2 pour prédirer Q3/Q4 par exemple)
 * Variable 1/2/3 derniers shoots
 * Variable clunch moment
-* 
+* Variable passeur (ou pas de passe si KB se crée l'action seul)
+* Variable temps depuis la dernière blessure
+* + toutes les variables globales du match qui viennent d'autres jeu de données (ex : Victoire/Défaite)
 
 
-
-I. Statistiques descriptives (via un Shiny)
+1. Statistiques descriptives (via un Shiny)
 - Pourcentage de réussite en fonction de :
   * la distance
   * l'année
   * l'équipe adverse
-  * le défenseur
   * en play-off (?)
+  
+  * Graphe qui représente le terrain de basket
+  
+2. Modèles de prévision des shots de KB
+
+  * Logistique à la main
+  * Logistique avec sélection de variables
+  * Régression Ridge/Lasso (?)
+  * Random forest
+  * xGBoost
+  * SVM (?)
+  * Deep Learning (?)
   
