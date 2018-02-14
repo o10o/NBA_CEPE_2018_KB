@@ -1,0 +1,32 @@
+# Liste des activités possibles :
+
+0. Ajout de données
+* Données Résultat des matchs (Score, Victoire/Défaite)
+* Données Nombre de points total de KB dans le match
+* Données autres relatives à KB sur le match (temps passé sur le terrain, rebond, passe, contre, faute, évaluation globale,...)
+* Données puissance adversaire (Année A et A-1)
+* Variable DOM/EXT
+* Variable Nombre jours depuis le dernier match
+* Variable phase la carrière (avec Oneal, seul, avec Gasol avant blessure, avec Gasol après blessure)
+* Variable année/mois
+* Variable saison
+* Variable saison playoff (si oui, niveau du playoff) 
+* Variable Age du joueur
+* Variable Booléen jour anniversaire / Noël / MLK Day
+* Variable Équipe adverse
+* Variable total shoot du match
+* Variable qualité shoot au début du match (Q1/Q2 pour prédirer Q3/Q4 par exemple)
+* Variable 1/2/3 derniers shoots
+* Variable clunch moment
+* 
+
+
+
+I. Statistiques descriptives (via un Shiny)
+- Pourcentage de réussite en fonction de :
+  * la distance
+  * l'année
+  * l'équipe adverse
+  * le défenseur
+  * en play-off (?)
+  
