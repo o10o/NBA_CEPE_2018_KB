@@ -1,0 +1,1757 @@
+G;Date;Dom_Ext;Opponent;WinLose;Prolong;Tm;Opp;W;L;Streak
+1;3/11/1995;;Denver Nuggets;W;;98;96;1;0;W 1
+2;4/11/1995;@;Seattle SuperSonics;L;;89;103;1;1;L 1
+3;7/11/1995;@;Minnesota Timberwolves;L;;92;93;1;2;L 2
+4;8/11/1995;@;Utah Jazz;L;;98;108;1;3;L 3
+5; 10/11/1995;;Seattle SuperSonics;W;;100;97;2;3;W 1
+6; 11/11/1995;@;Golden State Warriors;L;;105;123;2;4;L 1
+7; 14/11/1995;@;Sacramento Kings;W;;106;100;3;4;W 1
+8; 15/11/1995;;Dallas Mavericks;W;;114;97;4;4;W 2
+9; 17/11/1995;@;Vancouver Grizzlies;W;;114;91;5;4;W 3
+10; 19/11/1995;;Los Angeles Clippers;W;;109;88;6;4;W 4
+11; 21/11/1995;;Portland Trail Blazers;L;;108;109;6;5;L 1
+12; 24/11/1995;;Sacramento Kings;L;;98;99;6;6;L 2
+13; 25/11/1995;@;Phoenix Suns;L;;113;114;6;7;L 3
+14; 29/11/1995;;Phoenix Suns;W;;107;96;7;7;W 1
+15;1/12/1995;;Vancouver Grizzlies;W;;113;100;8;7;W 2
+16;3/12/1995;;Indiana Pacers;W;;104;96;9;7;W 3
+17;5/12/1995;@;San Antonio Spurs;L;;89;117;9;8;L 1
+18;6/12/1995;@;Houston Rockets;L;;99;112;9;9;L 2
+19;8/12/1995;;Toronto Raptors;W;;120;103;10;9;W 1
+20; 10/12/1995;;Detroit Pistons;W;;87;82;11;9;W 2
+21; 12/12/1995;@;New York Knicks;L;;82;97;11;10;L 1
+22; 13/12/1995;@;Detroit Pistons;W;;101;98;12;10;W 1
+23; 15/12/1995;@;Washington Bullets;L;;114;122;12;11;L 1
+24; 16/12/1995;@;Chicago Bulls;L;;88;108;12;12;L 2
+25; 19/12/1995;@;Milwaukee Bucks;W;;109;105;13;12;W 1
+26; 20/12/1995;@;Indiana Pacers;L;;98;109;13;13;L 1
+27; 22/12/1995;;Sacramento Kings;W;;116;83;14;13;W 1
+28; 23/12/1995;@;Portland Trail Blazers;W;;102;99;15;13;W 2
+29; 26/12/1995;;Boston Celtics;W;;102;91;16;13;W 3
+30; 28/12/1995;;San Antonio Spurs;L;;99;107;16;14;L 1
+31; 30/12/1995;@;Utah Jazz;L;;82;99;16;15;L 2
+32;2/1/1996;;Philadelphia 76ers;L;;89;90;16;16;L 3
+33;5/1/1996;;Utah Jazz;W;;116;100;17;16;W 1
+34;7/1/1996;;Denver Nuggets;L;;93;96;17;17;L 1
+35;9/1/1996;;Minnesota Timberwolves;W;;106;104;18;17;W 1
+36; 12/1/1996;;Houston Rockets;W;;101;100;19;17;W 2
+37; 15/1/1996;;Miami Heat;W;;96;88;20;17;W 3
+38; 19/1/1996;@;Los Angeles Clippers;W;;106;100;21;17;W 4
+39; 20/1/1996;;Cleveland Cavaliers;L;;82;93;21;18;L 1
+40; 24/1/1996;@;Boston Celtics;W;;124;107;22;18;W 1
+41; 26/1/1996;@;Philadelphia 76ers;W;;100;88;23;18;W 2
+42; 27/1/1996;@;New Jersey Nets;W;;100;98;24;18;W 3
+43; 30/1/1996;;Golden State Warriors;W;;128;118;25;18;W 4
+44;2/2/1996;;Chicago Bulls;L;;84;99;25;19;L 1
+45;4/2/1996;;Utah Jazz;W;;110;103;26;19;W 1
+46;6/2/1996;@;Denver Nuggets;W;;99;78;27;19;W 2
+47;7/2/1996;;New Jersey Nets;W;;106;96;28;19;W 3
+48; 14/2/1996;;Atlanta Hawks;W;;87;86;29;19;W 4
+49; 16/2/1996;;Dallas Mavericks;W;;119;114;30;19;W 5
+50; 20/2/1996;;Los Angeles Clippers;W;;121;104;31;19;W 6
+51; 21/2/1996;@;Los Angeles Clippers;W;;112;108;32;19;W 7
+52; 23/2/1996;@;Dallas Mavericks;W;;114;88;33;19;W 8
+53; 24/2/1996;@;Houston Rockets;L;;94;96;33;20;L 1
+54; 26/2/1996;;New York Knicks;W;;114;96;34;20;W 1
+55; 28/2/1996;@;Vancouver Grizzlies;W;;99;80;35;20;W 2
+56;1/3/1996;;Washington Bullets;W;;100;95;36;20;W 3
+57;3/3/1996;;Houston Rockets;L;;107;111;36;21;L 1
+58;7/3/1996;@;Sacramento Kings;W;;102;89;37;21;W 1
+59;8/3/1996;@;Phoenix Suns;W;;119;97;38;21;W 2
+60; 12/3/1996;;Portland Trail Blazers;L;;99;105;38;22;L 1
+61; 14/3/1996;@;Golden State Warriors;W;;106;103;39;22;W 1
+62; 15/3/1996;;Milwaukee Bucks;W;;117;95;40;22;W 2
+63; 17/3/1996;;Orlando Magic;L;;97;98;40;23;L 1
+64; 19/3/1996;;Seattle SuperSonics;W;;94;71;41;23;W 1
+65; 21/3/1996;@;Seattle SuperSonics;L;;93;104;41;24;L 1
+66; 24/3/1996;;Charlotte Hornets;L;;94;103;41;25;L 2
+67; 26/3/1996;@;Orlando Magic;W;;113;91;42;25;W 1
+68; 27/3/1996;@;Miami Heat;W;;106;95;43;25;W 2
+69; 29/3/1996;@;Atlanta Hawks;W;;102;89;44;25;W 3
+70; 31/3/1996;@;Toronto Raptors;W;;111;106;45;25;W 4
+71;2/4/1996;@;Charlotte Hornets;L;;97;102;45;26;L 1
+72;3/4/1996;@;Cleveland Cavaliers;L;;89;105;45;27;L 2
+73;5/4/1996;;Vancouver Grizzlies;W;;104;94;46;27;W 1
+74;7/4/1996;;San Antonio Spurs;W;;107;97;47;27;W 2
+75;9/4/1996;@;Denver Nuggets;L;;91;98;47;28;L 1
+76; 10/4/1996;@;Minnesota Timberwolves;W;;111;90;48;28;W 1
+77; 12/4/1996;;Golden State Warriors;W;;94;81;49;28;W 2
+78; 14/4/1996;;Phoenix Suns;W;;118;114;50;28;W 3
+79; 16/4/1996;@;Dallas Mavericks;W;;113;95;51;28;W 4
+80; 18/4/1996;@;San Antonio Spurs;L;;100;103;51;29;L 1
+81; 20/4/1996;;Minnesota Timberwolves;W;;106;82;52;29;W 1
+82; 21/4/1996;@;Portland Trail Blazers;W;;92;88;53;29;W 2
+1;1/11/1996;;Phoenix Suns;W;;96;82;1;0;W 1
+2;3/11/1996;;Minnesota Timberwolves;W;;91;85;2;0;W 2
+3;5/11/1996;@;New York Knicks;W;;98;92;3;0;W 3
+4;6/11/1996;@;Charlotte Hornets;L;;78;88;3;1;L 1
+5;8/11/1996;@;Toronto Raptors;L;;92;93;3;2;L 2
+6; 10/11/1996;;Atlanta Hawks;W;;92;85;4;2;W 1
+7; 12/11/1996;@;Houston Rockets;W;2OT;126;115;5;2;W 2
+8; 13/11/1996;@;San Antonio Spurs;L;;83;95;5;3;L 1
+9; 15/11/1996;;Los Angeles Clippers;W;;107;100;6;3;W 1
+10; 17/11/1996;@;Phoenix Suns;W;;102;88;7;3;W 2
+11; 19/11/1996;@;Golden State Warriors;W;;112;109;8;3;W 3
+12; 20/11/1996;;Utah Jazz;L;;97;113;8;4;L 1
+13; 22/11/1996;;San Antonio Spurs;W;;96;86;9;4;W 1
+14; 24/11/1996;;Houston Rockets;L;;85;90;9;5;L 1
+15; 26/11/1996;@;Philadelphia 76ers;W;;100;88;10;5;W 1
+16; 27/11/1996;@;Boston Celtics;L;;94;110;10;6;L 1
+17; 29/11/1996;@;Detroit Pistons;W;;84;76;11;6;W 1
+18;1/12/1996;;Denver Nuggets;W;;104;96;12;6;W 2
+19;3/12/1996;;Seattle SuperSonics;W;;110;106;13;6;W 3
+20;4/12/1996;@;Utah Jazz;L;;75;101;13;7;L 1
+21;6/12/1996;;Orlando Magic;W;;92;81;14;7;W 1
+22;8/12/1996;;Minnesota Timberwolves;W;;110;86;15;7;W 2
+23; 10/12/1996;@;Sacramento Kings;W;;92;90;16;7;W 3
+24; 11/12/1996;;Indiana Pacers;W;;79;76;17;7;W 4
+25; 13/12/1996;;Portland Trail Blazers;W;OT;120;119;18;7;W 5
+26; 17/12/1996;@;Chicago Bulls;L;OT;123;129;18;8;L 1
+27; 18/12/1996;@;Milwaukee Bucks;W;;111;105;19;8;W 1
+28; 21/12/1996;@;Minnesota Timberwolves;L;;88;103;19;9;L 1
+29; 25/12/1996;@;Phoenix Suns;W;;108;87;20;9;W 1
+30; 27/12/1996;;Boston Celtics;W;;109;102;21;9;W 2
+31; 29/12/1996;;Philadelphia 76ers;W;;115;102;22;9;W 3
+32;2/1/1997;@;Sacramento Kings;W;;90;83;23;9;W 4
+33;3/1/1997;;Sacramento Kings;W;;100;93;24;9;W 5
+34;5/1/1997;@;Vancouver Grizzlies;W;;95;82;25;9;W 6
+35;6/1/1997;@;Portland Trail Blazers;L;;84;88;25;10;L 1
+36;8/1/1997;;Charlotte Hornets;W;;101;97;26;10;W 1
+37; 10/1/1997;;Miami Heat;W;;94;85;27;10;W 2
+38; 14/1/1997;;Vancouver Grizzlies;W;;91;81;28;10;W 3
+39; 16/1/1997;;Portland Trail Blazers;L;;98;102;28;11;L 1
+40; 18/1/1997;;Detroit Pistons;L;2OT;97;100;28;12;L 2
+41; 20/1/1997;;Dallas Mavericks;W;;109;99;29;12;W 1
+42; 24/1/1997;;Golden State Warriors;W;;114;97;30;12;W 2
+43; 26/1/1997;@;Seattle SuperSonics;W;;104;103;31;12;W 3
+44; 28/1/1997;@;Dallas Mavericks;W;;102;83;32;12;W 4
+45; 29/1/1997;@;San Antonio Spurs;W;;99;92;33;12;W 5
+46;2/2/1997;;Washington Bullets;W;;129;99;34;12;W 6
+47;4/2/1997;@;Los Angeles Clippers;L;;86;108;34;13;L 1
+48;5/2/1997;;Chicago Bulls;W;;106;90;35;13;W 1
+49; 12/2/1997;@;Minnesota Timberwolves;W;;100;84;36;13;W 2
+50; 13/2/1997;@;Denver Nuggets;W;;132;117;37;13;W 3
+51; 16/2/1997;;Seattle SuperSonics;L;;91;102;37;14;L 1
+52; 19/2/1997;;Cleveland Cavaliers;L;;84;103;37;15;L 2
+53; 21/2/1997;;Vancouver Grizzlies;W;;99;91;38;15;W 1
+54; 23/2/1997;;New York Knicks;L;2OT;121;127;38;16;L 1
+55; 25/2/1997;@;Houston Rockets;L;;96;100;38;17;L 2
+56; 27/2/1997;@;Washington Bullets;W;;122;107;39;17;W 1
+57; 28/2/1997;@;Atlanta Hawks;L;;75;86;39;18;L 1
+58;2/3/1997;@;Indiana Pacers;L;;85;101;39;19;L 2
+59;4/3/1997;@;Dallas Mavericks;W;;102;92;40;19;W 1
+60;7/3/1997;;Houston Rockets;L;;90;111;40;20;L 1
+61;9/3/1997;;New Jersey Nets;W;;115;105;41;20;W 1
+62; 12/3/1997;;Golden State Warriors;W;;109;101;42;20;W 2
+63; 14/3/1997;;Los Angeles Clippers;L;;95;97;42;21;L 1
+64; 16/3/1997;;Toronto Raptors;W;OT;98;90;43;21;W 1
+65; 17/3/1997;@;Denver Nuggets;W;;113;94;44;21;W 2
+66; 20/3/1997;@;Cleveland Cavaliers;W;;89;76;45;21;W 3
+67; 21/3/1997;@;Miami Heat;L;;97;98;45;22;L 1
+68; 23/3/1997;@;Orlando Magic;L;;84;110;45;23;L 2
+69; 24/3/1997;@;New Jersey Nets;W;;109;84;46;23;W 1
+70; 26/3/1997;;Milwaukee Bucks;W;;106;84;47;23;W 2
+71; 27/3/1997;@;Vancouver Grizzlies;W;OT;102;98;48;23;W 3
+72;1/4/1997;@;Seattle SuperSonics;W;;99;97;49;23;W 4
+73;2/4/1997;;Denver Nuggets;W;;110;85;50;23;W 5
+74;4/4/1997;;San Antonio Spurs;L;;83;94;50;24;L 1
+75;6/4/1997;;Dallas Mavericks;W;;87;80;51;24;W 1
+76;8/4/1997;@;Golden State Warriors;W;;109;85;52;24;W 2
+77;9/4/1997;@;Utah Jazz;L;;89;101;52;25;L 1
+78; 11/4/1997;;Phoenix Suns;W;;114;98;53;25;W 1
+79; 13/4/1997;;Utah Jazz;W;;100;98;54;25;W 2
+80; 17/4/1997;;Sacramento Kings;W;;108;99;55;25;W 3
+81; 18/4/1997;@;Los Angeles Clippers;W;;123;95;56;25;W 4
+82; 20/4/1997;@;Portland Trail Blazers;L;;96;100;56;26;L 1
+1; 31/10/1997;;Utah Jazz;W;;104;87;1;0;W 1
+2;4/11/1997;@;Sacramento Kings;W;;101;98;2;0;W 2
+3;7/11/1997;;New York Knicks;W;;99;94;3;0;W 3
+4;9/11/1997;;Golden State Warriors;W;;132;97;4;0;W 4
+5; 11/11/1997;@;Dallas Mavericks;W;;118;96;5;0;W 5
+6; 13/11/1997;@;San Antonio Spurs;W;OT;109;100;6;0;W 6
+7; 14/11/1997;@;Houston Rockets;W;2OT;113;103;7;0;W 7
+8; 16/11/1997;;Vancouver Grizzlies;W;;121;95;8;0;W 8
+9; 18/11/1997;@;Utah Jazz;W;;97;92;9;0;W 9
+10; 19/11/1997;;Minnesota Timberwolves;W;;118;93;10;0;W 10
+11; 23/11/1997;;Los Angeles Clippers;W;;119;102;11;0;W 11
+12; 25/11/1997;@;Miami Heat;L;;86;103;11;1;L 1
+13; 26/11/1997;@;Boston Celtics;W;;118;103;12;1;W 1
+14; 28/11/1997;@;Philadelphia 76ers;L;;95;105;12;2;L 1
+15; 30/11/1997;;Toronto Raptors;W;;105;99;13;2;W 1
+16;3/12/1997;@;Denver Nuggets;W;;107;89;14;2;W 2
+17;5/12/1997;;San Antonio Spurs;W;;98;88;15;2;W 3
+18;7/12/1997;;Cleveland Cavaliers;L;;84;94;15;3;L 1
+19;8/12/1997;@;Portland Trail Blazers;L;;99;105;15;4;L 2
+20; 10/12/1997;@;Golden State Warriors;L;;92;93;15;5;L 3
+21; 12/12/1997;;Houston Rockets;W;;119;102;16;5;W 1
+22; 14/12/1997;;Dallas Mavericks;W;;119;89;17;5;W 2
+23; 16/12/1997;@;Minnesota Timberwolves;W;;109;96;18;5;W 3
+24; 17/12/1997;@;Chicago Bulls;L;;83;104;18;6;L 1
+25; 19/12/1997;@;Atlanta Hawks;W;;98;96;19;6;W 1
+26; 20/12/1997;@;Charlotte Hornets;W;;109;100;20;6;W 2
+27; 22/12/1997;@;Houston Rockets;W;;94;83;21;6;W 3
+28; 26/12/1997;;Los Angeles Clippers;W;OT;118;114;22;6;W 4
+29; 28/12/1997;;Boston Celtics;L;;102;108;22;7;L 1
+30; 30/12/1997;;Sacramento Kings;W;;93;80;23;7;W 1
+31;2/1/1998;;Atlanta Hawks;W;;116;106;24;7;W 2
+32;4/1/1998;;Philadelphia 76ers;L;;107;113;24;8;L 1
+33;6/1/1998;@;Vancouver Grizzlies;W;;100;87;25;8;W 1
+34;7/1/1998;;Milwaukee Bucks;W;;114;102;26;8;W 2
+35;9/1/1998;@;Los Angeles Clippers;W;;125;115;27;8;W 3
+36; 11/1/1998;;Charlotte Hornets;L;;93;98;27;9;L 1
+37; 14/1/1998;;Denver Nuggets;W;;132;114;28;9;W 1
+38; 17/1/1998;;Miami Heat;W;;108;99;29;9;W 2
+39; 19/1/1998;;Orlando Magic;W;;92;89;30;9;W 3
+40; 21/1/1998;@;Phoenix Suns;W;;119;109;31;9;W 4
+41; 24/1/1998;@;Seattle SuperSonics;L;;95;101;31;10;L 1
+42; 28/1/1998;;New Jersey Nets;L;;95;106;31;11;L 2
+43; 30/1/1998;;Minnesota Timberwolves;W;;121;114;32;11;W 1
+44;1/2/1998;;Chicago Bulls;W;;112;87;33;11;W 2
+45;4/2/1998;;Portland Trail Blazers;W;;122;115;34;11;W 3
+46; 10/2/1998;@;Portland Trail Blazers;L;;105;117;34;12;L 1
+47; 11/2/1998;;Golden State Warriors;W;;105;99;35;12;W 1
+48; 13/2/1998;;Seattle SuperSonics;L;OT;108;113;35;13;L 1
+49; 15/2/1998;;Houston Rockets;L;;88;90;35;14;L 2
+50; 18/2/1998;@;Phoenix Suns;L;;103;110;35;15;L 3
+51; 19/2/1998;;Denver Nuggets;W;;131;92;36;15;W 1
+52; 22/2/1998;@;Orlando Magic;L;;94;96;36;16;L 1
+53; 24/2/1998;@;Milwaukee Bucks;W;;98;81;37;16;W 1
+54; 25/2/1998;@;Indiana Pacers;W;;96;89;38;16;W 2
+55; 27/2/1998;@;Minnesota Timberwolves;W;;104;91;39;16;W 3
+56;1/3/1998;@;New York Knicks;L;;89;101;39;17;L 1
+57;2/3/1998;@;Washington Wizards;L;;86;96;39;18;L 2
+58;4/3/1998;;Indiana Pacers;W;;104;95;40;18;W 1
+59;6/3/1998;;San Antonio Spurs;W;;91;84;41;18;W 2
+60;8/3/1998;;Detroit Pistons;W;;96;89;42;18;W 3
+61; 11/3/1998;;Portland Trail Blazers;W;;121;107;43;18;W 4
+62; 12/3/1998;@;Los Angeles Clippers;W;;108;85;44;18;W 5
+63; 15/3/1998;@;Vancouver Grizzlies;W;;119;110;45;18;W 6
+64; 16/3/1998;@;Seattle SuperSonics;L;;89;101;45;19;L 1
+65; 18/3/1998;;Phoenix Suns;W;;99;93;46;19;W 1
+66; 20/3/1998;;Seattle SuperSonics;W;;93;80;47;19;W 2
+67; 22/3/1998;@;Sacramento Kings;W;;96;93;48;19;W 3
+68; 23/3/1998;@;Denver Nuggets;W;;107;86;49;19;W 4
+69; 25/3/1998;;Sacramento Kings;W;;114;91;50;19;W 5
+70; 28/3/1998;@;Utah Jazz;L;;91;106;50;20;L 1
+71; 29/3/1998;;Washington Wizards;W;;116;89;51;20;W 1
+72; 31/3/1998;@;Toronto Raptors;W;;114;105;52;20;W 2
+73;2/4/1998;@;New Jersey Nets;W;;117;106;53;20;W 3
+74;3/4/1998;@;Cleveland Cavaliers;W;;105;93;54;20;W 4
+75;5/4/1998;@;Detroit Pistons;W;OT;105;103;55;20;W 5
+76;8/4/1998;;Vancouver Grizzlies;W;;113;102;56;20;W 6
+77; 10/4/1998;;Phoenix Suns;L;;105;114;56;21;L 1
+78; 11/4/1998;@;Golden State Warriors;W;;96;84;57;21;W 1
+79; 13/4/1998;@;San Antonio Spurs;W;;99;75;58;21;W 2
+80; 14/4/1998;@;Dallas Mavericks;W;;111;95;59;21;W 3
+81; 17/4/1998;;Dallas Mavericks;W;;124;95;60;21;W 4
+82; 19/4/1998;;Utah Jazz;W;;102;98;61;21;W 5
+1;5/2/1999;;Houston Rockets;W;;99;91;1;0;W 1
+2;7/2/1999;;Utah Jazz;L;;91;100;1;1;L 1
+3;8/2/1999;@;San Antonio Spurs;W;;80;75;2;1;W 1
+4; 10/2/1999;@;Denver Nuggets;W;;103;98;3;1;W 2
+5; 11/2/1999;@;Minnesota Timberwolves;L;;75;86;3;2;L 1
+6; 14/2/1999;;Indiana Pacers;L;;99;101;3;3;L 2
+7; 16/2/1999;;Charlotte Hornets;W;;116;88;4;3;W 1
+8; 17/2/1999;;Dallas Mavericks;W;;101;88;5;3;W 2
+9; 19/2/1999;;San Antonio Spurs;W;;106;94;6;3;W 3
+10; 21/2/1999;@;Seattle SuperSonics;L;;89;92;6;4;L 1
+11; 22/2/1999;@;Denver Nuggets;L;OT;113;117;6;5;L 2
+12; 23/2/1999;@;Vancouver Grizzlies;L;;83;93;6;6;L 3
+13; 25/2/1999;@;Los Angeles Clippers;W;;115;100;7;6;W 1
+14; 26/2/1999;;Los Angeles Clippers;W;;99;83;8;6;W 2
+15; 28/2/1999;;Houston Rockets;W;;106;90;9;6;W 3
+16;1/3/1999;@;Phoenix Suns;W;;97;91;10;6;W 4
+17;3/3/1999;;Phoenix Suns;W;;101;95;11;6;W 5
+18;5/3/1999;;Seattle SuperSonics;W;;103;100;12;6;W 6
+19;7/3/1999;@;Utah Jazz;W;;97;89;13;6;W 7
+20;9/3/1999;@;Los Angeles Clippers;W;;103;99;14;6;W 8
+21; 10/3/1999;;Los Angeles Clippers;W;;94;75;15;6;W 9
+22; 12/3/1999;;Golden State Warriors;W;;89;78;16;6;W 10
+23; 14/3/1999;@;Sacramento Kings;L;;101;105;16;7;L 1
+24; 16/3/1999;@;Minnesota Timberwolves;W;;107;101;17;7;W 1
+25; 18/3/1999;@;Cleveland Cavaliers;L;;93;100;17;8;L 1
+26; 19/3/1999;@;Philadelphia 76ers;L;;90;105;17;9;L 2
+27; 21/3/1999;@;Orlando Magic;W;;115;104;18;9;W 1
+28; 22/3/1999;@;Dallas Mavericks;W;;96;93;19;9;W 2
+29; 24/3/1999;;Phoenix Suns;L;;101;106;19;10;L 1
+30; 26/3/1999;;Sacramento Kings;L;;109;111;19;11;L 2
+31; 28/3/1999;;New York Knicks;W;;99;91;20;11;W 1
+32; 29/3/1999;;Vancouver Grizzlies;W;;116;98;21;11;W 2
+33;2/4/1999;@;Phoenix Suns;W;;91;90;22;11;W 3
+34;3/4/1999;;Golden State Warriors;L;;76;81;22;12;L 1
+35;5/4/1999;;Denver Nuggets;W;;117;104;23;12;W 1
+36;6/4/1999;;Utah Jazz;L;;93;106;23;13;L 1
+37;7/4/1999;@;Sacramento Kings;W;;104;89;24;13;W 1
+38;9/4/1999;;Minnesota Timberwolves;W;;96;89;25;13;W 2
+39; 11/4/1999;;Seattle SuperSonics;L;;109;113;25;14;L 1
+40; 13/4/1999;@;Portland Trail Blazers;L;;86;113;25;15;L 2
+41; 17/4/1999;@;Utah Jazz;L;;93;109;25;16;L 3
+42; 19/4/1999;;Vancouver Grizzlies;W;;117;102;26;16;W 1
+43; 20/4/1999;@;Golden State Warriors;W;OT;106;102;27;16;W 2
+44; 21/4/1999;@;Portland Trail Blazers;L;;82;88;27;17;L 1
+45; 24/4/1999;@;San Antonio Spurs;L;;81;108;27;18;L 2
+46; 26/4/1999;@;Houston Rockets;L;;80;102;27;19;L 3
+47; 29/4/1999;;Portland Trail Blazers;W;;108;89;28;19;W 1
+48;2/5/1999;@;Seattle SuperSonics;W;;91;84;29;19;W 2
+49;3/5/1999;;Dallas Mavericks;W;;115;102;30;19;W 3
+50;5/5/1999;;Portland Trail Blazers;W;;119;91;31;19;W 4
+1;2/11/1999;@;Utah Jazz;W;;91;84;1;0;W 1
+2;3/11/1999;;Vancouver Grizzlies;W;;103;88;2;0;W 2
+3;6/11/1999;@;Portland Trail Blazers;L;;82;97;2;1;L 1
+4;7/11/1999;;Dallas Mavericks;W;;105;97;3;1;W 1
+5;9/11/1999;@;Dallas Mavericks;W;;123;101;4;1;W 2
+6; 10/11/1999;@;Houston Rockets;W;;89;88;5;1;W 3
+7; 12/11/1999;;Houston Rockets;L;;81;97;5;2;L 1
+8; 14/11/1999;;Atlanta Hawks;W;;93;88;6;2;W 1
+9; 15/11/1999;@;Phoenix Suns;W;;91;82;7;2;W 2
+10; 18/11/1999;@;Denver Nuggets;L;;82;93;7;3;L 1
+11; 19/11/1999;;Chicago Bulls;W;;103;95;8;3;W 1
+12; 21/11/1999;;Toronto Raptors;L;;102;111;8;4;L 1
+13; 24/11/1999;;Utah Jazz;W;;90;82;9;4;W 1
+14; 26/11/1999;;New Jersey Nets;W;;103;80;10;4;W 2
+15; 30/11/1999;@;Seattle SuperSonics;W;;101;77;11;4;W 3
+16;1/12/1999;;Golden State Warriors;W;;93;75;12;4;W 4
+17;3/12/1999;;Portland Trail Blazers;W;;93;80;13;4;W 5
+18;5/12/1999;;Orlando Magic;W;;117;100;14;4;W 6
+19;7/12/1999;;Washington Wizards;W;;91;80;15;4;W 7
+20;8/12/1999;@;Sacramento Kings;L;;91;103;15;5;L 1
+21; 11/12/1999;@;Vancouver Grizzlies;W;;106;94;16;5;W 1
+22; 12/12/1999;;Detroit Pistons;W;;101;93;17;5;W 2
+23; 14/12/1999;;Los Angeles Clippers;W;;95;68;18;5;W 3
+24; 16/12/1999;@;Atlanta Hawks;W;;95;88;19;5;W 4
+25; 17/12/1999;@;Minnesota Timberwolves;W;;97;88;20;5;W 5
+26; 19/12/1999;@;Toronto Raptors;W;;94;88;21;5;W 6
+27; 20/12/1999;@;Boston Celtics;W;;99;90;22;5;W 7
+28; 25/12/1999;;San Antonio Spurs;W;;99;93;23;5;W 8
+29; 27/12/1999;;Dallas Mavericks;W;;108;106;24;5;W 9
+30; 29/12/1999;;Phoenix Suns;W;;103;87;25;5;W 10
+31;4/1/2000;@;Los Angeles Clippers;W;;122;98;26;5;W 11
+32;5/1/2000;;Los Angeles Clippers;W;;118;101;27;5;W 12
+33;7/1/2000;;Charlotte Hornets;W;;87;83;28;5;W 13
+34;8/1/2000;@;Seattle SuperSonics;W;;110;100;29;5;W 14
+35; 10/1/2000;;Denver Nuggets;W;;130;95;30;5;W 15
+36; 12/1/2000;@;Milwaukee Bucks;W;;103;94;31;5;W 16
+37; 14/1/2000;@;Indiana Pacers;L;;102;111;31;6;L 1
+38; 15/1/2000;@;Minnesota Timberwolves;W;;104;91;32;6;W 1
+39; 17/1/2000;;Seattle SuperSonics;L;;81;82;32;7;L 1
+40; 19/1/2000;;Cleveland Cavaliers;W;;95;86;33;7;W 1
+41; 22/1/2000;;Portland Trail Blazers;L;;91;95;33;8;L 1
+42; 24/1/2000;@;Utah Jazz;L;2OT;101;105;33;9;L 2
+43; 28/1/2000;;Milwaukee Bucks;W;;117;89;34;9;W 1
+44; 30/1/2000;@;Houston Rockets;L;;83;89;34;10;L 1
+45;1/2/2000;@;San Antonio Spurs;L;;81;105;34;11;L 2
+46;4/2/2000;;Utah Jazz;W;;113;67;35;11;W 1
+47;7/2/2000;;Denver Nuggets;W;;106;98;36;11;W 2
+48;9/2/2000;;Minnesota Timberwolves;W;;114;81;37;11;W 3
+49; 15/2/2000;@;Chicago Bulls;W;;88;76;38;11;W 4
+50; 16/2/2000;@;Charlotte Hornets;W;;92;85;39;11;W 5
+51; 18/2/2000;@;Orlando Magic;W;OT;107;99;40;11;W 6
+52; 20/2/2000;@;Philadelphia 76ers;W;;87;84;41;11;W 7
+53; 22/2/2000;@;New Jersey Nets;W;;97;89;42;11;W 8
+54; 23/2/2000;@;Cleveland Cavaliers;W;;116;98;43;11;W 9
+55; 25/2/2000;;Boston Celtics;W;;109;96;44;11;W 10
+56; 27/2/2000;;Houston Rockets;W;;101;85;45;11;W 11
+57; 29/2/2000;@;Portland Trail Blazers;W;;90;87;46;11;W 12
+58;1/3/2000;;Vancouver Grizzlies;W;;103;91;47;11;W 13
+59;3/3/2000;;Indiana Pacers;W;;107;92;48;11;W 14
+60;5/3/2000;;Miami Heat;W;;93;80;49;11;W 15
+61;6/3/2000;@;Los Angeles Clippers;W;;123;103;50;11;W 16
+62;9/3/2000;@;Golden State Warriors;W;;109;92;51;11;W 17
+63; 12/3/2000;;Sacramento Kings;W;;109;106;52;11;W 18
+64; 13/3/2000;@;Denver Nuggets;W;;118;108;53;11;W 19
+65; 16/3/2000;@;Washington Wizards;L;;102;109;53;12;L 1
+66; 17/3/2000;@;Detroit Pistons;W;;110;82;54;12;W 1
+67; 19/3/2000;@;New York Knicks;W;;92;85;55;12;W 2
+68; 20/3/2000;@;Miami Heat;W;;100;89;56;12;W 3
+69; 22/3/2000;;Golden State Warriors;W;;119;96;57;12;W 4
+70; 24/3/2000;;Phoenix Suns;W;;109;101;58;12;W 5
+71; 26/3/2000;@;Sacramento Kings;W;;90;89;59;12;W 6
+72; 29/3/2000;@;Vancouver Grizzlies;W;;108;99;60;12;W 7
+73; 31/3/2000;;Philadelphia 76ers;W;;100;88;61;12;W 8
+74;2/4/2000;;New York Knicks;W;;106;82;62;12;W 9
+75;4/4/2000;@;Phoenix Suns;W;;84;83;63;12;W 10
+76;5/4/2000;@;Golden State Warriors;W;;111;104;64;12;W 11
+77;8/4/2000;;San Antonio Spurs;L;;80;98;64;13;L 1
+78; 10/4/2000;;Seattle SuperSonics;W;OT;106;103;65;13;W 1
+79; 14/4/2000;;Sacramento Kings;W;;121;114;66;13;W 2
+80; 16/4/2000;;Minnesota Timberwolves;W;;101;95;67;13;W 3
+81; 18/4/2000;@;Dallas Mavericks;L;;102;112;67;14;L 1
+82; 19/4/2000;@;San Antonio Spurs;L;OT;98;103;67;15;L 2
+1; 31/10/2000;@;Portland Trail Blazers;W;;96;86;1;0;W 1
+2;1/11/2000;;Utah Jazz;L;;92;97;1;1;L 1
+3;4/11/2000;@;Vancouver Grizzlies;W;;98;89;2;1;W 1
+4;5/11/2000;;Los Angeles Clippers;W;;108;103;3;1;W 2
+5;7/11/2000;@;Houston Rockets;L;;74;84;3;2;L 1
+6;8/11/2000;@;San Antonio Spurs;L;;81;91;3;3;L 2
+7; 12/11/2000;;Houston Rockets;W;;105;99;4;3;W 1
+8; 14/11/2000;;Denver Nuggets;W;;119;103;5;3;W 2
+9; 16/11/2000;@;Sacramento Kings;W;OT;112;110;6;3;W 3
+10; 18/11/2000;@;Denver Nuggets;L;;86;87;6;4;L 1
+11; 19/11/2000;;Chicago Bulls;W;;104;96;7;4;W 1
+12; 22/11/2000;;Golden State Warriors;W;;111;91;8;4;W 2
+13; 24/11/2000;;Minnesota Timberwolves;W;;115;108;9;4;W 3
+14; 27/11/2000;@;Los Angeles Clippers;W;;98;83;10;4;W 4
+15; 28/11/2000;;Indiana Pacers;W;;124;107;11;4;W 5
+16; 30/11/2000;@;Seattle SuperSonics;L;;88;121;11;5;L 1
+17;1/12/2000;;San Antonio Spurs;W;;109;100;12;5;W 1
+18;3/12/2000;;Dallas Mavericks;W;;99;97;13;5;W 2
+19;5/12/2000;;Philadelphia 76ers;W;;96;85;14;5;W 3
+20;6/12/2000;@;Golden State Warriors;L;OT;122;125;14;6;L 1
+21;8/12/2000;;Seattle SuperSonics;L;;95;103;14;7;L 2
+22; 10/12/2000;;Detroit Pistons;W;;112;88;15;7;W 1
+23; 12/12/2000;;Milwaukee Bucks;L;;105;109;15;8;L 1
+24; 13/12/2000;@;Portland Trail Blazers;L;;86;96;15;9;L 2
+25; 15/12/2000;;Vancouver Grizzlies;W;;98;76;16;9;W 1
+26; 17/12/2000;@;Toronto Raptors;W;OT;104;101;17;9;W 2
+27; 19/12/2000;@;Miami Heat;W;;81;79;18;9;W 3
+28; 21/12/2000;@;Houston Rockets;W;;99;94;19;9;W 4
+29; 22/12/2000;@;Dallas Mavericks;W;;108;103;20;9;W 5
+30; 25/12/2000;;Portland Trail Blazers;L;;104;109;20;10;L 1
+31; 28/12/2000;@;Phoenix Suns;W;;115;78;21;10;W 1
+32; 30/12/2000;@;Los Angeles Clippers;W;OT;116;114;22;10;W 2
+33;3/1/2001;;Utah Jazz;W;;82;71;23;10;W 3
+34;7/1/2001;;Los Angeles Clippers;L;;95;118;23;11;L 1
+35; 12/1/2001;;Cleveland Cavaliers;W;;101;98;24;11;W 1
+36; 13/1/2001;@;Utah Jazz;L;;103;111;24;12;L 1
+37; 15/1/2001;;Vancouver Grizzlies;W;OT;113;112;25;12;W 1
+38; 19/1/2001;;Houston Rockets;W;;114;101;26;12;W 2
+39; 21/1/2001;;Miami Heat;L;;92;103;26;13;L 1
+40; 23/1/2001;@;Seattle SuperSonics;L;;80;91;26;14;L 2
+41; 26/1/2001;;New Jersey Nets;W;;113;101;27;14;W 1
+42; 28/1/2001;@;New York Knicks;L;;81;91;27;15;L 1
+43; 30/1/2001;@;Cleveland Cavaliers;W;;102;96;28;15;W 1
+44; 31/1/2001;@;Minnesota Timberwolves;L;;83;96;28;16;L 1
+45;2/2/2001;;Charlotte Hornets;W;;93;87;29;16;W 1
+46;4/2/2001;;Sacramento Kings;W;;100;94;30;16;W 2
+47;7/2/2001;;Phoenix Suns;W;;85;83;31;16;W 3
+48; 13/2/2001;@;New Jersey Nets;W;OT;113;110;32;16;W 4
+49; 14/2/2001;@;Philadelphia 76ers;L;;97;112;32;17;L 1
+50; 16/2/2001;@;Charlotte Hornets;W;;99;94;33;17;W 1
+51; 18/2/2001;@;Indiana Pacers;L;;109;110;33;18;L 1
+52; 20/2/2001;@;Dallas Mavericks;W;;119;109;34;18;W 1
+53; 21/2/2001;@;San Antonio Spurs;W;;101;99;35;18;W 2
+54; 23/2/2001;;Atlanta Hawks;W;;113;106;36;18;W 3
+55; 25/2/2001;;Orlando Magic;W;;106;100;37;18;W 4
+56; 28/2/2001;@;Denver Nuggets;L;;101;107;37;19;L 1
+57;3/3/2001;@;Vancouver Grizzlies;W;;98;88;38;19;W 1
+58;4/3/2001;;Golden State Warriors;W;;110;95;39;19;W 2
+59;6/3/2001;@;Golden State Warriors;W;;97;85;40;19;W 3
+60;7/3/2001;;Toronto Raptors;W;;97;85;41;19;W 4
+61;9/3/2001;;San Antonio Spurs;L;OT;89;93;41;20;L 1
+62; 11/3/2001;;Seattle SuperSonics;L;OT;97;109;41;21;L 2
+63; 13/3/2001;;Boston Celtics;W;;112;107;42;21;W 1
+64; 15/3/2001;@;Detroit Pistons;W;OT;125;119;43;21;W 2
+65; 16/3/2001;@;Washington Wizards;W;;101;89;44;21;W 3
+66; 18/3/2001;@;Orlando Magic;W;;95;90;45;21;W 4
+67; 19/3/2001;@;Atlanta Hawks;L;;106;108;45;22;L 1
+68; 21/3/2001;@;Milwaukee Bucks;L;;100;107;45;23;L 2
+69; 23/3/2001;;Washington Wizards;W;;104;91;46;23;W 1
+70; 25/3/2001;@;Sacramento Kings;W;;84;72;47;23;W 2
+71; 26/3/2001;@;Phoenix Suns;L;;83;104;47;24;L 1
+72; 28/3/2001;;Sacramento Kings;L;;84;108;47;25;L 2
+73; 30/3/2001;;Dallas Mavericks;W;;98;89;48;25;W 1
+74;1/4/2001;;New York Knicks;L;;78;79;48;26;L 1
+75;3/4/2001;@;Utah Jazz;W;;96;88;49;26;W 1
+76;5/4/2001;@;Chicago Bulls;W;;100;88;50;26;W 2
+77;6/4/2001;@;Boston Celtics;W;;100;96;51;26;W 3
+78;8/4/2001;@;Minnesota Timberwolves;W;;104;99;52;26;W 4
+79; 10/4/2001;;Phoenix Suns;W;;106;80;53;26;W 5
+80; 12/4/2001;;Minnesota Timberwolves;W;;119;102;54;26;W 6
+81; 15/4/2001;;Portland Trail Blazers;W;;105;100;55;26;W 7
+82; 17/4/2001;;Denver Nuggets;W;;108;91;56;26;W 8
+1; 30/10/2001;;Portland Trail Blazers;W;;98;87;1;0;W 1
+2;1/11/2001;@;Utah Jazz;W;;105;101;2;0;W 2
+3;2/11/2001;;Phoenix Suns;W;;117;94;3;0;W 3
+4;4/11/2001;;Utah Jazz;W;;100;96;4;0;W 4
+5;9/11/2001;;Memphis Grizzlies;W;;110;86;5;0;W 5
+6; 11/11/2001;;Orlando Magic;W;;108;95;6;0;W 6
+7; 15/11/2001;@;Houston Rockets;W;OT;98;97;7;0;W 7
+8; 16/11/2001;@;Phoenix Suns;L;;83;95;7;1;L 1
+9; 18/11/2001;;Sacramento Kings;W;;93;85;8;1;W 1
+10; 20/11/2001;@;Los Angeles Clippers;W;;98;93;9;1;W 2
+11; 21/11/2001;@;Denver Nuggets;W;;89;68;10;1;W 3
+12; 23/11/2001;;Golden State Warriors;W;;106;90;11;1;W 4
+13; 25/11/2001;;Denver Nuggets;W;;105;98;12;1;W 5
+14; 27/11/2001;;Milwaukee Bucks;W;;104;85;13;1;W 6
+15; 30/11/2001;@;Seattle SuperSonics;W;;107;92;14;1;W 7
+16;1/12/2001;;Minnesota Timberwolves;W;;102;76;15;1;W 8
+17;5/12/2001;;Dallas Mavericks;W;;98;94;16;1;W 9
+18;7/12/2001;@;Sacramento Kings;L;;91;97;16;2;L 1
+19; 11/12/2001;;Seattle SuperSonics;L;;93;104;16;3;L 2
+20; 14/12/2001;;Los Angeles Clippers;W;;110;80;17;3;W 1
+21; 16/12/2001;;Golden State Warriors;W;;101;85;18;3;W 2
+22; 20/12/2001;@;Houston Rockets;W;;107;101;19;3;W 3
+23; 21/12/2001;@;Memphis Grizzlies;L;;108;114;19;4;L 1
+24; 25/12/2001;;Philadelphia 76ers;W;;88;82;20;4;W 1
+25; 26/12/2001;@;Golden State Warriors;L;;90;101;20;5;L 1
+26; 28/12/2001;;Toronto Raptors;L;;86;89;20;6;L 2
+27; 30/12/2001;;Houston Rockets;W;;114;90;21;6;W 1
+28;2/1/2002;@;Denver Nuggets;W;;87;86;22;6;W 2
+29;4/1/2002;;Phoenix Suns;W;;118;86;23;6;W 3
+30;6/1/2002;@;Toronto Raptors;W;;109;89;24;6;W 4
+31;8/1/2002;@;Detroit Pistons;W;;121;92;25;6;W 5
+32;9/1/2002;@;Indiana Pacers;W;;109;90;26;6;W 6
+33; 11/1/2002;@;Minnesota Timberwolves;L;;102;120;26;7;L 1
+34; 12/1/2002;@;Chicago Bulls;L;OT;104;106;26;8;L 2
+35; 14/1/2002;;Memphis Grizzlies;W;;120;81;27;8;W 1
+36; 16/1/2002;;Miami Heat;L;;96;102;27;9;L 1
+37; 19/1/2002;@;San Antonio Spurs;W;;98;81;28;9;W 1
+38; 22/1/2002;;Denver Nuggets;L;;91;107;28;10;L 1
+39; 23/1/2002;@;Los Angeles Clippers;L;;90;95;28;11;L 2
+40; 25/1/2002;;San Antonio Spurs;W;;94;91;29;11;W 1
+41; 27/1/2002;@;Philadelphia 76ers;L;;87;93;29;12;L 1
+42; 29/1/2002;@;Atlanta Hawks;W;;127;93;30;12;W 1
+43; 30/1/2002;@;Orlando Magic;W;;111;93;31;12;W 2
+44;1/2/2002;@;Memphis Grizzlies;W;;100;85;32;12;W 3
+45;3/2/2002;@;Dallas Mavericks;W;;101;94;33;12;W 4
+46;6/2/2002;;Chicago Bulls;L;;89;97;33;13;L 1
+47; 12/2/2002;;Washington Wizards;W;;103;94;34;13;W 1
+48; 14/2/2002;@;Seattle SuperSonics;W;;92;87;35;13;W 2
+49; 15/2/2002;;Atlanta Hawks;L;;90;93;35;14;L 1
+50; 17/2/2002;@;Portland Trail Blazers;L;;105;111;35;15;L 2
+51; 19/2/2002;;Boston Celtics;L;;108;109;35;16;L 3
+52; 21/2/2002;@;Cleveland Cavaliers;W;;104;97;36;16;W 1
+53; 22/2/2002;@;Charlotte Hornets;W;;96;94;37;16;W 2
+54; 24/2/2002;@;New York Knicks;W;;107;91;38;16;W 3
+55; 26/2/2002;@;Milwaukee Bucks;W;;99;89;39;16;W 4
+56; 27/2/2002;@;Minnesota Timberwolves;L;;101;112;39;17;L 1
+57;1/3/2002;;Indiana Pacers;W;;96;84;40;17;W 1
+58;3/3/2002;;Houston Rockets;W;;95;79;41;17;W 2
+59;5/3/2002;;New Jersey Nets;W;;101;92;42;17;W 3
+60;6/3/2002;@;Utah Jazz;L;;84;92;42;18;L 1
+61; 10/3/2002;;New York Knicks;W;;117;103;43;18;W 1
+62; 12/3/2002;;Charlotte Hornets;W;;107;66;44;18;W 2
+63; 14/3/2002;@;Golden State Warriors;W;;110;102;45;18;W 3
+64; 15/3/2002;;Los Angeles Clippers;W;;98;92;46;18;W 4
+65; 17/3/2002;;Dallas Mavericks;W;;105;103;47;18;W 5
+66; 19/3/2002;@;Dallas Mavericks;L;;98;114;47;19;L 1
+67; 20/3/2002;@;San Antonio Spurs;L;;90;108;47;20;L 2
+68; 22/3/2002;;Detroit Pistons;W;;94;82;48;20;W 1
+69; 24/3/2002;@;Sacramento Kings;W;;97;96;49;20;W 2
+70; 26/3/2002;;Cleveland Cavaliers;W;;121;116;50;20;W 3
+71; 27/3/2002;@;Phoenix Suns;L;;106;118;50;21;L 1
+72; 29/3/2002;;Portland Trail Blazers;W;;91;79;51;21;W 1
+73; 31/3/2002;;San Antonio Spurs;W;;96;95;52;21;W 2
+74;2/4/2002;@;Washington Wizards;W;;113;93;53;21;W 3
+75;3/4/2002;@;New Jersey Nets;L;;92;94;53;22;L 1
+76;5/4/2002;@;Boston Celtics;L;;81;99;53;23;L 2
+77;7/4/2002;@;Miami Heat;W;;96;88;54;23;W 1
+78;9/4/2002;;Utah Jazz;W;;112;82;55;23;W 2
+79; 11/4/2002;;Minnesota Timberwolves;W;;96;83;56;23;W 3
+80; 14/4/2002;@;Portland Trail Blazers;L;2OT;120;128;56;24;L 1
+81; 15/4/2002;;Seattle SuperSonics;W;;111;104;57;24;W 1
+82; 17/4/2002;;Sacramento Kings;W;;109;95;58;24;W 2
+1; 29/10/2002;;San Antonio Spurs;L;;82;87;0;1;L 1
+2; 30/10/2002;@;Portland Trail Blazers;L;;90;102;0;2;L 2
+3;1/11/2002;@;Los Angeles Clippers;W;;108;93;1;2;W 1
+4;3/11/2002;;Portland Trail Blazers;W;OT;98;95;2;2;W 2
+5;5/11/2002;@;Cleveland Cavaliers;L;;70;89;2;3;L 1
+6;7/11/2002;@;Boston Celtics;L;OT;95;98;2;4;L 2
+7;8/11/2002;@;Washington Wizards;L;;99;100;2;5;L 3
+8; 12/11/2002;;Atlanta Hawks;L;;83;95;2;6;L 4
+9; 15/11/2002;;Golden State Warriors;W;OT;96;89;3;6;W 1
+10; 17/11/2002;;Houston Rockets;L;;89;93;3;7;L 1
+11; 19/11/2002;@;Dallas Mavericks;L;;72;98;3;8;L 2
+12; 20/11/2002;@;San Antonio Spurs;L;;88;95;3;9;L 3
+13; 22/11/2002;;Chicago Bulls;W;;86;73;4;9;W 1
+14; 24/11/2002;;Milwaukee Bucks;W;;111;99;5;9;W 2
+15; 26/11/2002;@;Miami Heat;L;;85;97;5;10;L 1
+16; 27/11/2002;@;Orlando Magic;L;;102;112;5;11;L 2
+17; 29/11/2002;@;Memphis Grizzlies;W;OT;112;106;6;11;W 1
+18;1/12/2002;;Minnesota Timberwolves;L;;107;110;6;12;L 1
+19;3/12/2002;;Memphis Grizzlies;W;;101;91;7;12;W 1
+20;4/12/2002;@;Utah Jazz;L;;85;93;7;13;L 1
+21;6/12/2002;;Dallas Mavericks;W;;105;103;8;13;W 1
+22;8/12/2002;;Utah Jazz;W;;110;101;9;13;W 2
+23; 10/12/2002;@;Golden State Warriors;L;;102;106;9;14;L 1
+24; 13/12/2002;;New Orleans Hornets;L;;82;98;9;15;L 2
+25; 15/12/2002;;Orlando Magic;W;;107;84;10;15;W 1
+26; 17/12/2002;@;Minnesota Timberwolves;L;;80;96;10;16;L 1
+27; 19/12/2002;@;New Jersey Nets;L;;71;98;10;17;L 2
+28; 20/12/2002;@;Philadelphia 76ers;L;OT;104;107;10;18;L 3
+29; 22/12/2002;@;Toronto Raptors;W;OT;109;107;11;18;W 1
+30; 25/12/2002;;Sacramento Kings;L;;99;105;11;19;L 1
+31; 28/12/2002;@;Denver Nuggets;W;;112;93;12;19;W 1
+32; 29/12/2002;;Toronto Raptors;W;;104;88;13;19;W 2
+33;4/1/2003;@;Phoenix Suns;L;;93;107;13;20;L 1
+34;5/1/2003;;Phoenix Suns;W;;109;97;14;20;W 1
+35;7/1/2003;;Seattle SuperSonics;W;;119;98;15;20;W 2
+36; 10/1/2003;;Cleveland Cavaliers;W;;115;99;16;20;W 3
+37; 12/1/2003;;Miami Heat;W;;106;81;17;20;W 4
+38; 15/1/2003;@;New Orleans Hornets;W;;90;82;18;20;W 5
+39; 17/1/2003;@;Houston Rockets;L;OT;104;108;18;21;L 1
+40; 20/1/2003;;Los Angeles Clippers;W;;96;92;19;21;W 1
+41; 22/1/2003;;Golden State Warriors;L;;110;114;19;22;L 1
+42; 24/1/2003;;New Jersey Nets;L;;83;89;19;23;L 2
+43; 29/1/2003;@;Phoenix Suns;W;;99;90;20;23;W 1
+44; 31/1/2003;@;Sacramento Kings;W;;124;113;21;23;W 2
+45;1/2/2003;;Utah Jazz;W;;99;87;22;23;W 3
+46;4/2/2003;@;Indiana Pacers;W;;97;94;23;23;W 4
+47;6/2/2003;@;New York Knicks;W;;114;109;24;23;W 5
+48; 11/2/2003;;Denver Nuggets;W;;121;93;25;23;W 6
+49; 12/2/2003;@;Denver Nuggets;W;;113;102;26;23;W 7
+50; 14/2/2003;;San Antonio Spurs;L;;95;103;26;24;L 1
+51; 16/2/2003;;New York Knicks;L;;110;117;26;25;L 2
+52; 18/2/2003;;Houston Rockets;W;2OT;106;99;27;25;W 1
+53; 19/2/2003;@;Utah Jazz;W;;93;87;28;25;W 2
+54; 21/2/2003;;Portland Trail Blazers;W;;92;84;29;25;W 3
+55; 23/2/2003;;Seattle SuperSonics;W;;106;101;30;25;W 4
+56; 25/2/2003;;Los Angeles Clippers;W;;109;98;31;25;W 5
+57; 27/2/2003;;Detroit Pistons;W;;95;85;32;25;W 6
+58; 28/2/2003;@;Seattle SuperSonics;L;;90;107;32;26;L 1
+59;5/3/2003;;Indiana Pacers;W;;97;95;33;26;W 1
+60;7/3/2003;;Minnesota Timberwolves;W;;106;96;34;26;W 2
+61;9/3/2003;;Philadelphia 76ers;W;;106;92;35;26;W 3
+62; 11/3/2003;@;Chicago Bulls;L;;99;116;35;27;L 1
+63; 12/3/2003;@;Detroit Pistons;L;;88;111;35;28;L 2
+64; 14/3/2003;@;Minnesota Timberwolves;W;;106;99;36;28;W 1
+65; 15/3/2003;@;Milwaukee Bucks;W;;98;94;37;28;W 2
+66; 17/3/2003;@;Los Angeles Clippers;W;;102;85;38;28;W 3
+67; 20/3/2003;@;Sacramento Kings;L;;99;107;38;29;L 1
+68; 21/3/2003;;Boston Celtics;W;;104;96;39;29;W 1
+69; 23/3/2003;@;San Antonio Spurs;L;;89;98;39;30;L 1
+70; 25/3/2003;@;Atlanta Hawks;W;;108;91;40;30;W 1
+71; 26/3/2003;@;Houston Rockets;W;;96;93;41;30;W 2
+72; 28/3/2003;;Washington Wizards;W;;108;94;42;30;W 3
+73; 30/3/2003;@;Seattle SuperSonics;L;;98;119;42;31;L 1
+74; 31/3/2003;;Memphis Grizzlies;W;;110;94;43;31;W 1
+75;3/4/2003;@;Dallas Mavericks;W;;100;89;44;31;W 2
+76;4/4/2003;@;Memphis Grizzlies;W;;102;101;45;31;W 3
+77;6/4/2003;;Phoenix Suns;W;OT;115;113;46;31;W 4
+78;8/4/2003;;Dallas Mavericks;W;;108;99;47;31;W 5
+79; 10/4/2003;;Sacramento Kings;W;;117;104;48;31;W 6
+80; 13/4/2003;@;Portland Trail Blazers;L;;99;101;48;32;L 1
+81; 15/4/2003;;Denver Nuggets;W;;126;104;49;32;W 1
+82; 16/4/2003;@;Golden State Warriors;W;;117;111;50;32;W 2
+1; 28/10/2003;;Dallas Mavericks;W;;109;93;1;0;W 1
+2;1/11/2003;@;Phoenix Suns;W;;103;99;2;0;W 2
+3;2/11/2003;;Golden State Warriors;W;;87;72;3;0;W 3
+4;4/11/2003;@;Milwaukee Bucks;W;;113;107;4;0;W 4
+5;6/11/2003;@;San Antonio Spurs;W;2OT;120;117;5;0;W 5
+6;7/11/2003;@;New Orleans Hornets;L;;95;114;5;1;L 1
+7; 10/11/2003;@;Memphis Grizzlies;L;;95;105;5;2;L 2
+8; 12/11/2003;;Toronto Raptors;W;;94;79;6;2;W 1
+9; 14/11/2003;;Detroit Pistons;W;;94;89;7;2;W 2
+10; 16/11/2003;;Miami Heat;W;;99;77;8;2;W 3
+11; 18/11/2003;@;Detroit Pistons;L;;96;106;8;3;L 1
+12; 19/11/2003;@;New York Knicks;W;;104;83;9;3;W 1
+13; 21/11/2003;;Chicago Bulls;W;;101;94;10;3;W 2
+14; 23/11/2003;;Memphis Grizzlies;W;;121;89;11;3;W 3
+15; 26/11/2003;;Washington Wizards;W;;120;99;12;3;W 4
+16; 28/11/2003;;San Antonio Spurs;W;;103;87;13;3;W 5
+17; 30/11/2003;;Indiana Pacers;W;;99;77;14;3;W 6
+18;3/12/2003;@;San Antonio Spurs;W;;90;86;15;3;W 7
+19;4/12/2003;@;Dallas Mavericks;W;;114;103;16;3;W 8
+20;7/12/2003;;Utah Jazz;W;;94;92;17;3;W 9
+21;9/12/2003;;New York Knicks;W;;98;90;18;3;W 10
+22; 12/12/2003;;Dallas Mavericks;L;;93;110;18;4;L 1
+23; 13/12/2003;@;Portland Trail Blazers;L;;108;112;18;5;L 2
+24; 19/12/2003;;Denver Nuggets;W;;101;99;19;5;W 1
+25; 21/12/2003;;Phoenix Suns;W;;107;101;20;5;W 2
+26; 23/12/2003;@;Golden State Warriors;L;;98;107;20;6;L 1
+27; 25/12/2003;;Houston Rockets;L;;87;99;20;7;L 2
+28; 28/12/2003;;Boston Celtics;W;;105;82;21;7;W 1
+29;2/1/2004;@;Seattle SuperSonics;L;;109;111;21;8;L 1
+30;4/1/2004;@;Los Angeles Clippers;L;;98;101;21;9;L 2
+31;6/1/2004;@;Minnesota Timberwolves;L;;90;106;21;10;L 3
+32;7/1/2004;@;Denver Nuggets;L;;91;113;21;11;L 4
+33;9/1/2004;;Atlanta Hawks;W;;113;67;22;11;W 1
+34; 12/1/2004;;Cleveland Cavaliers;W;;89;79;23;11;W 2
+35; 14/1/2004;;Denver Nuggets;W;;97;71;24;11;W 3
+36; 16/1/2004;@;Sacramento Kings;L;;83;103;24;12;L 1
+37; 17/1/2004;;Los Angeles Clippers;W;;91;89;25;12;W 1
+38; 19/1/2004;;Phoenix Suns;L;;85;88;25;13;L 1
+39; 21/1/2004;@;Memphis Grizzlies;L;;82;88;25;14;L 2
+40; 22/1/2004;@;Dallas Mavericks;L;;87;106;25;15;L 3
+41; 24/1/2004;@;Utah Jazz;W;;93;86;26;15;W 1
+42; 28/1/2004;;Seattle SuperSonics;W;;96;82;27;15;W 2
+43; 30/1/2004;;Minnesota Timberwolves;L;;84;97;27;16;L 1
+44;1/2/2004;@;Toronto Raptors;W;;84;83;28;16;W 1
+45;2/2/2004;@;Indiana Pacers;L;;72;85;28;17;L 1
+46;4/2/2004;@;Cleveland Cavaliers;W;OT;111;106;29;17;W 1
+47;5/2/2004;@;Philadelphia 76ers;L;;73;96;29;18;L 1
+48;8/2/2004;@;Orlando Magic;W;;98;96;30;18;W 1
+49; 10/2/2004;@;Miami Heat;W;;98;83;31;18;W 2
+50; 11/2/2004;@;Houston Rockets;L;;87;102;31;19;L 1
+51; 17/2/2004;;Portland Trail Blazers;W;;89;86;32;19;W 1
+52; 18/2/2004;@;Golden State Warriors;W;;100;99;33;19;W 2
+53; 20/2/2004;;Philadelphia 76ers;W;;116;88;34;19;W 3
+54; 22/2/2004;@;Phoenix Suns;W;;104;92;35;19;W 4
+55; 25/2/2004;@;Denver Nuggets;W;;112;111;36;19;W 5
+56; 26/2/2004;;Sacramento Kings;L;;101;103;36;20;L 1
+57; 28/2/2004;@;Washington Wizards;W;;122;110;37;20;W 1
+58; 29/2/2004;@;New Jersey Nets;W;;100;83;38;20;W 2
+59;2/3/2004;@;Atlanta Hawks;L;;93;94;38;21;L 1
+60;3/3/2004;@;Houston Rockets;W;;96;93;39;21;W 1
+61;5/3/2004;;Seattle SuperSonics;W;;99;91;40;21;W 2
+62;7/3/2004;;New Jersey Nets;W;;94;88;41;21;W 3
+63;8/3/2004;@;Utah Jazz;L;;83;88;41;22;L 1
+64; 10/3/2004;@;Boston Celtics;W;;117;109;42;22;W 1
+65; 12/3/2004;@;Minnesota Timberwolves;L;;86;96;42;23;L 1
+66; 13/3/2004;@;Chicago Bulls;W;;88;81;43;23;W 1
+67; 15/3/2004;;Orlando Magic;W;OT;113;110;44;23;W 2
+68; 17/3/2004;@;Los Angeles Clippers;W;;106;103;45;23;W 3
+69; 19/3/2004;;Los Angeles Clippers;W;;106;100;46;23;W 4
+70; 21/3/2004;;Milwaukee Bucks;W;OT;104;103;47;23;W 5
+71; 24/3/2004;;Sacramento Kings;W;;115;91;48;23;W 6
+72; 26/3/2004;;Minnesota Timberwolves;W;;90;73;49;23;W 7
+73; 28/3/2004;;Utah Jazz;W;;91;84;50;23;W 8
+74; 30/3/2004;;New Orleans Hornets;W;;107;88;51;23;W 9
+75;1/4/2004;;Houston Rockets;W;;93;85;52;23;W 10
+76;2/4/2004;@;Seattle SuperSonics;W;;97;86;53;23;W 11
+77;4/4/2004;;San Antonio Spurs;L;;89;95;53;24;L 1
+78;6/4/2004;;Portland Trail Blazers;L;;80;91;53;25;L 2
+79;9/4/2004;;Memphis Grizzlies;W;;103;95;54;25;W 1
+80; 11/4/2004;@;Sacramento Kings;L;;85;102;54;26;L 1
+81; 13/4/2004;;Golden State Warriors;W;;109;104;55;26;W 1
+82; 14/4/2004;@;Portland Trail Blazers;W;2OT;105;104;56;26;W 2
+1;2/11/2004;;Denver Nuggets;W;;89;78;1;0;W 1
+2;3/11/2004;@;Utah Jazz;L;;78;104;1;1;L 1
+3;5/11/2004;;San Antonio Spurs;L;;96;105;1;2;L 2
+4;7/11/2004;;Atlanta Hawks;W;;106;90;2;2;W 1
+5;9/11/2004;@;New Orleans Hornets;W;;106;98;3;2;W 2
+6; 10/11/2004;@;Memphis Grizzlies;L;;87;110;3;3;L 1
+7; 12/11/2004;@;Orlando Magic;L;;113;122;3;4;L 2
+8; 13/11/2004;@;Houston Rockets;W;;84;79;4;4;W 1
+9; 17/11/2004;;Los Angeles Clippers;W;;103;89;5;4;W 2
+10; 19/11/2004;@;Phoenix Suns;L;;102;107;5;5;L 1
+11; 21/11/2004;;Chicago Bulls;W;;102;93;6;5;W 1
+12; 23/11/2004;;Milwaukee Bucks;W;;100;96;7;5;W 2
+13; 26/11/2004;;Sacramento Kings;L;;106;109;7;6;L 1
+14; 28/11/2004;;New Orleans Hornets;W;;89;76;8;6;W 1
+15; 30/11/2004;@;Milwaukee Bucks;W;;95;90;9;6;W 2
+16;1/12/2004;@;Chicago Bulls;L;;84;92;9;7;L 1
+17;3/12/2004;;Golden State Warriors;W;;97;88;10;7;W 1
+18;8/12/2004;;Phoenix Suns;L;;110;113;10;8;L 1
+19; 11/12/2004;@;Los Angeles Clippers;W;;89;87;11;8;W 1
+20; 12/12/2004;;Orlando Magic;W;;105;98;12;8;W 2
+21; 14/12/2004;@;Seattle SuperSonics;L;;93;108;12;9;L 1
+22; 16/12/2004;@;Sacramento Kings;W;;115;99;13;9;W 1
+23; 17/12/2004;;Washington Wizards;L;OT;116;120;13;10;L 1
+24; 20/12/2004;;Memphis Grizzlies;L;;72;82;13;11;L 2
+25; 22/12/2004;;New Orleans Hornets;W;;101;89;14;11;W 1
+26; 25/12/2004;;Miami Heat;L;OT;102;104;14;12;L 1
+27; 28/12/2004;;Toronto Raptors;W;;117;99;15;12;W 1
+28;2/1/2005;;Denver Nuggets;W;;99;91;16;12;W 2
+29;4/1/2005;@;San Antonio Spurs;L;;83;100;16;13;L 1
+30;5/1/2005;@;Dallas Mavericks;L;;104;118;16;14;L 2
+31;7/1/2005;;Houston Rockets;W;;111;104;17;14;W 1
+32; 10/1/2005;@;Minnesota Timberwolves;W;;105;96;18;14;W 2
+33; 12/1/2005;@;Denver Nuggets;L;;83;95;18;15;L 1
+34; 13/1/2005;;Cleveland Cavaliers;W;;98;94;19;15;W 1
+35; 15/1/2005;@;Golden State Warriors;W;;104;102;20;15;W 2
+36; 17/1/2005;;Utah Jazz;L;;94;102;20;16;L 1
+37; 19/1/2005;;Minnesota Timberwolves;W;;93;90;21;16;W 1
+38; 21/1/2005;;Golden State Warriors;W;;105;101;22;16;W 2
+39; 25/1/2005;;Seattle SuperSonics;L;;93;104;22;17;L 1
+40; 26/1/2005;@;Los Angeles Clippers;L;;89;105;22;18;L 2
+41; 28/1/2005;;New Jersey Nets;L;;103;109;22;19;L 3
+42; 30/1/2005;;Charlotte Bobcats;W;;101;90;23;19;W 1
+43;1/2/2005;;Portland Trail Blazers;W;;92;79;24;19;W 2
+44;3/2/2005;;San Antonio Spurs;L;;91;103;24;20;L 1
+45;6/2/2005;@;Houston Rockets;L;;102;103;24;21;L 2
+46;7/2/2005;@;Atlanta Hawks;L;;108;114;24;22;L 3
+47;9/2/2005;@;New Jersey Nets;W;OT;104;103;25;22;W 1
+48; 10/2/2005;@;Detroit Pistons;L;;81;103;25;23;L 1
+49; 13/2/2005;@;Cleveland Cavaliers;L;;89;103;25;24;L 2
+50; 15/2/2005;;Utah Jazz;W;;102;95;26;24;W 1
+51; 22/2/2005;;Boston Celtics;W;;104;95;27;24;W 2
+52; 23/2/2005;@;Portland Trail Blazers;W;;86;83;28;24;W 3
+53; 25/2/2005;;Detroit Pistons;L;;90;111;28;25;L 1
+54; 27/2/2005;@;Toronto Raptors;L;;102;108;28;26;L 2
+55; 28/2/2005;@;New York Knicks;L;OT;115;117;28;27;L 3
+56;2/3/2005;@;Boston Celtics;L;;101;104;28;28;L 4
+57;4/3/2005;;Dallas Mavericks;W;;108;103;29;28;W 1
+58;6/3/2005;;Indiana Pacers;W;;103;94;30;28;W 2
+59;8/3/2005;;Los Angeles Clippers;L;;101;110;30;29;L 1
+60; 10/3/2005;@;Dallas Mavericks;W;;100;95;31;29;W 1
+61; 12/3/2005;@;Charlotte Bobcats;W;;117;116;32;29;W 2
+62; 14/3/2005;@;Washington Wizards;L;;81;95;32;30;L 1
+63; 15/3/2005;@;Philadelphia 76ers;L;;91;108;32;31;L 2
+64; 17/3/2005;@;Miami Heat;L;;89;102;32;32;L 3
+65; 18/3/2005;@;Indiana Pacers;L;;97;103;32;33;L 4
+66; 20/3/2005;;Seattle SuperSonics;L;;100;102;32;34;L 5
+67; 22/3/2005;@;Utah Jazz;L;;107;115;32;35;L 6
+68; 24/3/2005;@;Denver Nuggets;L;;96;117;32;36;L 7
+69; 27/3/2005;;Philadelphia 76ers;L;;89;96;32;37;L 8
+70; 29/3/2005;;New York Knicks;W;;117;107;33;37;W 1
+71; 31/3/2005;;Minnesota Timberwolves;L;;96;105;33;38;L 1
+72;2/4/2005;@;San Antonio Spurs;L;;94;95;33;39;L 2
+73;3/4/2005;@;Memphis Grizzlies;L;;82;102;33;40;L 3
+74;5/4/2005;@;Phoenix Suns;L;;99;125;33;41;L 4
+75;7/4/2005;;Houston Rockets;L;;100;114;33;42;L 5
+76;8/4/2005;@;Seattle SuperSonics;W;;117;94;34;42;W 1
+77; 10/4/2005;@;Sacramento Kings;L;;105;124;34;43;L 1
+78; 11/4/2005;;Phoenix Suns;L;;97;108;34;44;L 2
+79; 15/4/2005;;Sacramento Kings;L;;106;115;34;45;L 3
+80; 17/4/2005;;Dallas Mavericks;L;;112;114;34;46;L 4
+81; 18/4/2005;@;Golden State Warriors;L;;99;126;34;47;L 5
+82; 20/4/2005;@;Portland Trail Blazers;L;;103;106;34;48;L 6
+1;2/11/2005;@;Denver Nuggets;W;OT;99;97;1;0;W 1
+2;3/11/2005;;Phoenix Suns;L;;112;122;1;1;L 1
+3;6/11/2005;;Denver Nuggets;W;;112;92;2;1;W 1
+4;8/11/2005;@;Atlanta Hawks;W;;103;97;3;1;W 2
+5;9/11/2005;@;Minnesota Timberwolves;L;;74;88;3;2;L 1
+6; 11/11/2005;@;Philadelphia 76ers;L;;81;85;3;3;L 2
+7; 14/11/2005;@;Memphis Grizzlies;L;;73;85;3;4;L 3
+8; 16/11/2005;;New York Knicks;W;;97;92;4;4;W 1
+9; 18/11/2005;;Los Angeles Clippers;L;;91;97;4;5;L 1
+10; 20/11/2005;;Chicago Bulls;L;;93;96;4;6;L 2
+11; 24/11/2005;;Seattle SuperSonics;W;;108;96;5;6;W 1
+12; 27/11/2005;;New Jersey Nets;L;OT;96;102;5;7;L 1
+13; 29/11/2005;@;San Antonio Spurs;L;;84;90;5;8;L 2
+14;1/12/2005;@;Utah Jazz;W;OT;105;101;6;8;W 1
+15;2/12/2005;;Minnesota Timberwolves;L;;108;113;6;9;L 1
+16;4/12/2005;;Charlotte Bobcats;W;;99;98;7;9;W 1
+17;6/12/2005;@;Milwaukee Bucks;W;;111;92;8;9;W 2
+18;7/12/2005;@;Toronto Raptors;W;;102;91;9;9;W 3
+19;9/12/2005;@;Chicago Bulls;W;;93;80;10;9;W 4
+20; 10/12/2005;@;Minnesota Timberwolves;L;;82;95;10;10;L 1
+21; 12/12/2005;@;Dallas Mavericks;W;;109;106;11;10;W 1
+22; 14/12/2005;@;Memphis Grizzlies;W;;94;79;12;10;W 2
+23; 16/12/2005;;Washington Wizards;W;;97;91;13;10;W 3
+24; 18/12/2005;;Houston Rockets;L;;74;76;13;11;L 1
+25; 20/12/2005;;Dallas Mavericks;W;;112;90;14;11;W 1
+26; 23/12/2005;@;Orlando Magic;W;;104;88;15;11;W 2
+27; 25/12/2005;@;Miami Heat;L;;92;97;15;12;L 1
+28; 26/12/2005;@;Washington Wizards;L;;91;94;15;13;L 2
+29; 28/12/2005;;Memphis Grizzlies;L;OT;99;100;15;14;L 3
+30;1/1/2006;;Utah Jazz;L;;94;98;15;15;L 4
+31;3/1/2006;@;Utah Jazz;L;;80;90;15;16;L 5
+32;6/1/2006;;Philadelphia 76ers;W;;119;93;16;16;W 1
+33;7/1/2006;@;Los Angeles Clippers;W;;112;109;17;16;W 2
+34;9/1/2006;;Indiana Pacers;W;;96;90;18;16;W 3
+35; 11/1/2006;@;Portland Trail Blazers;L;;103;113;18;17;L 1
+36; 12/1/2006;;Cleveland Cavaliers;W;;99;98;19;17;W 1
+37; 14/1/2006;@;Golden State Warriors;W;;110;104;20;17;W 2
+38; 16/1/2006;;Miami Heat;W;;100;92;21;17;W 3
+39; 19/1/2006;@;Sacramento Kings;L;OT;109;118;21;18;L 1
+40; 20/1/2006;@;Phoenix Suns;L;;93;106;21;19;L 2
+41; 22/1/2006;;Toronto Raptors;W;;122;104;22;19;W 1
+42; 27/1/2006;;Golden State Warriors;W;OT;106;105;23;19;W 2
+43; 29/1/2006;@;Detroit Pistons;L;;93;102;23;20;L 1
+44; 31/1/2006;@;New York Knicks;W;;130;97;24;20;W 1
+45;1/2/2006;@;Indiana Pacers;L;;79;105;24;21;L 1
+46;3/2/2006;@;Charlotte Bobcats;L;;102;112;24;22;L 2
+47;4/2/2006;@;New Orleans/Oklahoma City Hornets;L;;90;106;24;23;L 3
+48;7/2/2006;@;Dallas Mavericks;L;;87;102;24;24;L 4
+49;8/2/2006;@;Houston Rockets;W;;89;78;25;24;W 1
+50; 11/2/2006;;Memphis Grizzlies;L;;99;100;25;25;L 1
+51; 13/2/2006;;Utah Jazz;W;;94;88;26;25;W 1
+52; 15/2/2006;;Atlanta Hawks;L;;110;114;26;26;L 1
+53; 21/2/2006;;Portland Trail Blazers;W;;99;82;27;26;W 1
+54; 23/2/2006;;Sacramento Kings;W;;106;85;28;26;W 2
+55; 24/2/2006;@;Los Angeles Clippers;L;;83;102;28;27;L 1
+56; 26/2/2006;;Boston Celtics;L;;111;112;28;28;L 2
+57; 28/2/2006;;Orlando Magic;W;;102;87;29;28;W 1
+58;1/3/2006;@;Portland Trail Blazers;L;;93;99;29;29;L 1
+59;3/3/2006;@;Golden State Warriors;W;;106;94;30;29;W 1
+60;4/3/2006;;Detroit Pistons;W;;105;94;31;29;W 2
+61;6/3/2006;;San Antonio Spurs;L;;96;103;31;30;L 1
+62;8/3/2006;@;New Orleans/Oklahoma City Hornets;W;;113;107;32;30;W 1
+63; 10/3/2006;@;San Antonio Spurs;W;;100;92;33;30;W 2
+64; 12/3/2006;;Seattle SuperSonics;L;;113;120;33;31;L 1
+65; 14/3/2006;@;Sacramento Kings;L;;98;114;33;32;L 2
+66; 15/3/2006;;Minnesota Timberwolves;W;;92;89;34;32;W 1
+67; 17/3/2006;@;New Jersey Nets;L;;89;92;34;33;L 1
+68; 19/3/2006;@;Cleveland Cavaliers;L;;95;96;34;34;L 2
+69; 20/3/2006;@;Boston Celtics;W;;105;97;35;34;W 1
+70; 22/3/2006;;Sacramento Kings;W;;87;80;36;34;W 2
+71; 24/3/2006;;Milwaukee Bucks;W;;101;96;37;34;W 3
+72; 26/3/2006;;New Orleans/Oklahoma City Hornets;W;;105;94;38;34;W 4
+73; 30/3/2006;;San Antonio Spurs;L;;85;96;38;35;L 1
+74; 31/3/2006;@;Seattle SuperSonics;W;;106;93;39;35;W 1
+75;2/4/2006;;Houston Rockets;W;;104;88;40;35;W 2
+76;6/4/2006;@;Denver Nuggets;L;OT;108;110;40;36;L 1
+77;7/4/2006;@;Phoenix Suns;L;;96;107;40;37;L 2
+78;9/4/2006;;Los Angeles Clippers;W;;100;83;41;37;W 1
+79; 11/4/2006;;Golden State Warriors;W;;111;100;42;37;W 2
+80; 14/4/2006;;Portland Trail Blazers;W;;110;99;43;37;W 3
+81; 16/4/2006;;Phoenix Suns;W;;109;89;44;37;W 4
+82; 19/4/2006;;New Orleans/Oklahoma City Hornets;W;;115;95;45;37;W 5
+1; 31/10/2006;;Phoenix Suns;W;;114;106;1;0;W 1
+2;1/11/2006;@;Golden State Warriors;W;;110;98;2;0;W 2
+3;3/11/2006;;Seattle SuperSonics;W;;118;112;3;0;W 3
+4;5/11/2006;@;Seattle SuperSonics;L;;101;117;3;1;L 1
+5;7/11/2006;;Minnesota Timberwolves;W;;95;88;4;1;W 1
+6;8/11/2006;@;Portland Trail Blazers;L;;90;101;4;2;L 1
+7; 10/11/2006;;Detroit Pistons;L;;83;97;4;3;L 2
+8; 12/11/2006;;Memphis Grizzlies;W;;91;81;5;3;W 1
+9; 17/11/2006;;Toronto Raptors;W;;107;100;6;3;W 2
+10; 19/11/2006;;Chicago Bulls;W;;82;72;7;3;W 3
+11; 21/11/2006;;Los Angeles Clippers;W;;105;101;8;3;W 4
+12; 24/11/2006;@;Utah Jazz;L;;108;114;8;4;L 1
+13; 26/11/2006;;New Jersey Nets;W;;99;93;9;4;W 1
+14; 28/11/2006;;Milwaukee Bucks;L;;105;109;9;5;L 1
+15; 30/11/2006;;Utah Jazz;W;;132;102;10;5;W 1
+16;2/12/2006;@;Los Angeles Clippers;W;;97;88;11;5;W 2
+17;4/12/2006;;Indiana Pacers;W;;101;87;12;5;W 3
+18;6/12/2006;;New Orleans/Oklahoma City Hornets;L;;89;105;12;6;L 1
+19;8/12/2006;;Atlanta Hawks;W;;106;95;13;6;W 1
+20; 10/12/2006;;San Antonio Spurs;W;;106;99;14;6;W 2
+21; 12/12/2006;@;Houston Rockets;W;;102;94;15;6;W 3
+22; 13/12/2006;@;Dallas Mavericks;L;;101;110;15;7;L 1
+23; 15/12/2006;;Houston Rockets;W;2OT;112;101;16;7;W 1
+24; 17/12/2006;;Washington Wizards;L;OT;141;147;16;8;L 1
+25; 19/12/2006;@;Chicago Bulls;L;;89;94;16;9;L 2
+26; 20/12/2006;@;Minnesota Timberwolves;W;;111;94;17;9;W 1
+27; 22/12/2006;@;New Jersey Nets;W;;99;95;18;9;W 2
+28; 25/12/2006;@;Miami Heat;L;;85;101;18;10;L 1
+29; 27/12/2006;@;Orlando Magic;W;;106;93;19;10;W 1
+30; 29/12/2006;@;Charlotte Bobcats;L;3OT;124;133;19;11;L 1
+31; 31/12/2006;;Philadelphia 76ers;W;;104;94;20;11;W 1
+32;4/1/2007;@;Sacramento Kings;W;OT;132;128;21;11;W 2
+33;5/1/2007;;Denver Nuggets;W;;123;104;22;11;W 3
+34;7/1/2007;;Dallas Mavericks;W;;101;98;23;11;W 4
+35;9/1/2007;@;Memphis Grizzlies;L;;118;128;23;12;L 1
+36; 10/1/2007;@;Houston Rockets;L;;77;102;23;13;L 2
+37; 12/1/2007;;Orlando Magic;W;;109;106;24;13;W 1
+38; 15/1/2007;;Miami Heat;W;OT;124;118;25;13;W 2
+39; 17/1/2007;@;San Antonio Spurs;W;;100;96;26;13;W 3
+40; 18/1/2007;@;Dallas Mavericks;L;;95;114;26;14;L 1
+41; 20/1/2007;@;New Orleans/Oklahoma City Hornets;L;;103;113;26;15;L 2
+42; 22/1/2007;;Golden State Warriors;W;;108;103;27;15;W 1
+43; 26/1/2007;;Charlotte Bobcats;L;OT;97;106;27;16;L 1
+44; 28/1/2007;;San Antonio Spurs;L;OT;94;96;27;17;L 2
+45; 30/1/2007;@;New York Knicks;L;;94;99;27;18;L 3
+46; 31/1/2007;@;Boston Celtics;W;;111;98;28;18;W 1
+47;2/2/2007;@;Indiana Pacers;L;;84;95;28;19;L 1
+48;3/2/2007;@;Washington Wizards;W;;118;102;29;19;W 1
+49;5/2/2007;@;Atlanta Hawks;W;;90;83;30;19;W 2
+50;8/2/2007;@;Detroit Pistons;L;;78;93;30;20;L 1
+51;9/2/2007;@;Toronto Raptors;L;;92;96;30;21;L 2
+52; 11/2/2007;@;Cleveland Cavaliers;L;;90;99;30;22;L 3
+53; 13/2/2007;;New York Knicks;L;;106;107;30;23;L 4
+54; 15/2/2007;;Cleveland Cavaliers;L;;108;114;30;24;L 5
+55; 21/2/2007;;Portland Trail Blazers;L;;108;112;30;25;L 6
+56; 23/2/2007;;Boston Celtics;W;;122;96;31;25;W 1
+57; 25/2/2007;@;Golden State Warriors;W;;102;85;32;25;W 2
+58; 26/2/2007;@;Utah Jazz;W;;102;94;33;25;W 3
+59;2/3/2007;;Sacramento Kings;L;;108;116;33;26;L 1
+60;4/3/2007;@;Phoenix Suns;L;;94;99;33;27;L 2
+61;6/3/2007;@;Minnesota Timberwolves;L;2OT;107;117;33;28;L 3
+62;7/3/2007;@;Milwaukee Bucks;L;;90;110;33;29;L 4
+63;9/3/2007;@;Philadelphia 76ers;L;;92;108;33;30;L 5
+64; 11/3/2007;;Dallas Mavericks;L;;72;108;33;31;L 6
+65; 15/3/2007;@;Denver Nuggets;L;;86;113;33;32;L 7
+66; 16/3/2007;;Portland Trail Blazers;W;OT;116;111;34;32;W 1
+67; 18/3/2007;;Minnesota Timberwolves;W;;109;102;35;32;W 2
+68; 22/3/2007;@;Memphis Grizzlies;W;;121;119;36;32;W 3
+69; 23/3/2007;@;New Orleans/Oklahoma City Hornets;W;;111;105;37;32;W 4
+70; 25/3/2007;;Golden State Warriors;W;;115;113;38;32;W 5
+71; 27/3/2007;;Memphis Grizzlies;L;;86;88;38;33;L 1
+72; 30/3/2007;;Houston Rockets;L;OT;104;107;38;34;L 2
+73;1/4/2007;;Sacramento Kings;W;;126;103;39;34;W 1
+74;3/4/2007;;Denver Nuggets;L;;105;111;39;35;L 1
+75;4/4/2007;@;Los Angeles Clippers;L;;82;90;39;36;L 2
+76;6/4/2007;@;Seattle SuperSonics;W;;112;109;40;36;W 1
+77;8/4/2007;;Phoenix Suns;L;;107;115;40;37;L 1
+78;9/4/2007;@;Denver Nuggets;L;;111;115;40;38;L 2
+79; 12/4/2007;;Los Angeles Clippers;L;;110;118;40;39;L 3
+80; 13/4/2007;@;Phoenix Suns;L;;85;93;40;40;L 4
+81; 15/4/2007;;Seattle SuperSonics;W;;109;98;41;40;W 1
+82; 18/4/2007;@;Sacramento Kings;W;;117;106;42;40;W 2
+1; 30/10/2007;;Houston Rockets;L;;93;95;0;1;L 1
+2;2/11/2007;@;Phoenix Suns;W;;119;98;1;1;W 1
+3;4/11/2007;;Utah Jazz;W;;119;109;2;1;W 2
+4;6/11/2007;;New Orleans Hornets;L;;104;118;2;2;L 1
+5;9/11/2007;;Minnesota Timberwolves;W;;107;93;3;2;W 1
+6; 13/11/2007;@;San Antonio Spurs;L;;92;107;3;3;L 1
+7; 14/11/2007;@;Houston Rockets;W;;93;90;4;3;W 1
+8; 16/11/2007;;Detroit Pistons;W;;103;91;5;3;W 2
+9; 18/11/2007;;Chicago Bulls;W;;106;78;6;3;W 3
+10; 20/11/2007;@;Indiana Pacers;W;;134;114;7;3;W 4
+11; 21/11/2007;@;Milwaukee Bucks;L;;103;110;7;4;L 1
+12; 23/11/2007;@;Boston Celtics;L;;94;107;7;5;L 2
+13; 25/11/2007;;New Jersey Nets;L;;100;102;7;6;L 3
+14; 27/11/2007;;Seattle SuperSonics;W;;106;99;8;6;W 1
+15; 29/11/2007;;Denver Nuggets;W;;127;99;9;6;W 2
+16; 30/11/2007;@;Utah Jazz;L;;96;120;9;7;L 1
+17;2/12/2007;;Orlando Magic;L;;97;104;9;8;L 2
+18;4/12/2007;@;Minnesota Timberwolves;W;;116;95;10;8;W 1
+19;5/12/2007;@;Denver Nuggets;W;;111;107;11;8;W 2
+20;9/12/2007;;Golden State Warriors;W;;123;113;12;8;W 3
+21; 13/12/2007;;San Antonio Spurs;W;;102;97;13;8;W 4
+22; 14/12/2007;@;Golden State Warriors;L;;106;108;13;9;L 1
+23; 16/12/2007;;Los Angeles Clippers;W;;113;92;14;9;W 1
+24; 18/12/2007;@;Chicago Bulls;W;;103;91;15;9;W 2
+25; 20/12/2007;@;Cleveland Cavaliers;L;;90;94;15;10;L 1
+26; 21/12/2007;@;Philadelphia 76ers;W;;106;101;16;10;W 1
+27; 23/12/2007;@;New York Knicks;W;;95;90;17;10;W 2
+28; 25/12/2007;;Phoenix Suns;W;;122;115;18;10;W 3
+29; 28/12/2007;;Utah Jazz;W;;123;109;19;10;W 4
+30; 30/12/2007;;Boston Celtics;L;;91;110;19;11;L 1
+31;4/1/2008;;Philadelphia 76ers;W;;124;93;20;11;W 1
+32;6/1/2008;;Indiana Pacers;W;;112;96;21;11;W 2
+33;8/1/2008;@;Memphis Grizzlies;W;;117;101;22;11;W 3
+34;9/1/2008;@;New Orleans Hornets;W;;109;80;23;11;W 4
+35; 11/1/2008;;Milwaukee Bucks;W;;110;105;24;11;W 5
+36; 13/1/2008;;Memphis Grizzlies;W;;100;99;25;11;W 6
+37; 14/1/2008;@;Seattle SuperSonics;W;OT;123;121;26;11;W 7
+38; 17/1/2008;;Phoenix Suns;L;;98;106;26;12;L 1
+39; 21/1/2008;;Denver Nuggets;W;;116;99;27;12;W 1
+40; 23/1/2008;@;San Antonio Spurs;L;;91;103;27;13;L 1
+41; 25/1/2008;@;Dallas Mavericks;L;;105;112;27;14;L 2
+42; 27/1/2008;;Cleveland Cavaliers;L;;95;98;27;15;L 3
+43; 29/1/2008;;New York Knicks;W;;120;109;28;15;W 1
+44; 31/1/2008;@;Detroit Pistons;L;;89;90;28;16;L 1
+45;1/2/2008;@;Toronto Raptors;W;;121;101;29;16;W 1
+46;3/2/2008;@;Washington Wizards;W;;103;91;30;16;W 2
+47;5/2/2008;@;New Jersey Nets;W;;105;90;31;16;W 3
+48;6/2/2008;@;Atlanta Hawks;L;;95;98;31;17;L 1
+49;8/2/2008;@;Orlando Magic;W;;117;113;32;17;W 1
+50; 10/2/2008;@;Miami Heat;W;;104;94;33;17;W 2
+51; 11/2/2008;@;Charlotte Bobcats;W;;106;97;34;17;W 3
+52; 13/2/2008;@;Minnesota Timberwolves;W;;117;92;35;17;W 4
+53; 19/2/2008;;Atlanta Hawks;W;;122;93;36;17;W 5
+54; 20/2/2008;@;Phoenix Suns;W;;130;124;37;17;W 6
+55; 23/2/2008;@;Los Angeles Clippers;W;;113;95;38;17;W 7
+56; 24/2/2008;@;Seattle SuperSonics;W;;111;91;39;17;W 8
+57; 26/2/2008;;Portland Trail Blazers;W;;96;83;40;17;W 9
+58; 28/2/2008;;Miami Heat;W;;106;88;41;17;W 10
+59; 29/2/2008;@;Portland Trail Blazers;L;;111;119;41;18;L 1
+60;2/3/2008;;Dallas Mavericks;W;OT;108;104;42;18;W 1
+61;4/3/2008;@;Sacramento Kings;W;;117;105;43;18;W 2
+62;7/3/2008;;Los Angeles Clippers;W;;119;82;44;18;W 3
+63;9/3/2008;;Sacramento Kings;L;;113;114;44;19;L 1
+64; 11/3/2008;;Toronto Raptors;W;;117;108;45;19;W 1
+65; 14/3/2008;@;New Orleans Hornets;L;;98;108;45;20;L 1
+66; 16/3/2008;@;Houston Rockets;L;;92;104;45;21;L 2
+67; 18/3/2008;@;Dallas Mavericks;W;;102;100;46;21;W 1
+68; 20/3/2008;@;Utah Jazz;W;;106;95;47;21;W 2
+69; 21/3/2008;;Seattle SuperSonics;W;;130;105;48;21;W 3
+70; 23/3/2008;;Golden State Warriors;L;;111;115;48;22;L 1
+71; 24/3/2008;@;Golden State Warriors;W;OT;123;119;49;22;W 1
+72; 26/3/2008;;Charlotte Bobcats;L;;95;108;49;23;L 1
+73; 28/3/2008;;Memphis Grizzlies;L;;111;114;49;24;L 2
+74; 30/3/2008;;Washington Wizards;W;OT;126;120;50;24;W 1
+75;2/4/2008;;Portland Trail Blazers;W;;104;91;51;24;W 2
+76;4/4/2008;;Dallas Mavericks;W;;112;108;52;24;W 3
+77;6/4/2008;@;Sacramento Kings;W;;114;92;53;24;W 4
+78;8/4/2008;@;Portland Trail Blazers;L;;103;112;53;25;L 1
+79; 10/4/2008;@;Los Angeles Clippers;W;;106;78;54;25;W 1
+80; 11/4/2008;;New Orleans Hornets;W;;107;104;55;25;W 2
+81; 13/4/2008;;San Antonio Spurs;W;;106;85;56;25;W 3
+82; 15/4/2008;;Sacramento Kings;W;;124;101;57;25;W 4
+1; 28/10/2008;;Portland Trail Blazers;W;;96;76;1;0;W 1
+2; 29/10/2008;@;Los Angeles Clippers;W;;117;79;2;0;W 2
+3;1/11/2008;@;Denver Nuggets;W;;104;97;3;0;W 3
+4;5/11/2008;;Los Angeles Clippers;W;;106;88;4;0;W 4
+5;9/11/2008;;Houston Rockets;W;;111;82;5;0;W 5
+6; 11/11/2008;@;Dallas Mavericks;W;;106;99;6;0;W 6
+7; 12/11/2008;@;New Orleans Hornets;W;;93;86;7;0;W 7
+8; 14/11/2008;;Detroit Pistons;L;;95;106;7;1;L 1
+9; 18/11/2008;;Chicago Bulls;W;;116;109;8;1;W 1
+10; 20/11/2008;@;Phoenix Suns;W;;105;92;9;1;W 2
+11; 21/11/2008;;Denver Nuggets;W;;104;90;10;1;W 3
+12; 23/11/2008;;Sacramento Kings;W;;118;108;11;1;W 4
+13; 25/11/2008;;New Jersey Nets;W;;120;93;12;1;W 5
+14; 28/11/2008;;Dallas Mavericks;W;;114;107;13;1;W 6
+15; 30/11/2008;;Toronto Raptors;W;;112;99;14;1;W 7
+16;2/12/2008;@;Indiana Pacers;L;;117;118;14;2;L 1
+17;3/12/2008;@;Philadelphia 76ers;W;;114;102;15;2;W 1
+18;5/12/2008;@;Washington Wizards;W;;106;104;16;2;W 2
+19;7/12/2008;;Milwaukee Bucks;W;;105;92;17;2;W 3
+20;9/12/2008;@;Sacramento Kings;L;;101;113;17;3;L 1
+21; 10/12/2008;;Phoenix Suns;W;;115;110;18;3;W 1
+22; 12/12/2008;;Sacramento Kings;W;;112;103;19;3;W 2
+23; 14/12/2008;;Minnesota Timberwolves;W;;98;86;20;3;W 3
+24; 16/12/2008;;New York Knicks;W;;116;114;21;3;W 4
+25; 19/12/2008;@;Miami Heat;L;;87;89;21;4;L 1
+26; 20/12/2008;@;Orlando Magic;L;;103;106;21;5;L 2
+27; 22/12/2008;@;Memphis Grizzlies;W;;105;96;22;5;W 1
+28; 23/12/2008;@;New Orleans Hornets;W;;100;87;23;5;W 2
+29; 25/12/2008;;Boston Celtics;W;;92;83;24;5;W 3
+30; 28/12/2008;;Golden State Warriors;W;;130;113;25;5;W 4
+31;2/1/2009;;Utah Jazz;W;;113;100;26;5;W 5
+32;4/1/2009;;Portland Trail Blazers;W;;100;86;27;5;W 6
+33;6/1/2009;;New Orleans Hornets;L;;105;116;27;6;L 1
+34;7/1/2009;@;Golden State Warriors;W;;114;106;28;6;W 1
+35;9/1/2009;;Indiana Pacers;W;;121;119;29;6;W 2
+36; 11/1/2009;;Miami Heat;W;;108;105;30;6;W 3
+37; 13/1/2009;@;Houston Rockets;W;;105;100;31;6;W 4
+38; 14/1/2009;@;San Antonio Spurs;L;;111;112;31;7;L 1
+39; 16/1/2009;;Orlando Magic;L;;103;109;31;8;L 2
+40; 19/1/2009;;Cleveland Cavaliers;W;;105;88;32;8;W 1
+41; 21/1/2009;@;Los Angeles Clippers;W;;108;97;33;8;W 2
+42; 22/1/2009;;Washington Wizards;W;;117;97;34;8;W 3
+43; 25/1/2009;;San Antonio Spurs;W;;99;85;35;8;W 4
+44; 27/1/2009;;Charlotte Bobcats;L;2OT;110;117;35;9;L 1
+45; 30/1/2009;@;Minnesota Timberwolves;W;;132;119;36;9;W 1
+46; 31/1/2009;@;Memphis Grizzlies;W;;115;98;37;9;W 2
+47;2/2/2009;@;New York Knicks;W;;126;117;38;9;W 3
+48;4/2/2009;@;Toronto Raptors;W;;115;107;39;9;W 4
+49;5/2/2009;@;Boston Celtics;W;OT;110;109;40;9;W 5
+50;8/2/2009;@;Cleveland Cavaliers;W;;101;91;41;9;W 6
+51; 10/2/2009;;Oklahoma City Thunder;W;;105;98;42;9;W 7
+52; 11/2/2009;@;Utah Jazz;L;;109;113;42;10;L 1
+53; 17/2/2009;;Atlanta Hawks;W;;96;83;43;10;W 1
+54; 18/2/2009;@;Golden State Warriors;W;;129;121;44;10;W 2
+55; 20/2/2009;;New Orleans Hornets;W;OT;115;111;45;10;W 3
+56; 22/2/2009;@;Minnesota Timberwolves;W;;111;108;46;10;W 4
+57; 24/2/2009;@;Oklahoma City Thunder;W;;107;93;47;10;W 5
+58; 26/2/2009;;Phoenix Suns;W;;132;106;48;10;W 6
+59; 27/2/2009;@;Denver Nuggets;L;;79;90;48;11;L 1
+60;1/3/2009;@;Phoenix Suns;L;;111;118;48;12;L 2
+61;3/3/2009;;Memphis Grizzlies;W;;99;89;49;12;W 1
+62;6/3/2009;;Minnesota Timberwolves;W;;110;90;50;12;W 2
+63;9/3/2009;@;Portland Trail Blazers;L;;94;111;50;13;L 1
+64; 11/3/2009;@;Houston Rockets;W;;102;96;51;13;W 1
+65; 12/3/2009;@;San Antonio Spurs;W;;102;95;52;13;W 2
+66; 15/3/2009;;Dallas Mavericks;W;;107;100;53;13;W 3
+67; 17/3/2009;;Philadelphia 76ers;L;;93;94;53;14;L 1
+68; 19/3/2009;;Golden State Warriors;W;;114;106;54;14;W 1
+69; 21/3/2009;@;Chicago Bulls;W;;117;109;55;14;W 2
+70; 24/3/2009;@;Oklahoma City Thunder;W;;107;89;56;14;W 3
+71; 26/3/2009;@;Detroit Pistons;W;;92;77;57;14;W 4
+72; 27/3/2009;@;New Jersey Nets;W;;103;95;58;14;W 5
+73; 29/3/2009;@;Atlanta Hawks;L;;76;86;58;15;L 1
+74; 31/3/2009;@;Charlotte Bobcats;L;;84;94;58;16;L 2
+75;1/4/2009;@;Milwaukee Bucks;W;;104;98;59;16;W 1
+76;3/4/2009;;Houston Rockets;W;;93;81;60;16;W 2
+77;5/4/2009;;Los Angeles Clippers;W;;88;85;61;16;W 3
+78;7/4/2009;@;Sacramento Kings;W;;122;104;62;16;W 4
+79;9/4/2009;;Denver Nuggets;W;;116;102;63;16;W 5
+80; 10/4/2009;@;Portland Trail Blazers;L;;98;106;63;17;L 1
+81; 12/4/2009;;Memphis Grizzlies;W;;92;75;64;17;W 1
+82; 14/4/2009;;Utah Jazz;W;;125;112;65;17;W 2
+1; 27/10/2009;;Los Angeles Clippers;W;;99;92;1;0;W 1
+2; 30/10/2009;;Dallas Mavericks;L;;80;94;1;1;L 1
+3;1/11/2009;;Atlanta Hawks;W;;118;110;2;1;W 1
+4;3/11/2009;@;Oklahoma City Thunder;W;OT;101;98;3;1;W 2
+5;4/11/2009;@;Houston Rockets;W;OT;103;102;4;1;W 3
+6;6/11/2009;;Memphis Grizzlies;W;;114;98;5;1;W 4
+7;8/11/2009;;New Orleans Hornets;W;;104;88;6;1;W 5
+8; 12/11/2009;;Phoenix Suns;W;;121;102;7;1;W 6
+9; 13/11/2009;@;Denver Nuggets;L;;79;105;7;2;L 1
+10; 15/11/2009;;Houston Rockets;L;;91;101;7;3;L 2
+11; 17/11/2009;;Detroit Pistons;W;;106;93;8;3;W 1
+12; 19/11/2009;;Chicago Bulls;W;;108;93;9;3;W 2
+13; 22/11/2009;;Oklahoma City Thunder;W;;101;85;10;3;W 3
+14; 24/11/2009;;New York Knicks;W;;100;90;11;3;W 4
+15; 28/11/2009;@;Golden State Warriors;W;;130;97;12;3;W 5
+16; 29/11/2009;;New Jersey Nets;W;;106;87;13;3;W 6
+17;1/12/2009;;New Orleans Hornets;W;;110;99;14;3;W 7
+18;4/12/2009;;Miami Heat;W;;108;107;15;3;W 8
+19;6/12/2009;;Phoenix Suns;W;;108;88;16;3;W 9
+20;9/12/2009;;Utah Jazz;W;;101;77;17;3;W 10
+21; 11/12/2009;;Minnesota Timberwolves;W;;104;92;18;3;W 11
+22; 12/12/2009;@;Utah Jazz;L;;94;102;18;4;L 1
+23; 15/12/2009;@;Chicago Bulls;W;;96;87;19;4;W 1
+24; 16/12/2009;@;Milwaukee Bucks;W;OT;107;106;20;4;W 2
+25; 19/12/2009;@;New Jersey Nets;W;;103;84;21;4;W 3
+26; 20/12/2009;@;Detroit Pistons;W;;93;81;22;4;W 4
+27; 22/12/2009;;Oklahoma City Thunder;W;;111;108;23;4;W 5
+28; 25/12/2009;;Cleveland Cavaliers;L;;87;102;23;5;L 1
+29; 26/12/2009;@;Sacramento Kings;W;2OT;112;103;24;5;W 1
+30; 28/12/2009;@;Phoenix Suns;L;;103;118;24;6;L 1
+31; 29/12/2009;;Golden State Warriors;W;;124;118;25;6;W 1
+32;1/1/2010;;Sacramento Kings;W;;109;108;26;6;W 2
+33;3/1/2010;;Dallas Mavericks;W;;131;96;27;6;W 3
+34;5/1/2010;;Houston Rockets;W;;88;79;28;6;W 4
+35;6/1/2010;@;Los Angeles Clippers;L;;91;102;28;7;L 1
+36;8/1/2010;@;Portland Trail Blazers;L;;98;107;28;8;L 2
+37; 10/1/2010;;Milwaukee Bucks;W;;95;77;29;8;W 1
+38; 12/1/2010;@;San Antonio Spurs;L;;85;105;29;9;L 1
+39; 13/1/2010;@;Dallas Mavericks;W;;100;95;30;9;W 1
+40; 15/1/2010;;Los Angeles Clippers;W;;126;86;31;9;W 2
+41; 18/1/2010;;Orlando Magic;W;;98;92;32;9;W 3
+42; 21/1/2010;@;Cleveland Cavaliers;L;;87;93;32;10;L 1
+43; 22/1/2010;@;New York Knicks;W;;115;105;33;10;W 1
+44; 24/1/2010;@;Toronto Raptors;L;;105;106;33;11;L 1
+45; 26/1/2010;@;Washington Wizards;W;;115;103;34;11;W 1
+46; 27/1/2010;@;Indiana Pacers;W;;118;96;35;11;W 2
+47; 29/1/2010;@;Philadelphia 76ers;W;;99;91;36;11;W 3
+48; 31/1/2010;@;Boston Celtics;W;;90;89;37;11;W 4
+49;1/2/2010;@;Memphis Grizzlies;L;;93;95;37;12;L 1
+50;3/2/2010;;Charlotte Bobcats;W;;99;97;38;12;W 1
+51;5/2/2010;;Denver Nuggets;L;;113;126;38;13;L 1
+52;6/2/2010;@;Portland Trail Blazers;W;;99;82;39;13;W 1
+53;8/2/2010;;San Antonio Spurs;W;;101;89;40;13;W 2
+54; 10/2/2010;@;Utah Jazz;W;;96;81;41;13;W 3
+55; 16/2/2010;;Golden State Warriors;W;;104;94;42;13;W 4
+56; 18/2/2010;;Boston Celtics;L;;86;87;42;14;L 1
+57; 23/2/2010;@;Memphis Grizzlies;W;;99;98;43;14;W 1
+58; 24/2/2010;@;Dallas Mavericks;L;;96;101;43;15;L 1
+59; 26/2/2010;;Philadelphia 76ers;W;;99;90;44;15;W 1
+60; 28/2/2010;;Denver Nuggets;W;;95;89;45;15;W 2
+61;2/3/2010;;Indiana Pacers;W;;122;99;46;15;W 3
+62;4/3/2010;@;Miami Heat;L;OT;111;114;46;16;L 1
+63;5/3/2010;@;Charlotte Bobcats;L;;83;98;46;17;L 2
+64;7/3/2010;@;Orlando Magic;L;;94;96;46;18;L 3
+65;9/3/2010;;Toronto Raptors;W;;109;107;47;18;W 1
+66; 12/3/2010;@;Phoenix Suns;W;;102;96;48;18;W 2
+67; 15/3/2010;@;Golden State Warriors;W;;124;121;49;18;W 3
+68; 16/3/2010;@;Sacramento Kings;W;;106;99;50;18;W 4
+69; 19/3/2010;;Minnesota Timberwolves;W;;104;96;51;18;W 5
+70; 21/3/2010;;Washington Wizards;W;;99;92;52;18;W 6
+71; 24/3/2010;@;San Antonio Spurs;W;;92;83;53;18;W 7
+72; 26/3/2010;@;Oklahoma City Thunder;L;;75;91;53;19;L 1
+73; 27/3/2010;@;Houston Rockets;W;;109;101;54;19;W 1
+74; 29/3/2010;@;New Orleans Hornets;L;;100;108;54;20;L 1
+75; 31/3/2010;@;Atlanta Hawks;L;;92;109;54;21;L 2
+76;2/4/2010;;Utah Jazz;W;;106;92;55;21;W 1
+77;4/4/2010;;San Antonio Spurs;L;;81;100;55;22;L 1
+78;8/4/2010;@;Denver Nuggets;L;;96;98;55;23;L 2
+79;9/4/2010;@;Minnesota Timberwolves;W;;97;88;56;23;W 1
+80; 11/4/2010;;Portland Trail Blazers;L;;88;91;56;24;L 1
+81; 13/4/2010;;Sacramento Kings;W;;106;100;57;24;W 1
+82; 14/4/2010;@;Los Angeles Clippers;L;;91;107;57;25;L 1
+1; 26/10/2010;;Houston Rockets;W;;112;110;1;0;W 1
+2; 29/10/2010;@;Phoenix Suns;W;;114;106;2;0;W 2
+3; 31/10/2010;;Golden State Warriors;W;;107;83;3;0;W 3
+4;2/11/2010;;Memphis Grizzlies;W;;124;105;4;0;W 4
+5;3/11/2010;@;Sacramento Kings;W;;112;100;5;0;W 5
+6;5/11/2010;;Toronto Raptors;W;;108;103;6;0;W 6
+7;7/11/2010;;Portland Trail Blazers;W;;121;96;7;0;W 7
+8;9/11/2010;;Minnesota Timberwolves;W;;99;94;8;0;W 8
+9; 11/11/2010;@;Denver Nuggets;L;;112;118;8;1;L 1
+10; 14/11/2010;;Phoenix Suns;L;;116;121;8;2;L 2
+11; 16/11/2010;@;Milwaukee Bucks;W;;118;107;9;2;W 1
+12; 17/11/2010;@;Detroit Pistons;W;;103;90;10;2;W 2
+13; 19/11/2010;@;Minnesota Timberwolves;W;;112;95;11;2;W 3
+14; 21/11/2010;;Golden State Warriors;W;;117;89;12;2;W 4
+15; 23/11/2010;;Chicago Bulls;W;;98;91;13;2;W 5
+16; 26/11/2010;@;Utah Jazz;L;;96;102;13;3;L 1
+17; 28/11/2010;;Indiana Pacers;L;;92;95;13;4;L 2
+18; 30/11/2010;@;Memphis Grizzlies;L;;96;98;13;5;L 3
+19;1/12/2010;@;Houston Rockets;L;;99;109;13;6;L 4
+20;3/12/2010;;Sacramento Kings;W;;113;80;14;6;W 1
+21;7/12/2010;;Washington Wizards;W;;115;108;15;6;W 2
+22;8/12/2010;@;Los Angeles Clippers;W;;87;86;16;6;W 3
+23; 10/12/2010;@;Chicago Bulls;L;;84;88;16;7;L 1
+24; 12/12/2010;@;New Jersey Nets;W;;99;92;17;7;W 1
+25; 14/12/2010;@;Washington Wizards;W;;103;89;18;7;W 2
+26; 15/12/2010;@;Indiana Pacers;W;;109;94;19;7;W 3
+27; 17/12/2010;@;Philadelphia 76ers;W;;93;81;20;7;W 4
+28; 19/12/2010;@;Toronto Raptors;W;;120;110;21;7;W 5
+29; 21/12/2010;;Milwaukee Bucks;L;;79;98;21;8;L 1
+30; 25/12/2010;;Miami Heat;L;;80;96;21;9;L 2
+31; 28/12/2010;@;San Antonio Spurs;L;;82;97;21;10;L 3
+32; 29/12/2010;@;New Orleans Hornets;W;;103;88;22;10;W 1
+33; 31/12/2010;;Philadelphia 76ers;W;;102;98;23;10;W 2
+34;2/1/2011;;Memphis Grizzlies;L;;85;104;23;11;L 1
+35;4/1/2011;;Detroit Pistons;W;;108;83;24;11;W 1
+36;5/1/2011;@;Phoenix Suns;W;;99;95;25;11;W 2
+37;7/1/2011;;New Orleans Hornets;W;;101;97;26;11;W 3
+38;9/1/2011;;New York Knicks;W;;109;87;27;11;W 4
+39; 11/1/2011;;Cleveland Cavaliers;W;;112;57;28;11;W 5
+40; 12/1/2011;@;Golden State Warriors;W;;115;110;29;11;W 6
+41; 14/1/2011;;New Jersey Nets;W;;100;88;30;11;W 7
+42; 16/1/2011;@;Los Angeles Clippers;L;;92;99;30;12;L 1
+43; 17/1/2011;;Oklahoma City Thunder;W;;101;94;31;12;W 1
+44; 19/1/2011;@;Dallas Mavericks;L;;100;109;31;13;L 1
+45; 21/1/2011;@;Denver Nuggets;W;;107;97;32;13;W 1
+46; 25/1/2011;;Utah Jazz;W;;120;91;33;13;W 2
+47; 28/1/2011;;Sacramento Kings;L;;95;100;33;14;L 1
+48; 30/1/2011;;Boston Celtics;L;;96;109;33;15;L 2
+49;1/2/2011;;Houston Rockets;W;OT;114;106;34;15;W 1
+50;3/2/2011;;San Antonio Spurs;L;;88;89;34;16;L 1
+51;5/2/2011;@;New Orleans Hornets;W;;101;95;35;16;W 1
+52;7/2/2011;@;Memphis Grizzlies;W;;93;84;36;16;W 2
+53; 10/2/2011;@;Boston Celtics;W;;92;86;37;16;W 3
+54; 11/2/2011;@;New York Knicks;W;;113;96;38;16;W 4
+55; 13/2/2011;@;Orlando Magic;L;;75;89;38;17;L 1
+56; 14/2/2011;@;Charlotte Bobcats;L;;89;109;38;18;L 2
+57; 16/2/2011;@;Cleveland Cavaliers;L;;99;104;38;19;L 3
+58; 22/2/2011;;Atlanta Hawks;W;;104;80;39;19;W 1
+59; 23/2/2011;@;Portland Trail Blazers;W;OT;106;101;40;19;W 2
+60; 25/2/2011;;Los Angeles Clippers;W;;108;95;41;19;W 3
+61; 27/2/2011;@;Oklahoma City Thunder;W;;90;87;42;19;W 4
+62;1/3/2011;@;Minnesota Timberwolves;W;;90;79;43;19;W 5
+63;4/3/2011;;Charlotte Bobcats;W;;92;84;44;19;W 6
+64;6/3/2011;@;San Antonio Spurs;W;;99;83;45;19;W 7
+65;8/3/2011;@;Atlanta Hawks;W;;101;87;46;19;W 8
+66; 10/3/2011;@;Miami Heat;L;;88;94;46;20;L 1
+67; 12/3/2011;@;Dallas Mavericks;W;;96;91;47;20;W 1
+68; 14/3/2011;;Orlando Magic;W;;97;84;48;20;W 2
+69; 18/3/2011;;Minnesota Timberwolves;W;;106;98;49;20;W 3
+70; 20/3/2011;;Portland Trail Blazers;W;;84;80;50;20;W 4
+71; 22/3/2011;;Phoenix Suns;W;3OT;139;137;51;20;W 5
+72; 25/3/2011;;Los Angeles Clippers;W;;112;104;52;20;W 6
+73; 27/3/2011;;New Orleans Hornets;W;;102;84;53;20;W 7
+74; 31/3/2011;;Dallas Mavericks;W;;110;82;54;20;W 8
+75;1/4/2011;@;Utah Jazz;W;;96;85;55;20;W 9
+76;3/4/2011;;Denver Nuggets;L;;90;95;55;21;L 1
+77;5/4/2011;;Utah Jazz;L;;85;86;55;22;L 2
+78;6/4/2011;@;Golden State Warriors;L;;87;95;55;23;L 3
+79;8/4/2011;@;Portland Trail Blazers;L;;86;93;55;24;L 4
+80; 10/4/2011;;Oklahoma City Thunder;L;;106;120;55;25;L 5
+81; 12/4/2011;;San Antonio Spurs;W;;102;93;56;25;W 1
+82; 13/4/2011;@;Sacramento Kings;W;OT;116;108;57;25;W 2
+1; 25/12/2011;;Chicago Bulls;L;;87;88;0;1;L 1
+2; 26/12/2011;@;Sacramento Kings;L;;91;100;0;2;L 2
+3; 27/12/2011;;Utah Jazz;W;;96;71;1;2;W 1
+4; 29/12/2011;;New York Knicks;W;;99;82;2;2;W 2
+5; 31/12/2011;;Denver Nuggets;W;;92;89;3;2;W 3
+6;1/1/2012;@;Denver Nuggets;L;;90;99;3;3;L 1
+7;3/1/2012;;Houston Rockets;W;;108;99;4;3;W 1
+8;5/1/2012;@;Portland Trail Blazers;L;;96;107;4;4;L 1
+9;6/1/2012;;Golden State Warriors;W;;97;90;5;4;W 1
+10;8/1/2012;;Memphis Grizzlies;W;;90;82;6;4;W 2
+11; 10/1/2012;;Phoenix Suns;W;;99;83;7;4;W 3
+12; 11/1/2012;@;Utah Jazz;W;OT;90;87;8;4;W 4
+13; 13/1/2012;;Cleveland Cavaliers;W;;97;92;9;4;W 5
+14; 14/1/2012;@;Los Angeles Clippers;L;;94;102;9;5;L 1
+15; 16/1/2012;;Dallas Mavericks;W;;73;70;10;5;W 1
+16; 19/1/2012;@;Miami Heat;L;;87;98;10;6;L 1
+17; 20/1/2012;@;Orlando Magic;L;;80;92;10;7;L 2
+18; 22/1/2012;;Indiana Pacers;L;;96;98;10;8;L 3
+19; 25/1/2012;;Los Angeles Clippers;W;;96;91;11;8;W 1
+20; 28/1/2012;@;Milwaukee Bucks;L;;89;100;11;9;L 1
+21; 29/1/2012;@;Minnesota Timberwolves;W;;106;101;12;9;W 1
+22; 31/1/2012;;Charlotte Bobcats;W;;106;73;13;9;W 2
+23;3/2/2012;@;Denver Nuggets;W;;93;89;14;9;W 3
+24;4/2/2012;@;Utah Jazz;L;;87;96;14;10;L 1
+25;6/2/2012;@;Philadelphia 76ers;L;;90;95;14;11;L 2
+26;9/2/2012;@;Boston Celtics;W;OT;88;87;15;11;W 1
+27; 10/2/2012;@;New York Knicks;L;;85;92;15;12;L 1
+28; 12/2/2012;@;Toronto Raptors;W;;94;92;16;12;W 1
+29; 14/2/2012;;Atlanta Hawks;W;;86;78;17;12;W 2
+30; 17/2/2012;;Phoenix Suns;W;;111;99;18;12;W 3
+31; 19/2/2012;@;Phoenix Suns;L;;90;102;18;13;L 1
+32; 20/2/2012;;Portland Trail Blazers;W;;103;92;19;13;W 1
+33; 22/2/2012;@;Dallas Mavericks;W;;96;91;20;13;W 2
+34; 23/2/2012;@;Oklahoma City Thunder;L;;85;100;20;14;L 1
+35; 29/2/2012;;Minnesota Timberwolves;W;;104;85;21;14;W 1
+36;2/3/2012;;Sacramento Kings;W;;115;107;22;14;W 2
+37;4/3/2012;;Miami Heat;W;;93;83;23;14;W 3
+38;6/3/2012;@;Detroit Pistons;L;OT;85;88;23;15;L 1
+39;7/3/2012;@;Washington Wizards;L;;101;106;23;16;L 2
+40;9/3/2012;@;Minnesota Timberwolves;W;;105;102;24;16;W 1
+41; 11/3/2012;;Boston Celtics;W;;97;94;25;16;W 2
+42; 13/3/2012;@;Memphis Grizzlies;W;2OT;116;111;26;16;W 3
+43; 14/3/2012;@;New Orleans Hornets;W;OT;107;101;27;16;W 4
+44; 16/3/2012;;Minnesota Timberwolves;W;;97;92;28;16;W 5
+45; 18/3/2012;;Utah Jazz;L;;99;103;28;17;L 1
+46; 20/3/2012;@;Houston Rockets;L;;104;107;28;18;L 2
+47; 21/3/2012;@;Dallas Mavericks;W;;109;93;29;18;W 1
+48; 23/3/2012;;Portland Trail Blazers;W;;103;96;30;18;W 2
+49; 25/3/2012;;Memphis Grizzlies;L;;96;102;30;19;L 1
+50; 27/3/2012;@;Golden State Warriors;W;;104;101;31;19;W 1
+51; 29/3/2012;;Oklahoma City Thunder;L;;93;102;31;20;L 1
+52; 31/3/2012;;New Orleans Hornets;W;;88;85;32;20;W 1
+53;1/4/2012;;Golden State Warriors;W;;120;112;33;20;W 2
+54;3/4/2012;;New Jersey Nets;W;;91;87;34;20;W 3
+55;4/4/2012;@;Los Angeles Clippers;W;;113;108;35;20;W 4
+56;6/4/2012;;Houston Rockets;L;;107;112;35;21;L 1
+57;7/4/2012;@;Phoenix Suns;L;;105;125;35;22;L 2
+58;9/4/2012;@;New Orleans Hornets;W;;93;91;36;22;W 1
+59; 11/4/2012;@;San Antonio Spurs;W;;98;84;37;22;W 2
+60; 13/4/2012;;Denver Nuggets;W;;103;97;38;22;W 3
+61; 15/4/2012;;Dallas Mavericks;W;OT;112;108;39;22;W 4
+62; 17/4/2012;;San Antonio Spurs;L;;91;112;39;23;L 1
+63; 18/4/2012;@;Golden State Warriors;W;;99;87;40;23;W 1
+64; 20/4/2012;@;San Antonio Spurs;L;;97;121;40;24;L 1
+65; 22/4/2012;;Oklahoma City Thunder;W;2OT;114;106;41;24;W 1
+66; 26/4/2012;@;Sacramento Kings;L;;96;113;41;25;L 1
+1; 30/10/2012;;Dallas Mavericks;L;;91;99;0;1;L 1
+2; 31/10/2012;@;Portland Trail Blazers;L;;106;116;0;2;L 2
+3;2/11/2012;;Los Angeles Clippers;L;;95;105;0;3;L 3
+4;4/11/2012;;Detroit Pistons;W;;108;79;1;3;W 1
+5;7/11/2012;@;Utah Jazz;L;;86;95;1;4;L 1
+6;9/11/2012;;Golden State Warriors;W;;101;77;2;4;W 1
+7; 11/11/2012;;Sacramento Kings;W;;103;90;3;4;W 2
+8; 13/11/2012;;San Antonio Spurs;L;;82;84;3;5;L 1
+9; 16/11/2012;;Phoenix Suns;W;;114;102;4;5;W 1
+10; 18/11/2012;;Houston Rockets;W;;119;108;5;5;W 2
+11; 20/11/2012;;Brooklyn Nets;W;;95;90;6;5;W 3
+12; 21/11/2012;@;Sacramento Kings;L;;97;113;6;6;L 1
+13; 23/11/2012;@;Memphis Grizzlies;L;;98;106;6;7;L 2
+14; 24/11/2012;@;Dallas Mavericks;W;;115;89;7;7;W 1
+15; 27/11/2012;;Indiana Pacers;L;;77;79;7;8;L 1
+16; 30/11/2012;;Denver Nuggets;W;;122;103;8;8;W 1
+17;2/12/2012;;Orlando Magic;L;;103;113;8;9;L 1
+18;4/12/2012;@;Houston Rockets;L;;105;107;8;10;L 2
+19;5/12/2012;@;New Orleans Hornets;W;;103;87;9;10;W 1
+20;7/12/2012;@;Oklahoma City Thunder;L;;108;114;9;11;L 1
+21;9/12/2012;;Utah Jazz;L;;110;117;9;12;L 2
+22; 11/12/2012;@;Cleveland Cavaliers;L;;94;100;9;13;L 3
+23; 13/12/2012;@;New York Knicks;L;;107;116;9;14;L 4
+24; 14/12/2012;@;Washington Wizards;W;;102;96;10;14;W 1
+25; 16/12/2012;@;Philadelphia 76ers;W;;111;98;11;14;W 2
+26; 18/12/2012;;Charlotte Bobcats;W;;101;100;12;14;W 3
+27; 22/12/2012;@;Golden State Warriors;W;OT;118;115;13;14;W 4
+28; 25/12/2012;;New York Knicks;W;;100;94;14;14;W 5
+29; 26/12/2012;@;Denver Nuggets;L;;114;126;14;15;L 1
+30; 28/12/2012;;Portland Trail Blazers;W;;104;87;15;15;W 1
+31;1/1/2013;;Philadelphia 76ers;L;;99;103;15;16;L 1
+32;4/1/2013;@;Los Angeles Clippers;L;;102;107;15;17;L 2
+33;6/1/2013;;Denver Nuggets;L;;105;112;15;18;L 3
+34;8/1/2013;@;Houston Rockets;L;;112;125;15;19;L 4
+35;9/1/2013;@;San Antonio Spurs;L;;105;108;15;20;L 5
+36; 11/1/2013;;Oklahoma City Thunder;L;;101;116;15;21;L 6
+37; 13/1/2013;;Cleveland Cavaliers;W;;113;93;16;21;W 1
+38; 15/1/2013;;Milwaukee Bucks;W;;104;88;17;21;W 2
+39; 17/1/2013;;Miami Heat;L;;90;99;17;22;L 1
+40; 20/1/2013;@;Toronto Raptors;L;;103;108;17;23;L 2
+41; 21/1/2013;@;Chicago Bulls;L;;83;95;17;24;L 3
+42; 23/1/2013;@;Memphis Grizzlies;L;;93;106;17;25;L 4
+43; 25/1/2013;;Utah Jazz;W;;102;84;18;25;W 1
+44; 27/1/2013;;Oklahoma City Thunder;W;;105;96;19;25;W 2
+45; 29/1/2013;;New Orleans Hornets;W;;111;106;20;25;W 3
+46; 30/1/2013;@;Phoenix Suns;L;;86;92;20;26;L 1
+47;1/2/2013;@;Minnesota Timberwolves;W;;111;100;21;26;W 1
+48;3/2/2013;@;Detroit Pistons;W;;98;97;22;26;W 2
+49;5/2/2013;@;Brooklyn Nets;W;;92;83;23;26;W 3
+50;7/2/2013;@;Boston Celtics;L;;95;116;23;27;L 1
+51;8/2/2013;@;Charlotte Bobcats;W;;100;93;24;27;W 1
+52; 10/2/2013;@;Miami Heat;L;;97;107;24;28;L 1
+53; 12/2/2013;;Phoenix Suns;W;;91;85;25;28;W 1
+54; 14/2/2013;;Los Angeles Clippers;L;;101;125;25;29;L 1
+55; 20/2/2013;;Boston Celtics;W;;113;99;26;29;W 1
+56; 22/2/2013;;Portland Trail Blazers;W;;111;107;27;29;W 2
+57; 24/2/2013;@;Dallas Mavericks;W;;103;99;28;29;W 3
+58; 25/2/2013;@;Denver Nuggets;L;;108;119;28;30;L 1
+59; 28/2/2013;;Minnesota Timberwolves;W;;116;94;29;30;W 1
+60;3/3/2013;;Atlanta Hawks;W;;99;98;30;30;W 2
+61;5/3/2013;@;Oklahoma City Thunder;L;;105;122;30;31;L 1
+62;6/3/2013;@;New Orleans Hornets;W;;108;102;31;31;W 1
+63;8/3/2013;;Toronto Raptors;W;OT;118;116;32;31;W 2
+64; 10/3/2013;;Chicago Bulls;W;;90;81;33;31;W 3
+65; 12/3/2013;@;Orlando Magic;W;;106;97;34;31;W 4
+66; 13/3/2013;@;Atlanta Hawks;L;;92;96;34;32;L 1
+67; 15/3/2013;@;Indiana Pacers;W;;99;93;35;32;W 1
+68; 17/3/2013;;Sacramento Kings;W;;113;102;36;32;W 2
+69; 18/3/2013;@;Phoenix Suns;L;;76;99;36;33;L 1
+70; 22/3/2013;;Washington Wizards;L;;100;103;36;34;L 2
+71; 25/3/2013;@;Golden State Warriors;L;;103;109;36;35;L 3
+72; 27/3/2013;@;Minnesota Timberwolves;W;;120;117;37;35;W 1
+73; 28/3/2013;@;Milwaukee Bucks;L;;103;113;37;36;L 1
+74; 30/3/2013;@;Sacramento Kings;W;;103;98;38;36;W 1
+75;2/4/2013;;Dallas Mavericks;W;;101;81;39;36;W 2
+76;5/4/2013;;Memphis Grizzlies;W;;86;84;40;36;W 3
+77;7/4/2013;@;Los Angeles Clippers;L;;95;109;40;37;L 1
+78;9/4/2013;;New Orleans Hornets;W;;104;96;41;37;W 1
+79; 10/4/2013;@;Portland Trail Blazers;W;;113;106;42;37;W 2
+80; 12/4/2013;;Golden State Warriors;W;;118;116;43;37;W 3
+81; 14/4/2013;;San Antonio Spurs;W;;91;86;44;37;W 4
+82; 17/4/2013;;Houston Rockets;W;OT;99;95;45;37;W 5
+1; 29/10/2013;;Los Angeles Clippers;W;;116;103;1;0;W 1
+2; 30/10/2013;@;Golden State Warriors;L;;94;125;1;1;L 1
+3;1/11/2013;;San Antonio Spurs;L;;85;91;1;2;L 2
+4;3/11/2013;;Atlanta Hawks;W;;105;103;2;2;W 1
+5;5/11/2013;@;Dallas Mavericks;L;;104;123;2;3;L 1
+6;7/11/2013;@;Houston Rockets;W;;99;98;3;3;W 1
+7;8/11/2013;@;New Orleans Pelicans;L;;85;96;3;4;L 1
+8; 10/11/2013;;Minnesota Timberwolves;L;;90;113;3;5;L 2
+9; 12/11/2013;;New Orleans Pelicans;W;;116;95;4;5;W 1
+10; 13/11/2013;@;Denver Nuggets;L;;99;111;4;6;L 1
+11; 15/11/2013;;Memphis Grizzlies;L;;86;89;4;7;L 2
+12; 17/11/2013;;Detroit Pistons;W;;114;99;5;7;W 1
+13; 22/11/2013;;Golden State Warriors;W;;102;95;6;7;W 2
+14; 24/11/2013;;Sacramento Kings;W;;100;86;7;7;W 3
+15; 26/11/2013;@;Washington Wizards;L;;111;116;7;8;L 1
+16; 27/11/2013;@;Brooklyn Nets;W;;99;94;8;8;W 1
+17; 29/11/2013;@;Detroit Pistons;W;;106;102;9;8;W 2
+18;1/12/2013;;Portland Trail Blazers;L;;108;114;9;9;L 1
+19;6/12/2013;@;Sacramento Kings;W;;106;100;10;9;W 1
+20;8/12/2013;;Toronto Raptors;L;;94;106;10;10;L 1
+21; 10/12/2013;;Phoenix Suns;L;;108;114;10;11;L 2
+22; 13/12/2013;@;Oklahoma City Thunder;L;;97;122;10;12;L 3
+23; 14/12/2013;@;Charlotte Bobcats;W;;88;85;11;12;W 1
+24; 16/12/2013;@;Atlanta Hawks;L;;100;114;11;13;L 1
+25; 17/12/2013;@;Memphis Grizzlies;W;;96;92;12;13;W 1
+26; 20/12/2013;;Minnesota Timberwolves;W;;104;91;13;13;W 2
+27; 21/12/2013;@;Golden State Warriors;L;;83;102;13;14;L 1
+28; 23/12/2013;@;Phoenix Suns;L;;90;117;13;15;L 2
+29; 25/12/2013;;Miami Heat;L;;95;101;13;16;L 3
+30; 27/12/2013;@;Utah Jazz;L;;103;105;13;17;L 4
+31; 29/12/2013;;Philadelphia 76ers;L;;104;111;13;18;L 5
+32; 31/12/2013;;Milwaukee Bucks;L;;79;94;13;19;L 6
+33;3/1/2014;;Utah Jazz;W;;110;99;14;19;W 1
+34;5/1/2014;;Denver Nuggets;L;;115;137;14;20;L 1
+35;7/1/2014;@;Dallas Mavericks;L;;97;110;14;21;L 2
+36;8/1/2014;@;Houston Rockets;L;;99;113;14;22;L 3
+37; 10/1/2014;@;Los Angeles Clippers;L;;87;123;14;23;L 4
+38; 14/1/2014;;Cleveland Cavaliers;L;;118;120;14;24;L 5
+39; 15/1/2014;@;Phoenix Suns;L;;114;121;14;25;L 6
+40; 17/1/2014;@;Boston Celtics;W;;107;104;15;25;W 1
+41; 19/1/2014;@;Toronto Raptors;W;;112;106;16;25;W 2
+42; 20/1/2014;@;Chicago Bulls;L;OT;100;102;16;26;L 1
+43; 23/1/2014;@;Miami Heat;L;;102;109;16;27;L 2
+44; 24/1/2014;@;Orlando Magic;L;;105;114;16;28;L 3
+45; 26/1/2014;@;New York Knicks;L;;103;110;16;29;L 4
+46; 28/1/2014;;Indiana Pacers;L;;92;104;16;30;L 5
+47; 31/1/2014;;Charlotte Bobcats;L;;100;110;16;31;L 6
+48;4/2/2014;@;Minnesota Timberwolves;L;;99;109;16;32;L 7
+49;5/2/2014;@;Cleveland Cavaliers;W;;119;108;17;32;W 1
+50;7/2/2014;@;Philadelphia 76ers;W;;112;98;18;32;W 2
+51;9/2/2014;;Chicago Bulls;L;;86;92;18;33;L 1
+52; 11/2/2014;;Utah Jazz;L;;79;96;18;34;L 2
+53; 13/2/2014;;Oklahoma City Thunder;L;;103;107;18;35;L 3
+54; 19/2/2014;;Houston Rockets;L;;108;134;18;36;L 4
+55; 21/2/2014;;Boston Celtics;W;;101;92;19;36;W 1
+56; 23/2/2014;;Brooklyn Nets;L;;102;108;19;37;L 1
+57; 25/2/2014;@;Indiana Pacers;L;;98;118;19;38;L 2
+58; 26/2/2014;@;Memphis Grizzlies;L;;103;108;19;39;L 3
+59; 28/2/2014;;Sacramento Kings;W;;126;122;20;39;W 1
+60;3/3/2014;@;Portland Trail Blazers;W;;107;106;21;39;W 2
+61;4/3/2014;;New Orleans Pelicans;L;;125;132;21;40;L 1
+62;6/3/2014;;Los Angeles Clippers;L;;94;142;21;41;L 2
+63;7/3/2014;@;Denver Nuggets;L;;126;134;21;42;L 3
+64;9/3/2014;;Oklahoma City Thunder;W;;114;110;22;42;W 1
+65; 13/3/2014;@;Oklahoma City Thunder;L;;102;131;22;43;L 1
+66; 14/3/2014;@;San Antonio Spurs;L;;85;119;22;44;L 2
+67; 19/3/2014;;San Antonio Spurs;L;;109;125;22;45;L 3
+68; 21/3/2014;;Washington Wizards;L;;107;117;22;46;L 4
+69; 23/3/2014;;Orlando Magic;W;;103;94;23;46;W 1
+70; 25/3/2014;;New York Knicks;W;;127;96;24;46;W 2
+71; 27/3/2014;@;Milwaukee Bucks;L;;105;108;24;47;L 1
+72; 28/3/2014;@;Minnesota Timberwolves;L;;107;143;24;48;L 2
+73; 30/3/2014;;Phoenix Suns;W;;115;99;25;48;W 1
+74;1/4/2014;;Portland Trail Blazers;L;;112;124;25;49;L 1
+75;2/4/2014;@;Sacramento Kings;L;;102;107;25;50;L 2
+76;4/4/2014;;Dallas Mavericks;L;;95;107;25;51;L 3
+77;6/4/2014;@;Los Angeles Clippers;L;;97;120;25;52;L 4
+78;8/4/2014;;Houston Rockets;L;;130;145;25;53;L 5
+79; 11/4/2014;;Golden State Warriors;L;;95;112;25;54;L 6
+80; 13/4/2014;;Memphis Grizzlies;L;;90;102;25;55;L 7
+81; 14/4/2014;@;Utah Jazz;W;;119;104;26;55;W 1
+82; 16/4/2014;@;San Antonio Spurs;W;;113;100;27;55;W 2
+1; 28/10/2014;;Houston Rockets;L;;90;108;0;1;L 1
+2; 29/10/2014;@;Phoenix Suns;L;;99;119;0;2;L 2
+3; 31/10/2014;;Los Angeles Clippers;L;;111;118;0;3;L 3
+4;1/11/2014;@;Golden State Warriors;L;;104;127;0;4;L 4
+5;4/11/2014;;Phoenix Suns;L;;106;112;0;5;L 5
+6;9/11/2014;;Charlotte Hornets;W;;107;92;1;5;W 1
+7; 11/11/2014;@;Memphis Grizzlies;L;;102;107;1;6;L 1
+8; 12/11/2014;@;New Orleans Pelicans;L;;102;109;1;7;L 2
+9; 14/11/2014;;San Antonio Spurs;L;;80;93;1;8;L 3
+10; 16/11/2014;;Golden State Warriors;L;;115;136;1;9;L 4
+11; 18/11/2014;@;Atlanta Hawks;W;;114;109;2;9;W 1
+12; 19/11/2014;@;Houston Rockets;W;;98;92;3;9;W 2
+13; 21/11/2014;@;Dallas Mavericks;L;;106;140;3;10;L 1
+14; 23/11/2014;;Denver Nuggets;L;OT;94;101;3;11;L 2
+15; 26/11/2014;;Memphis Grizzlies;L;;93;99;3;12;L 3
+16; 28/11/2014;;Minnesota Timberwolves;L;;119;120;3;13;L 4
+17; 30/11/2014;;Toronto Raptors;W;OT;129;122;4;13;W 1
+18;2/12/2014;@;Detroit Pistons;W;;106;96;5;13;W 2
+19;3/12/2014;@;Washington Wizards;L;;95;111;5;14;L 1
+20;5/12/2014;@;Boston Celtics;L;;96;113;5;15;L 2
+21;7/12/2014;;New Orleans Pelicans;L;;87;104;5;16;L 3
+22;9/12/2014;;Sacramento Kings;W;;98;95;6;16;W 1
+23; 12/12/2014;@;San Antonio Spurs;W;OT;112;110;7;16;W 2
+24; 14/12/2014;@;Minnesota Timberwolves;W;;100;94;8;16;W 3
+25; 15/12/2014;@;Indiana Pacers;L;;91;110;8;17;L 1
+26; 19/12/2014;;Oklahoma City Thunder;L;;103;104;8;18;L 2
+27; 21/12/2014;@;Sacramento Kings;L;;101;108;8;19;L 3
+28; 23/12/2014;;Golden State Warriors;W;;115;105;9;19;W 1
+29; 25/12/2014;@;Chicago Bulls;L;;93;113;9;20;L 1
+30; 26/12/2014;@;Dallas Mavericks;L;;98;102;9;21;L 2
+31; 28/12/2014;;Phoenix Suns;L;;107;116;9;22;L 3
+32; 30/12/2014;@;Denver Nuggets;W;;111;103;10;22;W 1
+33;2/1/2015;;Memphis Grizzlies;L;;106;109;10;23;L 1
+34;4/1/2015;;Indiana Pacers;W;;88;87;11;23;W 1
+35;5/1/2015;@;Portland Trail Blazers;L;;94;98;11;24;L 1
+36;7/1/2015;@;Los Angeles Clippers;L;;89;114;11;25;L 2
+37;9/1/2015;;Orlando Magic;W;;101;84;12;25;W 1
+38; 11/1/2015;;Portland Trail Blazers;L;;94;106;12;26;L 1
+39; 13/1/2015;;Miami Heat;L;;75;78;12;27;L 2
+40; 15/1/2015;;Cleveland Cavaliers;L;;102;109;12;28;L 3
+41; 16/1/2015;@;Utah Jazz;L;;85;94;12;29;L 4
+42; 19/1/2015;@;Phoenix Suns;L;;100;115;12;30;L 5
+43; 21/1/2015;@;New Orleans Pelicans;L;;80;96;12;31;L 6
+44; 23/1/2015;@;San Antonio Spurs;L;;85;99;12;32;L 7
+45; 25/1/2015;;Houston Rockets;L;;87;99;12;33;L 8
+46; 27/1/2015;;Washington Wizards;L;;92;98;12;34;L 9
+47; 29/1/2015;;Chicago Bulls;W;2OT;123;118;13;34;W 1
+48;1/2/2015;@;New York Knicks;L;;80;92;13;35;L 1
+49;4/2/2015;@;Milwaukee Bucks;L;OT;105;113;13;36;L 2
+50;6/2/2015;@;Orlando Magic;L;OT;97;103;13;37;L 3
+51;8/2/2015;@;Cleveland Cavaliers;L;;105;120;13;38;L 4
+52; 10/2/2015;;Denver Nuggets;L;;96;106;13;39;L 5
+53; 11/2/2015;@;Portland Trail Blazers;L;;86;102;13;40;L 6
+54; 20/2/2015;;Brooklyn Nets;L;;105;114;13;41;L 7
+55; 22/2/2015;;Boston Celtics;W;OT;118;111;14;41;W 1
+56; 25/2/2015;@;Utah Jazz;W;;100;97;15;41;W 2
+57; 27/2/2015;;Milwaukee Bucks;W;;101;93;16;41;W 3
+58;1/3/2015;;Oklahoma City Thunder;L;;101;108;16;42;L 1
+59;3/3/2015;@;Charlotte Hornets;L;;103;104;16;43;L 2
+60;4/3/2015;@;Miami Heat;L;;94;100;16;44;L 3
+61;6/3/2015;@;Memphis Grizzlies;L;;90;97;16;45;L 4
+62;8/3/2015;;Dallas Mavericks;L;;93;100;16;46;L 5
+63; 10/3/2015;;Detroit Pistons;W;;93;85;17;46;W 1
+64; 12/3/2015;;New York Knicks;L;;94;101;17;47;L 1
+65; 15/3/2015;;Atlanta Hawks;L;;86;91;17;48;L 2
+66; 16/3/2015;@;Golden State Warriors;L;;105;108;17;49;L 3
+67; 19/3/2015;;Utah Jazz;L;;73;80;17;50;L 4
+68; 22/3/2015;;Philadelphia 76ers;W;;101;87;18;50;W 1
+69; 24/3/2015;@;Oklahoma City Thunder;L;;117;127;18;51;L 1
+70; 25/3/2015;@;Minnesota Timberwolves;W;OT;101;99;19;51;W 1
+71; 27/3/2015;@;Toronto Raptors;L;;83;94;19;52;L 1
+72; 29/3/2015;@;Brooklyn Nets;L;;99;107;19;53;L 2
+73; 30/3/2015;@;Philadelphia 76ers;W;OT;113;111;20;53;W 1
+74;1/4/2015;;New Orleans Pelicans;L;;92;113;20;54;L 1
+75;3/4/2015;;Portland Trail Blazers;L;;77;107;20;55;L 2
+76;5/4/2015;;Los Angeles Clippers;L;;78;106;20;56;L 3
+77;7/4/2015;@;Los Angeles Clippers;L;;100;105;20;57;L 4
+78;8/4/2015;@;Denver Nuggets;L;;101;119;20;58;L 5
+79; 10/4/2015;;Minnesota Timberwolves;W;;106;98;21;58;W 1
+80; 12/4/2015;;Dallas Mavericks;L;;106;120;21;59;L 1
+81; 13/4/2015;@;Sacramento Kings;L;;92;102;21;60;L 2
+82; 15/4/2015;;Sacramento Kings;L;;99;122;21;61;L 3
+1;4/11/1994;@;Detroit Pistons;W;;115;98;1;0;W 1
+2;5/11/1994;@;Milwaukee Bucks;L;;96;97;1;1;L 1
+3;8/11/1994;@;New York Knicks;L;;113;117;1;2;L 2
+4;9/11/1994;@;Minnesota Timberwolves;W;;122;99;2;2;W 1
+5; 11/11/1994;;Denver Nuggets;L;OT;117;124;2;3;L 1
+6; 12/11/1994;@;Golden State Warriors;L;;99;121;2;4;L 2
+7; 15/11/1994;@;Los Angeles Clippers;W;;102;92;3;4;W 1
+8; 16/11/1994;;New York Knicks;L;;89;110;3;5;L 1
+9; 18/11/1994;;Cleveland Cavaliers;W;;82;80;4;5;W 1
+10; 23/11/1994;;Dallas Mavericks;W;;118;106;5;5;W 2
+11; 25/11/1994;@;Atlanta Hawks;W;;92;87;6;5;W 3
+12; 26/11/1994;@;Washington Bullets;W;;112;96;7;5;W 4
+13; 29/11/1994;@;New Jersey Nets;W;2OT;129;120;8;5;W 5
+14; 30/11/1994;@;Cleveland Cavaliers;L;;79;117;8;6;L 1
+15;2/12/1994;;Houston Rockets;W;;107;89;9;6;W 1
+16;6/12/1994;;Golden State Warriors;W;;113;101;10;6;W 2
+17;9/12/1994;;Los Angeles Clippers;L;;84;109;10;7;L 1
+18; 10/12/1994;@;Utah Jazz;W;;120;113;11;7;W 1
+19; 13/12/1994;@;Dallas Mavericks;W;;115;108;12;7;W 2
+20; 15/12/1994;@;Houston Rockets;W;;97;94;13;7;W 3
+21; 17/12/1994;@;San Antonio Spurs;L;;102;116;13;8;L 1
+22; 20/12/1994;;Minnesota Timberwolves;W;;108;95;14;8;W 1
+23; 23/12/1994;;Sacramento Kings;W;;100;89;15;8;W 2
+24; 27/12/1994;@;Golden State Warriors;L;;105;129;15;9;L 1
+25; 29/12/1994;;Seattle SuperSonics;W;;96;95;16;9;W 1
+26; 30/12/1994;@;Phoenix Suns;W;;127;112;17;9;W 2
+27;3/1/1995;;Detroit Pistons;W;;105;96;18;9;W 3
+28;6/1/1995;;Milwaukee Bucks;W;;106;98;19;9;W 4
+29;8/1/1995;;Miami Heat;W;;122;105;20;9;W 5
+30;9/1/1995;@;Portland Trail Blazers;L;;83;129;20;10;L 1
+31; 11/1/1995;;Phoenix Suns;L;;108;118;20;11;L 2
+32; 13/1/1995;;Golden State Warriors;W;;115;104;21;11;W 1
+33; 16/1/1995;;Los Angeles Clippers;W;;96;88;22;11;W 2
+34; 18/1/1995;@;Indiana Pacers;L;;105;106;22;12;L 1
+35; 20/1/1995;@;Boston Celtics;W;;120;118;23;12;W 1
+36; 21/1/1995;@;Philadelphia 76ers;L;OT;113;117;23;13;L 1
+37; 23/1/1995;@;Charlotte Hornets;W;;108;102;24;13;W 1
+38; 25/1/1995;;New Jersey Nets;W;OT;120;116;25;13;W 2
+39; 28/1/1995;@;Seattle SuperSonics;W;OT;128;121;26;13;W 3
+40; 31/1/1995;;Chicago Bulls;L;;115;119;26;14;L 1
+41;1/2/1995;@;Phoenix Suns;L;;109;118;26;15;L 2
+42;3/2/1995;;Denver Nuggets;L;;74;88;26;16;L 3
+43;4/2/1995;@;Los Angeles Clippers;W;;121;118;27;16;W 1
+44;7/2/1995;@;Denver Nuggets;W;;85;83;28;16;W 2
+45;8/2/1995;;San Antonio Spurs;W;;115;99;29;16;W 3
+46; 15/2/1995;;Seattle SuperSonics;W;;102;96;30;16;W 4
+47; 16/2/1995;@;Sacramento Kings;L;;82;98;30;17;L 1
+48; 19/2/1995;;Portland Trail Blazers;W;;93;83;31;17;W 1
+49; 20/2/1995;@;Seattle SuperSonics;W;;108;105;32;17;W 2
+50; 22/2/1995;;Philadelphia 76ers;W;;112;100;33;17;W 3
+51; 24/2/1995;;Charlotte Hornets;W;OT;95;93;34;17;W 4
+52; 25/2/1995;@;Los Angeles Clippers;L;;81;83;34;18;L 1
+53; 27/2/1995;;Utah Jazz;L;;95;101;34;19;L 2
+54;1/3/1995;;Phoenix Suns;L;;93;101;34;20;L 3
+55;3/3/1995;;Sacramento Kings;W;2OT;109;104;35;20;W 1
+56;5/3/1995;;Minnesota Timberwolves;W;;105;102;36;20;W 2
+57;7/3/1995;@;Miami Heat;L;;104;110;36;21;L 1
+58;8/3/1995;@;Orlando Magic;L;;110;114;36;22;L 2
+59; 10/3/1995;@;Minnesota Timberwolves;L;;103;109;36;23;L 3
+60; 11/3/1995;@;Chicago Bulls;W;;108;105;37;23;W 1
+61; 13/3/1995;;Indiana Pacers;W;;93;91;38;23;W 2
+62; 15/3/1995;@;Golden State Warriors;L;;108;119;38;24;L 1
+63; 17/3/1995;;Boston Celtics;L;;92;118;38;25;L 2
+64; 19/3/1995;;Sacramento Kings;W;;121;116;39;25;W 1
+65; 22/3/1995;;Portland Trail Blazers;W;;121;114;40;25;W 2
+66; 24/3/1995;;Washington Bullets;W;;113;103;41;25;W 3
+67; 26/3/1995;;Houston Rockets;W;;107;96;42;25;W 4
+68; 28/3/1995;@;Houston Rockets;W;;106;96;43;25;W 5
+69; 29/3/1995;@;San Antonio Spurs;L;;84;107;43;26;L 1
+70; 31/3/1995;;Atlanta Hawks;W;;121;107;44;26;W 1
+71;2/4/1995;;Orlando Magic;W;;119;112;45;26;W 2
+72;4/4/1995;@;Denver Nuggets;W;;104;101;46;26;W 3
+73;5/4/1995;@;Dallas Mavericks;L;;111;130;46;27;L 1
+74;7/4/1995;;Utah Jazz;W;;113;90;47;27;W 1
+75;9/4/1995;;San Antonio Spurs;L;;87;101;47;28;L 1
+76; 11/4/1995;@;Utah Jazz;L;;93;100;47;29;L 2
+77; 12/4/1995;@;Sacramento Kings;L;;99;109;47;30;L 3
+78; 15/4/1995;@;Phoenix Suns;L;;114;119;47;31;L 4
+79; 16/4/1995;;Dallas Mavericks;W;;125;111;48;31;W 1
+80; 18/4/1995;;Seattle SuperSonics;L;;97;113;48;32;L 1
+81; 20/4/1995;@;Portland Trail Blazers;L;;97;111;48;33;L 2
+82; 22/4/1995;;Portland Trail Blazers;L;;104;109;48;34;L 3
+1;28/10/2015;;Minnesota Timberwolves;L;;111;112;0;1;L 1
+2;30/10/2015;@;Sacramento Kings;L;;114;132;0;2;L 2
+3;01/11/2015;;Dallas Mavericks;L;;93;103;0;3;L 3
+4;03/11/2015;;Denver Nuggets;L;;109;120;0;4;L 4
+5;06/11/2015;@;Brooklyn Nets;W;;104;98;1;4;W 1
+6;08/11/2015;@;New York Knicks;L;;95;99;1;5;L 1
+7;10/11/2015;@;Miami Heat;L;;88;101;1;6;L 2
+8;11/11/2015;@;Orlando Magic;L;;99;101;1;7;L 3
+9;13/11/2015;@;Dallas Mavericks;L;;82;90;1;8;L 4
+10;15/11/2015;;Detroit Pistons;W;;97;85;2;8;W 1
+11;16/11/2015;@;Phoenix Suns;L;;101;120;2;9;L 1
+12;20/11/2015;;Toronto Raptors;L;;91;102;2;10;L 2
+13;22/11/2015;;Portland Trail Blazers;L;;93;107;2;11;L 3
+14;24/11/2015;@;Golden State Warriors;L;;77;111;2;12;L 4
+15;28/11/2015;@;Portland Trail Blazers;L;;96;108;2;13;L 5
+16;29/11/2015;;Indiana Pacers;L;;103;107;2;14;L 6
+17;01/12/2015;@;Philadelphia 76ers;L;;91;103;2;15;L 7
+18;02/12/2015;@;Washington Wizards;W;;108;104;3;15;W 1
+19;04/12/2015;@;Atlanta Hawks;L;;87;100;3;16;L 1
+20;06/12/2015;@;Detroit Pistons;L;;91;111;3;17;L 2
+21;07/12/2015;@;Toronto Raptors;L;;93;102;3;18;L 3
+22;09/12/2015;@;Minnesota Timberwolves;L;OT;122;123;3;19;L 4
+23;11/12/2015;@;San Antonio Spurs;L;;87;109;3;20;L 5
+24;12/12/2015;@;Houston Rockets;L;;97;126;3;21;L 6
+25;15/12/2015;;Milwaukee Bucks;W;;113;95;4;21;W 1
+26;17/12/2015;;Houston Rockets;L;;87;107;4;22;L 1
+27;19/12/2015;@;Oklahoma City Thunder;L;;78;118;4;23;L 2
+28;22/12/2015;@;Denver Nuggets;W;;111;107;5;23;W 1
+29;23/12/2015;;Oklahoma City Thunder;L;;85;120;5;24;L 1
+30;25/12/2015;;Los Angeles Clippers;L;;84;94;5;25;L 2
+31;27/12/2015;@;Memphis Grizzlies;L;;96;112;5;26;L 3
+32;28/12/2015;@;Charlotte Hornets;L;;98;108;5;27;L 4
+33;30/12/2015;@;Boston Celtics;W;;112;104;6;27;W 1
+34;01/01/2016;;Philadelphia 76ers;W;;93;84;7;27;W 2
+35;03/01/2016;;Phoenix Suns;W;;97;77;8;27;W 3
+36;05/01/2016;;Golden State Warriors;L;;88;109;8;28;L 1
+37;07/01/2016;@;Sacramento Kings;L;;115;118;8;29;L 2
+38;08/01/2016;;Oklahoma City Thunder;L;;113;117;8;30;L 3
+39;10/01/2016;;Utah Jazz;L;;74;86;8;31;L 4
+40;12/01/2016;;New Orleans Pelicans;W;;95;91;9;31;W 1
+41;14/01/2016;@;Golden State Warriors;L;;98;116;9;32;L 1
+42;16/01/2016;@;Utah Jazz;L;;82;109;9;33;L 2
+43;17/01/2016;;Houston Rockets;L;;95;112;9;34;L 3
+44;20/01/2016;;Sacramento Kings;L;;93;112;9;35;L 4
+45;22/01/2016;;San Antonio Spurs;L;;95;108;9;36;L 5
+46;23/01/2016;@;Portland Trail Blazers;L;;103;121;9;37;L 6
+47;26/01/2016;;Dallas Mavericks;L;;90;92;9;38;L 7
+48;28/01/2016;;Chicago Bulls;L;;91;114;9;39;L 8
+49;29/01/2016;@;Los Angeles Clippers;L;;93;105;9;40;L 9
+50;31/01/2016;;Charlotte Hornets;L;;82;101;9;41;L 10
+51;02/02/2016;;Minnesota Timberwolves;W;;119;115;10;41;W 1
+52;04/02/2016;@;New Orleans Pelicans;W;;99;96;11;41;W 2
+53;06/02/2016;@;San Antonio Spurs;L;;102;106;11;42;L 1
+54;08/02/2016;@;Indiana Pacers;L;;87;89;11;43;L 2
+55;10/02/2016;@;Cleveland Cavaliers;L;;111;120;11;44;L 3
+56;19/02/2016;;San Antonio Spurs;L;;113;119;11;45;L 4
+57;21/02/2016;@;Chicago Bulls;L;;115;126;11;46;L 5
+58;22/02/2016;@;Milwaukee Bucks;L;;101;108;11;47;L 6
+59;24/02/2016;@;Memphis Grizzlies;L;;119;128;11;48;L 7
+60;26/02/2016;;Memphis Grizzlies;L;;95;112;11;49;L 8
+61;01/03/2016;;Brooklyn Nets;W;;107;101;12;49;W 1
+62;02/03/2016;@;Denver Nuggets;L;;107;117;12;50;L 1
+63;04/03/2016;;Atlanta Hawks;L;;77;106;12;51;L 2
+64;06/03/2016;;Golden State Warriors;W;;112;95;13;51;W 1
+65;08/03/2016;;Orlando Magic;W;;107;98;14;51;W 2
+66;10/03/2016;;Cleveland Cavaliers;L;;108;120;14;52;L 1
+67;13/03/2016;;New York Knicks;L;;87;90;14;53;L 2
+68;15/03/2016;;Sacramento Kings;L;;98;106;14;54;L 3
+69;18/03/2016;;Phoenix Suns;L;;90;95;14;55;L 4
+70;22/03/2016;;Memphis Grizzlies;W;;107;100;15;55;W 1
+71;23/03/2016;@;Phoenix Suns;L;;107;119;15;56;L 1
+72;25/03/2016;;Denver Nuggets;L;;105;116;15;57;L 2
+73;27/03/2016;;Washington Wizards;L;;88;101;15;58;L 3
+74;28/03/2016;@;Utah Jazz;L;;75;123;15;59;L 4
+75;30/03/2016;;Miami Heat;W;OT;102;100;16;59;W 1
+76;03/04/2016;;Boston Celtics;L;;100;107;16;60;L 1
+77;05/04/2016;@;Los Angeles Clippers;L;;81;103;16;61;L 2
+78;06/04/2016;;Los Angeles Clippers;L;;81;91;16;62;L 3
+79;08/04/2016;@;New Orleans Pelicans;L;;102;110;16;63;L 4
+80;10/04/2016;@;Houston Rockets;L;;110;130;16;64;L 5
+81;11/04/2016;@;Oklahoma City Thunder;L;;79;112;16;65;L 6
+82;13/04/2016;;Utah Jazz;W;;101;96;17;65;W 1

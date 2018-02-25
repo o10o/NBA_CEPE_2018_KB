@@ -7,21 +7,27 @@
 # Analyse des shots de KB #
 ###########################
 
-#########################
-# 0. Import des données #
-#########################
+
+######################################################
+# 0. Import des données et chargement des librairies #
+######################################################
+
+library(dplyr)
 
 source_kb_shots <- read.csv("data/source_kb_shots.csv")
-
-
-
+source_kb_regseason <- read.csv("data/source_kbLog_regseason.csv", sep=';')
+source_kb_playoffs <- read.csv("data/source_kbLog_playoffs.csv", sep=';')
+source_Lakers_Saison1995_2015 <- read.csv("data/Source_Lakers_Saison1995_2015.csv", sep=';')
+source_Lakers_Playoffs1995_2015 <- read.csv("data/Source_Lakers_Playoffs1995_2015.csv", sep=';')
 
 
 #####################################################################
 # 1. Analyse des données sources et création de nouvelles variables #
 #####################################################################
 
-library(dplyr)
+###################################
+# Analyse descrpitive des données #
+###################################
 
 # Analyse combined_shot_type et action_type 
 
@@ -68,12 +74,15 @@ ratio_shot_vs_adv <- source_kb_shots %>%
   arrange(desc(ratio_shot_ok))
 
 
-# Création de variables supplémentaires
+
+#########################################
+# Création de variables supplémentaires #
+#########################################
 
 
-test <- source_kb_shots %>%
-  select(period, minutes_remaining, seconds_remaining) %>%
+kb_shots <- source_kb_shots %>%
   mutate(
+    
     # temps_period : Temps en seconde depuis le début de la période QT
     #                (max 720 pour un QT et 300 en prolongations)
     temps_period=if_else(period<=4,
@@ -89,24 +98,142 @@ test <- source_kb_shots %>%
     # temps_total : Temps en seconde depuis le début du match (approximation de la fatigue)
     temps_total=if_else(period<=4,
                   720*(period-1)+temps_period,
-                  720*4+300*(period-5)+temps_period)
-                              )
+                  720*4+300*(period-5)+temps_period),
+    
+    # boo_dom : Booléen match à domicile
+    boo_dom=if_else(substr(matchup,5,5)=='@',0,1),
+    
+    # Passage de game_date au format date
+    game_date=as.Date(game_date),
+    
+    # game_year : Année du match
+    game_year=format(game_date,"%Y"),
+    
+    # game_month : Mois du match
+    game_month=format(game_date,"%m"),
+    
+    # game_day : Jour du match
+    game_day=format(game_date,"%d"),
+    
+    # boo_noel : Booléen match le jour de Noël
+    boo_noel=if_else(game_day==25 & game_month==12,1,0),
+    
+    # num_season : Numéro de la saison
+    num_season=as.numeric(substr(season,1,4))-1995,
+    
+    # phase : Phase de la carrière de KB
+    phase=if_else(game_date<"2004-07-01",1, # Avec O'Neal
+            if_else(game_date>="2004-07-01" & game_date<"2008-02-05",2, # Seul
+              if_else(game_date>="2008-02-05" & game_date<"2013-11-01",3, # Avec Gasol
+                if_else(game_date>="2013-11-01",4,99)))), # Après sa blessure
+    
+    # age : Âge de KB au moment du match
+    age=round((as.Date(game_date)-as.Date("1978-08-23"))/365.25,1)
+    
+  )
 
+# Ajout du temps de repos (nombre de jours par rapport au dernier match, max 15 en version corrigé)
+ajout_temps_repos <- kb_shots %>%
+  distinct(game_date) %>%
+  arrange(game_date) %>%
+  mutate(last_game_date=lag(game_date),
+         temps_repos=as.numeric(game_date-last_game_date),
+         temps_repos_corr=if_else(is.na(temps_repos) | temps_repos>15,15,temps_repos)
+        ) %>%
+  select(-last_game_date)
+
+kb_shots <- kb_shots %>% inner_join(ajout_temps_repos, by="game_date")
+
+# Sélection des variables et mise en forme de la table
+test <- kb_shots %>%
+  select(shot_id, game_date, game_day, game_month, game_year,
+         season, num_season, playoffs, boo_noel, age,
+         opponent, boo_dom,
+         temps_repos, temps_repos_corr,
+         game_event_id, temps_total, period, temps_period, temps_remaining_period,
+         shot_type, combined_shot_type, action_type,
+         loc_x, loc_y, shot_distance, shot_zone_range,
+         shot_zone_area, shot_zone_basic,
+         shot_made_flag
+         )
+
+test2 <- test %>% group_by(phase) %>% summarise(m1=min(as.Date(game_date)), m2=max(as.Date(game_date)))
+
+
+
+kb_regseason <- source_kb_regseason %>% mutate(source='kb_regseason')
+kb_playoffs <- source_kb_playoffs %>% mutate(source='kb_playoffs')
+
+kb_stats <- bind_rows(kb_regseason,kb_playoffs) %>%
+  mutate(game_date=as.Date(Date, format="%d/%m/%Y")) %>%
+  arrange(game_date) %>%
+  mutate(
+        # X2... Stats sur les shots à 2 points du match
+        X2P=FG-X3P,
+        X2PA=FGA-X3PA,
+        X2Ppct=round(X2P/X2PA,3),
+        
+        # Quand le pourcentage au tir est manquant (car aucun tir de ce type) on remplace par la moyenne carrière de KB
+        FGpct=if_else(is.na(FGpct),0.444,FGpct),
+        X2Ppct=if_else(is.na(X2Ppct),0.476,X2Ppct),
+        X3Ppct=if_else(is.na(X3Ppct),0.3,X3Ppct),
+        FTpct=if_else(is.na(FTpct),0.829,FTpct),
+        
+        # second_played : Nombre de secondes joués par KB dans le match
+        second_played=if_else(nchar(MP)==5,as.numeric(substr(MP,1,2)),as.numeric(substr(MP,1,2))*60+as.numeric(substr(MP,4,5))),
+        
+        # ratio_played : Pourcentage du match joué par KB (2880=match complet sans prolongation, le ratio peut dépasser 1 si prolongation)
+        ratio_played=round(100*second_played/2880,2),
+        
+        # boo_win : booléen victoire sur le match
+        boo_win=if_else(substr(Win_Loss,1,1)=='W',1,-1),
+        
+        # plus_moins_corr: Imputation manuelle à partir de stats desc sur la variable plus_moins
+        plus_moins_corr=if_else(is.na(plus_moins) & boo_win==0 & source=="kb_playoffs",-9,
+                          if_else(is.na(plus_moins) & boo_win==0 & source=="kb_regseason",1,
+                            if_else(is.na(plus_moins) & boo_win==1 & source=="kb_regseason",4,
+                              if_else(is.na(plus_moins) & boo_win==1 & source=="kb_playoffs",10,as.numeric(plus_moins))))),
+        
+        # Variable lag du match précédent
+        boo_win_lag=lag(boo_win),
+        second_played_lag=lag(second_played),
+        ratio_played_lag=lag(ratio_played),
+        PTS_lag=lag(PTS),
+        GmSc_lag=lag(GmSc),
+        FG_lag=lag(FG),
+        FGA_lag=lag(FGA),
+        FGpct_lag=lag(FGpct),
+        X2P_lag=lag(X2P),
+        X2PA_lag=lag(X2PA),
+        X2Ppct_lag=lag(X2Ppct),
+        X3P_lag=lag(X3P),
+        X3PA_lag=lag(X3PA),
+        X3Ppct_lag=lag(X3Ppct),
+        FT_lag=lag(FT),
+        FTA_lag=lag(FTA),
+        FTpct_lag=lag(FTpct)
+  ) %>%
+  select(-Date, -Rk, -G, -Age, -Tm, -source, -Opp, -Home_Away)
+
+
+lakers_1995_2015 <- bind_rows(source_Lakers_Saison1995_2015,source_Lakers_Playoffs1995_2015) %>%
+  mutate(game_date=as.Date(Date, format="%d/%m/%Y"),
+         streak=if_else(substr(Streak,1,1)=='W',as.numeric(substr(Streak,3,4)),-as.numeric(substr(Streak,3,4))),
+         ecart_pts=Tm-Opp
+  ) %>%
+  arrange(game_date) %>%
+  select(-Date, -G, -Notes)
+
+stats_kb_lakers <- inner_join(kb_stats, lakers_1995_2015, by='game_date')
 
 # Autres variables à créer :
-  # * Variable DOM/EXT
-  # * Variable Nombre jours depuis le dernier match
-  # * Variable phase la carrière (avec Oneal, seul, avec Gasol avant blessure, avec Gasol après blessure)
-  # * Variable année/mois
-  # * Variable saison
-  # * Variable saison playoff (si oui, niveau du playoff) 
-  # * Variable Age du joueur
-  # * Variable Booléen jour anniversaire / Noël / MLK Day
+
   # * Variable Équipe adverse
   # * Variable total shoot du match
   # * Variable qualité shoot au début du match (Q1/Q2 pour prédirer Q3/Q4 par exemple)
   # * Variable 1/2/3 derniers shoots
   # * Variable clunch moment
+  # * Variable qualité de la saison A et A-1 (score saison régulière et tour élimination playoffs)
 
 
 
