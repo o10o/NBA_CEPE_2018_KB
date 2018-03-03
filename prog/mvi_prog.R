@@ -79,7 +79,9 @@ ratio_shot_vs_adv <- source_kb_shots %>%
 # Création de variables supplémentaires #
 #########################################
 
-
+#################################################
+# A. Uniquement à partir de source_kb_shots.csv #
+#################################################
 kb_shots <- source_kb_shots %>%
   mutate(
     
@@ -144,6 +146,27 @@ ajout_temps_repos <- kb_shots %>%
 
 kb_shots <- kb_shots %>% inner_join(ajout_temps_repos, by="game_date")
 
+# Ajout des variables premier/dernier shoots de KB du QT/match
+premier_dernier_kb_shots_qt <- kb_shots %>%
+  group_by(game_date, period) %>%
+  summarise(min_qt_game_event_id=min(game_event_id),
+            max_qt_game_event_id=max(game_event_id))
+
+premier_dernier_kb_shots_match <- kb_shots %>%
+  group_by(game_date) %>%
+  summarise(min_match_game_event_id=min(game_event_id),
+            max_match_game_event_id=max(game_event_id))
+
+kb_shots <- kb_shots %>%
+  left_join(premier_dernier_kb_shots_qt, by=c("game_date","period")) %>%
+  left_join(premier_dernier_kb_shots_match, by=c("game_date")) %>%
+  mutate(boo_premier_shot_qt=if_else(game_event_id==min_qt_game_event_id,1,0),
+         boo_dernier_shot_qt=if_else(game_event_id==max_qt_game_event_id,1,0),
+         boo_premier_shot_match=if_else(game_event_id==min_match_game_event_id,1,0),
+         boo_dernier_shot_match=if_else(game_event_id==max_match_game_event_id,1,0)) %>%
+  select(-min_qt_game_event_id,-max_qt_game_event_id,-min_match_game_event_id,-max_match_game_event_id)
+
+
 # Sélection des variables et mise en forme de la table
 test <- kb_shots %>%
   select(shot_id, game_date, game_day, game_month, game_year,
@@ -151,15 +174,20 @@ test <- kb_shots %>%
          opponent, boo_dom,
          temps_repos, temps_repos_corr,
          game_event_id, temps_total, period, temps_period, temps_remaining_period,
+         boo_premier_shot_qt,boo_dernier_shot_qt,boo_premier_shot_match,boo_dernier_shot_match,
          shot_type, combined_shot_type, action_type,
          loc_x, loc_y, shot_distance, shot_zone_range,
          shot_zone_area, shot_zone_basic,
          shot_made_flag
-         )
+        ) %>%
+  arrange(game_date,game_event_id)
 
 test2 <- test %>% group_by(phase) %>% summarise(m1=min(as.Date(game_date)), m2=max(as.Date(game_date)))
 
 
+###########################################################################
+# B1. Ajput de données suppkémentaires (stats KB sur l'ensemble du match) #
+###########################################################################
 
 kb_regseason <- source_kb_regseason %>% mutate(source='kb_regseason')
 kb_playoffs <- source_kb_playoffs %>% mutate(source='kb_playoffs')
@@ -216,6 +244,9 @@ kb_stats <- bind_rows(kb_regseason,kb_playoffs) %>%
   select(-Date, -Rk, -G, -Age, -Tm, -source, -Opp, -Home_Away)
 
 
+#########################################################################
+# B2. Ajout de données suppkémentaires (résulats des matchs des Lakers) #
+#########################################################################
 lakers_1995_2015 <- bind_rows(source_Lakers_Saison1995_2015,source_Lakers_Playoffs1995_2015) %>%
   mutate(game_date=as.Date(Date, format="%d/%m/%Y"),
          streak=if_else(substr(Streak,1,1)=='W',as.numeric(substr(Streak,3,4)),-as.numeric(substr(Streak,3,4))),
@@ -224,11 +255,18 @@ lakers_1995_2015 <- bind_rows(source_Lakers_Saison1995_2015,source_Lakers_Playof
   arrange(game_date) %>%
   select(-Date, -G, -Notes)
 
+
+
+
+##########################
+# Assemblages des tables #
+##########################
+
 stats_kb_lakers <- inner_join(kb_stats, lakers_1995_2015, by='game_date')
 
 # Autres variables à créer :
 
-  # * Variable Équipe adverse
+  # * Variable Équipe adverse (fusion de franchise ?)
   # * Variable total shoot du match
   # * Variable qualité shoot au début du match (Q1/Q2 pour prédirer Q3/Q4 par exemple)
   # * Variable 1/2/3 derniers shoots
