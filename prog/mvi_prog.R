@@ -167,6 +167,144 @@ kb_shots <- kb_shots %>%
   select(-min_qt_game_event_id,-max_qt_game_event_id,-min_match_game_event_id,-max_match_game_event_id)
 
 
+# Ajout nombre total de shot dans le QT/match (notion d'intensité en divisant par le temps total du QT/match)
+kb_shots <- kb_shots %>%
+  group_by(game_date, period) %>%
+  mutate(nb_shot_qt=n(),
+         intensite_shot_qt=if_else(period<=4,nb_shot_qt/12,nb_shot_qt/5)) %>%
+  group_by(game_date) %>%
+  mutate(nb_qt_match=max(period,4),
+         nb_shot_match=n(),
+         intensite_shot_match=nb_shot_match/(48+5*(nb_qt_match-4))) %>%
+  ungroup()
+
+
+
+
+# Ajout de la qualité des derniers shots (jusqu'à -5) et des prochains (jusqu'à +5)
+kb_shots <- kb_shots %>%
+  arrange(game_date, game_event_id) %>%
+  mutate(score_shot_made=if_else(is.na(shot_made_flag),0,if_else(shot_made_flag==1,1,-1)),
+         
+         score_shot_m1=if_else(lag(game_date)==game_date,
+                               lag(score_shot_made),
+                               0),
+         score_shot_m1=if_else(is.na(score_shot_m1),0,score_shot_m1),
+         
+         score_shot_m2=if_else(lag(game_date, n=2)==game_date,
+                               score_shot_m1+lag(score_shot_made, n=2),
+                               score_shot_m1),
+         score_shot_m2=if_else(is.na(score_shot_m2),score_shot_m1,score_shot_m2),
+         
+         score_shot_m3=if_else(lag(game_date, n=3)==game_date,
+                               score_shot_m2+lag(score_shot_made, n=3),
+                               score_shot_m2),
+         score_shot_m3=if_else(is.na(score_shot_m3),score_shot_m2,score_shot_m3),
+         
+         score_shot_m4=if_else(lag(game_date, n=4)==game_date,
+                               score_shot_m3+lag(score_shot_made, n=4),
+                               score_shot_m3),
+         score_shot_m4=if_else(is.na(score_shot_m4),score_shot_m3,score_shot_m4),
+         
+         score_shot_m5=if_else(lag(game_date, n=5)==game_date,
+                               score_shot_m4+lag(score_shot_made, n=5),
+                               score_shot_m4),
+         score_shot_m5=if_else(is.na(score_shot_m5),score_shot_m4,score_shot_m5),
+         
+         score_shot_p1=if_else(lead(game_date)==game_date,
+                               lead(score_shot_made),
+                               0),
+         score_shot_p1=if_else(is.na(score_shot_p1),0,score_shot_p1),
+         
+         score_shot_p2=if_else(lead(game_date, n=2)==game_date,
+                               score_shot_p1+lead(score_shot_made, n=2),
+                               score_shot_p1),
+         score_shot_p2=if_else(is.na(score_shot_p2),score_shot_p1,score_shot_p2),
+         
+         score_shot_p3=if_else(lead(game_date, n=3)==game_date,
+                               score_shot_p2+lead(score_shot_made, n=3),
+                               score_shot_p2),
+         score_shot_p3=if_else(is.na(score_shot_p3),score_shot_p2,score_shot_p3),
+         
+         score_shot_p4=if_else(lead(game_date, n=4)==game_date,
+                               score_shot_p3+lead(score_shot_made, n=4),
+                               score_shot_p3),
+         score_shot_p4=if_else(is.na(score_shot_p4),score_shot_p3,score_shot_p4),
+         
+         score_shot_p5=if_else(lead(game_date, n=5)==game_date,
+                               score_shot_p4+lead(score_shot_made, n=5),
+                               score_shot_p4),
+         score_shot_p5=if_else(is.na(score_shot_p5),score_shot_p4,score_shot_p5)
+        
+        ) %>%
+  arrange(combined_shot_type, game_date, game_event_id) %>%
+  
+  # Ajout de la qualité des derniers shots (jusqu'à -5) et des prochains (jusqu'à +5)
+  # par type de shots et sans réinitialiser par match comme on le fait juste au dessus
+  mutate(score_shot_type_m1=if_else(lag(combined_shot_type)==combined_shot_type,
+                               lag(score_shot_made),
+                               0),
+         score_shot_type_m1=if_else(is.na(score_shot_type_m1),0,score_shot_type_m1),
+         
+         score_shot_type_m2=if_else(lag(combined_shot_type, n=2)==combined_shot_type,
+                                    score_shot_type_m1+lag(score_shot_made, n=2),
+                                    score_shot_type_m1),
+         score_shot_type_m2=if_else(is.na(score_shot_type_m2),score_shot_type_m1,score_shot_type_m2),
+         
+         score_shot_type_m3=if_else(lag(combined_shot_type, n=3)==combined_shot_type,
+                                    score_shot_type_m2+lag(score_shot_made, n=3),
+                                    score_shot_type_m2),
+         score_shot_type_m3=if_else(is.na(score_shot_type_m3),score_shot_type_m2,score_shot_type_m3),
+         
+         score_shot_type_m4=if_else(lag(combined_shot_type, n=4)==combined_shot_type,
+                                    score_shot_type_m3+lag(score_shot_made, n=4),
+                                    score_shot_type_m3),
+         score_shot_type_m4=if_else(is.na(score_shot_type_m4),score_shot_type_m3,score_shot_type_m4),
+         
+         score_shot_type_m5=if_else(lag(combined_shot_type, n=5)==combined_shot_type,
+                                    score_shot_type_m4+lag(score_shot_made, n=5),
+                                    score_shot_type_m4),
+         score_shot_type_m5=if_else(is.na(score_shot_type_m5),score_shot_type_m4,score_shot_type_m5),
+       
+         
+         
+         score_shot_type_p1=if_else(lead(combined_shot_type)==combined_shot_type,
+                               lead(score_shot_made),
+                               0),
+         score_shot_type_p1=if_else(is.na(score_shot_type_p1),0,score_shot_type_p1),
+         
+         score_shot_type_p2=if_else(lead(combined_shot_type, n=2)==combined_shot_type,
+                               score_shot_type_p1+lead(score_shot_made, n=2),
+                               score_shot_type_p1),
+         score_shot_type_p2=if_else(is.na(score_shot_type_p2),score_shot_type_p1,score_shot_type_p2),
+         
+         score_shot_type_p3=if_else(lead(combined_shot_type, n=3)==combined_shot_type,
+                               score_shot_type_p2+lead(score_shot_made, n=3),
+                               score_shot_type_p2),
+         score_shot_type_p3=if_else(is.na(score_shot_type_p3),score_shot_type_p2,score_shot_type_p3),
+         
+         score_shot_type_p4=if_else(lead(combined_shot_type, n=4)==combined_shot_type,
+                               score_shot_type_p3+lead(score_shot_made, n=4),
+                               score_shot_type_p3),
+         score_shot_type_p4=if_else(is.na(score_shot_type_p4),score_shot_type_p3,score_shot_type_p4),
+         
+         score_shot_type_p5=if_else(lead(combined_shot_type, n=5)==combined_shot_type,
+                               score_shot_type_p4+lead(score_shot_made, n=5),
+                               score_shot_type_p4),
+         score_shot_type_p5=if_else(is.na(score_shot_type_p5),score_shot_type_p4,score_shot_type_p5)
+        ) %>%
+  select(-score_shot_made)
+
+select(combined_shot_type, game_date, game_event_id, score_shot_made,
+       score_shot_type_m1,score_shot_type_m2,score_shot_type_m3,score_shot_type_m4,score_shot_type_m5,
+       score_shot_type_p1,score_shot_type_p2,score_shot_type_p3,score_shot_type_p4,score_shot_type_p5)
+
+
+
+
+  
+  
+
 # Sélection des variables et mise en forme de la table
 test <- kb_shots %>%
   select(shot_id, game_date, game_day, game_month, game_year,
@@ -175,6 +313,10 @@ test <- kb_shots %>%
          temps_repos, temps_repos_corr,
          game_event_id, temps_total, period, temps_period, temps_remaining_period,
          boo_premier_shot_qt,boo_dernier_shot_qt,boo_premier_shot_match,boo_dernier_shot_match,
+         score_shot_m1,score_shot_m2,score_shot_m3,score_shot_m4,score_shot_m5,
+         score_shot_p1,score_shot_p2,score_shot_p3,score_shot_p4,score_shot_p5,
+         score_shot_type_m1,score_shot_type_m2,score_shot_type_m3,score_shot_type_m4,score_shot_type_m5,
+         score_shot_type_p1,score_shot_type_p2,score_shot_type_p3,score_shot_type_p4,score_shot_type_p5,
          shot_type, combined_shot_type, action_type,
          loc_x, loc_y, shot_distance, shot_zone_range,
          shot_zone_area, shot_zone_basic,
@@ -182,11 +324,12 @@ test <- kb_shots %>%
         ) %>%
   arrange(game_date,game_event_id)
 
+
 test2 <- test %>% group_by(phase) %>% summarise(m1=min(as.Date(game_date)), m2=max(as.Date(game_date)))
 
 
 ###########################################################################
-# B1. Ajput de données suppkémentaires (stats KB sur l'ensemble du match) #
+# B1. Ajout de données suppkémentaires (stats KB sur l'ensemble du match) #
 ###########################################################################
 
 kb_regseason <- source_kb_regseason %>% mutate(source='kb_regseason')
@@ -267,7 +410,6 @@ stats_kb_lakers <- inner_join(kb_stats, lakers_1995_2015, by='game_date')
 # Autres variables à créer :
 
   # * Variable Équipe adverse (fusion de franchise ?)
-  # * Variable total shoot du match
   # * Variable qualité shoot au début du match (Q1/Q2 pour prédirer Q3/Q4 par exemple)
   # * Variable 1/2/3 derniers shoots
   # * Variable clunch moment
