@@ -8,6 +8,8 @@ library(hexbin)
 library(png)
 library(grid)
 library(ggmap)
+library(hexbin)
+
 
 #lecture des coordonnées de shoot
 sh<-read.table("./data/source_kb_shots.csv", header=T,sep=",")
@@ -21,7 +23,6 @@ sh_manq<-sh[sh$shot_made_flag==0,]
 ggimage(rcourt, fullpage = T)+
   geom_hex(aes(x=loc_x, y=loc_y),data=sh_mis)
 decoup<-c(0, 100, 250, 500, 1000, 1500, 2000, 2500, Inf)
-),
 
 ggplot(sh_mis) + 
     annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
