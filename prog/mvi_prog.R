@@ -387,6 +387,7 @@ kb_stats <- bind_rows(kb_regseason,kb_playoffs) %>%
   select(-Date, -Rk, -G, -Age, -Tm, -source, -Opp, -Home_Away)
 
 
+
 #########################################################################
 # B2. Ajout de données suppkémentaires (résulats des matchs des Lakers) #
 #########################################################################
