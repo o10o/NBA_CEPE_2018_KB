@@ -14,7 +14,7 @@ library(ggplot2)
 library(plotly)
 
 # Define UI for application that draws a histogram
-ui <- fluidPage(
+ui <- fluidPage(theme="bootstrap.css",
      tags$head(tags$style(
             HTML('
          #sidebar {

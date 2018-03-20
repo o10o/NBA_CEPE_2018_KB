@@ -51,24 +51,24 @@ server <- function(input, output) {
         sh=shr()
         if(is.null(sh)) return (NULL)
         advers<-sh%>%distinct(opponent)
-        selectInput(inputId = "adversaire",label="Sel.Adversaire",choices = c("toto ",advers))
+        selectInput(inputId = "adversaire",label="Sel.Adversaire",choices = c("toto ",advers),)
     })
     
   
     
     output$type_shoot <- renderUI({
         #convertit en entree le type de shoot selectionne pour quil puise etre passe au plot    
-        selectInput("ts", "type shoot:", unique(as.character(shr()$combined_shot_type)))
+        selectInput("ts", "type shoot:", unique(as.character(shr()$combined_shot_type)),multiple=T)
     })
     
     output$adversaire <- renderUI({
         #convertit en entree l'adversaire selectionne pour quil puisse etre passe au plot    
-        selectInput("opp", "adversaire:", unique(as.character(shr()$opponent)))
+        selectInput("opp", "adversaire:", unique(as.character(shr()$opponent)),multiple=T)
     })
     
     output$saison <- renderUI({
         #convertit en entree l'adversaire selectionne pour quil puisse etre passe au plot    
-        selectInput("saiz", "saison:", unique(as.character(shr()$season)))
+        selectInput("saiz", "saison:", unique(as.character(shr()$season)),multiple = T)
     })
     output$player_photo <- renderImage({
         # A temp file to save the output.
@@ -99,7 +99,8 @@ server <- function(input, output) {
             reussi<-input$reussi
         
         
-        sh_filtre<-shr()[shr()$combined_shot_type==input$ts & shr()$opponent==input$opp & shr()$season==input$saiz & shr()$shot_made_flag %in% reussi & str_locate(shr()$matchup,dx),]
+        #sh_filtre<-shr()[shr()$combined_shot_type==input$ts & shr()$opponent==input$opp & shr()$season==input$saiz & shr()$shot_made_flag %in% reussi & str_locate(shr()$matchup,dx),]
+        sh_filtre<-shr()[shr()$combined_shot_type %in% input$ts & shr()$opponent %in% input$opp & shr()$season %in% input$saiz & shr()$shot_made_flag %in% reussi & str_locate(shr()$matchup,dx),]
         p<-ggplot(data=sh_filtre) + 
             #theme_void()+
            # annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
