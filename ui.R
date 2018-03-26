@@ -43,7 +43,7 @@ ui <- fluidPage(
             #fileInput('datafile', label='Sel. Fichier',buttonLabel = 'Sel. Fichier',
             #          accept=c('text/csv', 'text/comma-separated-values,text/plain')),
     
-            
+            actionButton("action", label = "Actualisation"),
             
             selectInput(inputId = "type_shoot",label="Type de shoot",choices = dist_typsh,multiple=T),
             #radio bouton pour shoots reussis ou pas
@@ -77,7 +77,7 @@ ui <- fluidPage(
             # Output: Tabset w/ plot, summary, et table ----
             tabsetPanel(type = "tabs",
                         #Premier onbglet plot les tirs
-                        tabPanel(id="tab","Visualisation des tirs", plotOutput("plot",height = "800"),plotOutput("graph")),
+                        tabPanel(id="tab","Visualisation des tirs", plotOutput("plot",height = "800"),plotOutput("graph"), chartJSRadarOutput (outputId = "profil")),
                         tabPanel("Stats", verbatimTextOutput("summary")),
                         tabPanel("données", dataTableOutput("table"))
             )
