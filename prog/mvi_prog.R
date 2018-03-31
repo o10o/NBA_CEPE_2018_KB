@@ -20,6 +20,12 @@ source_kb_playoffs <- read.csv("data/source_kbLog_playoffs.csv", sep=';')
 source_Lakers_Saison1995_2015 <- read.csv("data/Source_Lakers_Saison1995_2015.csv", sep=';')
 source_Lakers_Playoffs1995_2015 <- read.csv("data/Source_Lakers_Playoffs1995_2015.csv", sep=';')
 
+# lag2 = function(x){
+#   x<-lag(x)
+#   x[1]=0
+#   x
+# }
+
 
 #####################################################################
 # 1. Analyse des données sources et création de nouvelles variables #
@@ -146,6 +152,7 @@ ajout_temps_repos <- kb_shots %>%
 
 kb_shots <- kb_shots %>% inner_join(ajout_temps_repos, by="game_date")
 
+
 # Ajout des variables premier/dernier shoots de KB du QT/match
 premier_dernier_kb_shots_qt <- kb_shots %>%
   group_by(game_date, period) %>%
@@ -167,6 +174,21 @@ kb_shots <- kb_shots %>%
   select(-min_qt_game_event_id,-max_qt_game_event_id,-min_match_game_event_id,-max_match_game_event_id)
 
 
+# Ajout du temps dernier/prochain shot
+# si c'est le premier shot du QT on met 12*60=720 secondes pour le temps dernier shot
+# si c'est le dernier shot du QT on met 12*60=720 secondes pour le temps prochain shot
+kb_shots <- kb_shots %>%
+  arrange(game_date, period, temps_period, game_event_id) %>%
+  mutate(temps_dernier_shot=if_else(game_date==lag(game_date) & period==lag(period),
+                                    temps_period-lag(temps_period),720),
+         temps_dernier_shot=if_else(is.na(temps_dernier_shot),720,temps_dernier_shot),
+         temps_prochain_shot=if_else(game_date==lead(game_date) & period==lead(period),
+                                    lead(temps_period)-temps_period,720),
+         temps_prochain_shot=if_else(is.na(temps_prochain_shot),720,temps_prochain_shot)
+        )
+
+
+
 # Ajout nombre total de shot dans le QT/match (notion d'intensité en divisant par le temps total du QT/match)
 kb_shots <- kb_shots %>%
   group_by(game_date, period) %>%
@@ -179,11 +201,41 @@ kb_shots <- kb_shots %>%
   ungroup()
 
 
+write.csv()
+
+
+# Ajout du nombre total, réussi et ratio de shots  au moment ou KB prend le shot depuis le début du QT
+stats_shot_kb_debut_qt <- kb_shots %>%
+  arrange(game_date, period, temps_period, game_event_id) %>%
+  select(game_date, period, temps_period, game_event_id, shot_made_flag) %>%
+  filter(!is.na(shot_made_flag)) %>%
+  group_by(game_date, period) %>%
+  mutate(
+    constante=1,
+    nb_shot_qt=cumsum(constante), # Shot pris par KB depuis le début du QT
+    nb_shot_ok_qt=cumsum(shot_made_flag), # Shot réussi par KB depuis le début du QT
+    pct_shot_ok_qt=cummean(shot_made_flag) # Pourcentage shot réussi par KB depuis le début du QT
+    # Note : équivalent de nb_shot_ok_qt/nb_shot_qt
+        ) %>%
+  ungroup() %>%
+  select(-constante) %>%
+  arrange(game_date, period, temps_period, game_event_id) %>%
+  mutate(
+    # On calcul le lag pour ne pas prendre en compte le résultat du shot courant
+    nb_shot_qt_lag=if_else(game_date==lag(game_date) & period==lag(period),lag(nb_shot_qt),0),
+    nb_shot_ok_qt_lag=if_else(game_date==lag(game_date) & period==lag(period),lag(nb_shot_ok_qt),0L),
+    pct_shot_ok_qt_lag=if_else(game_date==lag(game_date) & period==lag(period),lag(pct_shot_ok_qt),999)
+        )
+
+
+        
+test2 <- test %>% filter(avg_shot_ok_qt==ratio_shot_ok_qt)
+
 
 
 # Ajout de la qualité des derniers shots (jusqu'à -5) et des prochains (jusqu'à +5)
 kb_shots <- kb_shots %>%
-  arrange(game_date, game_event_id) %>%
+  arrange(game_date, period, temps_period, game_event_id) %>%
   mutate(score_shot_made=if_else(is.na(shot_made_flag),0,if_else(shot_made_flag==1,1,-1)),
          
          score_shot_m1=if_else(lag(game_date)==game_date,
@@ -295,23 +347,17 @@ kb_shots <- kb_shots %>%
         ) %>%
   select(-score_shot_made)
 
-select(combined_shot_type, game_date, game_event_id, score_shot_made,
-       score_shot_type_m1,score_shot_type_m2,score_shot_type_m3,score_shot_type_m4,score_shot_type_m5,
-       score_shot_type_p1,score_shot_type_p2,score_shot_type_p3,score_shot_type_p4,score_shot_type_p5)
 
 
-
-
-  
-  
 
 # Sélection des variables et mise en forme de la table
-test <- kb_shots %>%
+kb_shots <- kb_shots %>%
   select(shot_id, game_date, game_day, game_month, game_year,
          season, num_season, playoffs, boo_noel, age,
          opponent, boo_dom,
          temps_repos, temps_repos_corr,
          game_event_id, temps_total, period, temps_period, temps_remaining_period,
+         temps_dernier_shot, temps_prochain_shot,
          boo_premier_shot_qt,boo_dernier_shot_qt,boo_premier_shot_match,boo_dernier_shot_match,
          score_shot_m1,score_shot_m2,score_shot_m3,score_shot_m4,score_shot_m5,
          score_shot_p1,score_shot_p2,score_shot_p3,score_shot_p4,score_shot_p5,
@@ -322,10 +368,9 @@ test <- kb_shots %>%
          shot_zone_area, shot_zone_basic,
          shot_made_flag
         ) %>%
-  arrange(game_date,game_event_id)
+  arrange(game_date, period, temps_period, game_event_id)
 
 
-test2 <- test %>% group_by(phase) %>% summarise(m1=min(as.Date(game_date)), m2=max(as.Date(game_date)))
 
 
 ###########################################################################
@@ -349,6 +394,9 @@ kb_stats <- bind_rows(kb_regseason,kb_playoffs) %>%
         X2Ppct=if_else(is.na(X2Ppct),0.476,X2Ppct),
         X3Ppct=if_else(is.na(X3Ppct),0.3,X3Ppct),
         FTpct=if_else(is.na(FTpct),0.829,FTpct),
+
+        # Calcul de l'EFF (Efficiency)
+        EFF=PTS+ORB+DRB+AST+STL+BLK-(FGA-FG)-(FTA-FT)-TOV,
         
         # second_played : Nombre de secondes joués par KB dans le match
         second_played=if_else(nchar(MP)==5,as.numeric(substr(MP,1,2)),as.numeric(substr(MP,1,2))*60+as.numeric(substr(MP,4,5))),
@@ -367,22 +415,58 @@ kb_stats <- bind_rows(kb_regseason,kb_playoffs) %>%
         
         # Variable lag du match précédent
         boo_win_lag=lag(boo_win),
+        boo_win_lag=if_else(is.na(boo_win_lag),1,boo_win_lag), # Le match avant les débuts de KB est une victoire
         second_played_lag=lag(second_played),
+        second_played_lag=if_else(is.na(second_played_lag),0,second_played_lag),
         ratio_played_lag=lag(ratio_played),
+        ratio_played_lag=if_else(is.na(ratio_played_lag),0,ratio_played_lag),
         PTS_lag=lag(PTS),
+        PTS_lag=if_else(is.na(PTS_lag),0L,PTS_lag),
         GmSc_lag=lag(GmSc),
+        GmSc_lag=if_else(is.na(GmSc_lag),0,GmSc_lag),
+        EFF_lag=lag(EFF),
+        EFF_lag=if_else(is.na(EFF_lag),0L,EFF_lag),
         FG_lag=lag(FG),
+        FG_lag=if_else(is.na(FG_lag),0L,FG_lag),
         FGA_lag=lag(FGA),
+        FGA_lag=if_else(is.na(FGA_lag),0L,FGA_lag),
         FGpct_lag=lag(FGpct),
+        FGpct_lag=if_else(is.na(FGpct_lag),0.444,FGpct_lag),
         X2P_lag=lag(X2P),
+        X2P_lag=if_else(is.na(X2P_lag),0L,X2P_lag),
         X2PA_lag=lag(X2PA),
+        X2PA_lag=if_else(is.na(X2PA_lag),0L,X2PA_lag),
         X2Ppct_lag=lag(X2Ppct),
+        X2Ppct_lag=if_else(is.na(X2Ppct_lag),0.476,X2Ppct_lag),
         X3P_lag=lag(X3P),
+        X3P_lag=if_else(is.na(X3P_lag),0L,X3P_lag),
         X3PA_lag=lag(X3PA),
+        X3PA_lag=if_else(is.na(X3PA_lag),0L,X3PA_lag),
         X3Ppct_lag=lag(X3Ppct),
+        X3Ppct_lag=if_else(is.na(X3Ppct_lag),0.3,X3Ppct_lag),
         FT_lag=lag(FT),
+        FT_lag=if_else(is.na(FT_lag),0L,FT_lag),
         FTA_lag=lag(FTA),
-        FTpct_lag=lag(FTpct)
+        FTA_lag=if_else(is.na(FTA_lag),0L,FTA_lag),
+        FTpct_lag=lag(FTpct),
+        FTpct_lag=if_else(is.na(FTpct_lag),0.829,FTpct_lag),
+        ORB_lag=lag(ORB),
+        ORB_lag=if_else(is.na(ORB_lag),0L,ORB_lag),
+        DRB_lag=lag(DRB),
+        DRB_lag=if_else(is.na(DRB_lag),0L,DRB_lag),
+        TRB_lag=lag(TRB),
+        TRB_lag=if_else(is.na(TRB_lag),0L,TRB_lag),
+        AST_lag=lag(AST),
+        AST_lag=if_else(is.na(AST_lag),0L,AST_lag),
+        STL_lag=lag(STL),
+        STL_lag=if_else(is.na(STL_lag),0L,STL_lag),
+        BLK_lag=lag(BLK),
+        BLK_lag=if_else(is.na(BLK_lag),0L,BLK_lag),
+        TOV_lag=lag(TOV),
+        TOV_lag=if_else(is.na(TOV_lag),0L,TOV_lag),
+        PF_lag=lag(PF),
+        PF_lag=if_else(is.na(PF_lag),0L,PF_lag)
+        
   ) %>%
   select(-Date, -Rk, -G, -Age, -Tm, -source, -Opp, -Home_Away)
 
