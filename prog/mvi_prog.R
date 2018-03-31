@@ -15,6 +15,7 @@
 library(dplyr)
 
 source_kb_shots <- read.csv("data/source_kb_shots.csv")
+source_kb_shots_JSON <- read.csv("data/source_kbshots_JSON.csv")
 source_kb_regseason <- read.csv("data/source_kbLog_regseason.csv", sep=';')
 source_kb_playoffs <- read.csv("data/source_kbLog_playoffs.csv", sep=';')
 source_Lakers_Saison1995_2015 <- read.csv("data/Source_Lakers_Saison1995_2015.csv", sep=';')
@@ -25,7 +26,6 @@ source_Lakers_Playoffs1995_2015 <- read.csv("data/Source_Lakers_Playoffs1995_201
 #   x[1]=0
 #   x
 # }
-
 
 #####################################################################
 # 1. Analyse des données sources et création de nouvelles variables #
@@ -72,10 +72,10 @@ matchs_vs_adv <- source_kb_shots %>% group_by(opponent) %>% summarise(nb_match_v
 
 # Taux de réussite vs. adversaires
 ratio_shot_vs_adv <- source_kb_shots %>%
-  filter(!is.na(shot_made_flag)) %>%
+  filter(!is.na(real_shot_made_flag)) %>%
   group_by(opponent) %>%
   summarise(nb_shot=n(),
-            nb_shot_ok=sum(shot_made_flag),
+            nb_shot_ok=sum(real_shot_made_flag),
             ratio_shot_ok=nb_shot_ok/nb_shot) %>%
   arrange(desc(ratio_shot_ok))
 
@@ -84,6 +84,7 @@ ratio_shot_vs_adv <- source_kb_shots %>%
 #########################################
 # Création de variables supplémentaires #
 #########################################
+
 
 #################################################
 # A. Uniquement à partir de source_kb_shots.csv #
@@ -115,13 +116,13 @@ kb_shots <- source_kb_shots %>%
     game_date=as.Date(game_date),
     
     # game_year : Année du match
-    game_year=format(game_date,"%Y"),
+    game_year=as.integer(format(game_date,"%Y")),
     
     # game_month : Mois du match
-    game_month=format(game_date,"%m"),
+    game_month=as.integer(format(game_date,"%m")),
     
     # game_day : Jour du match
-    game_day=format(game_date,"%d"),
+    game_day=as.integer(format(game_date,"%d")),
     
     # boo_noel : Booléen match le jour de Noël
     boo_noel=if_else(game_day==25 & game_month==12,1,0),
@@ -129,16 +130,36 @@ kb_shots <- source_kb_shots %>%
     # num_season : Numéro de la saison
     num_season=as.numeric(substr(season,1,4))-1995,
     
-    # phase : Phase de la carrière de KB
-    phase=if_else(game_date<"2004-07-01",1, # Avec O'Neal
-            if_else(game_date>="2004-07-01" & game_date<"2008-02-05",2, # Seul
-              if_else(game_date>="2008-02-05" & game_date<"2013-11-01",3, # Avec Gasol
-                if_else(game_date>="2013-11-01",4,99)))), # Après sa blessure
+    # phase_carriere : Phase de la carrière de KB
+    phase_carriere=if_else(game_date<"2004-07-01",1, # Avec O'Neal
+                    if_else(game_date>="2004-07-01" & game_date<"2008-02-05",2, # Seul
+                      if_else(game_date>="2008-02-05" & game_date<"2013-11-01",3, # Avec Gasol
+                        if_else(game_date>="2013-11-01",4,99)))), # Après sa blessure
     
     # age : Âge de KB au moment du match
     age=round((as.Date(game_date)-as.Date("1978-08-23"))/365.25,1)
     
   )
+
+
+
+##############################################################
+# On ajoute la données de shot du JSON qui est plus complète #
+##############################################################
+kb_shots_json <- source_kb_shots_JSON %>% 
+  rename(real_shot_made_flag=SHOT_MADE_FLAG,
+         game_year=year,
+         game_month=month,
+         game_day=day) %>%
+  select(-X)
+
+kb_shots <- inner_join(kb_shots,
+                   kb_shots_json,
+                   by=c("period","minutes_remaining","seconds_remaining",
+                        "game_year","game_month","game_day","game_event_id"))
+
+# --> On a bien real_shot_made_flag qui vaut shot_made_flag quand ce dernier ne vaut pas NA.
+
 
 # Ajout du temps de repos (nombre de jours par rapport au dernier match, max 15 en version corrigé)
 ajout_temps_repos <- kb_shots %>%
@@ -188,7 +209,6 @@ kb_shots <- kb_shots %>%
         )
 
 
-
 # Ajout nombre total de shot dans le QT/match (notion d'intensité en divisant par le temps total du QT/match)
 kb_shots <- kb_shots %>%
   group_by(game_date, period) %>%
@@ -201,20 +221,36 @@ kb_shots <- kb_shots %>%
   ungroup()
 
 
-write.csv()
+# Au préalable on calcule le pourcentage au shot de KB pour chaque match 
+# pct_shot_kb_match <- kb_shots %>%
+#   group_by(game_date) %>%
+#   summarise(nb_shot_tot_match=n(),
+#             nb_shot_ok_match=sum(real_shot_made_flag),
+#             pct_shot_match=round(nb_shot_ok_match/nb_shot_tot_match,2)) %>%
+#   ungroup() %>%
+#   arrange(game_date) %>%
+#   mutate(nb_shot_tot_match_lag=lag(nb_shot_tot_match),
+#          nb_shot_tot_match_lag=if_else(is.na(nb_shot_tot_match_lag),0L,nb_shot_tot_match_lag),
+#          nb_shot_ok_match_lag=lag(nb_shot_ok_match),
+#          nb_shot_ok_match_lag=if_else(is.na(nb_shot_ok_match_lag),0L,nb_shot_ok_match_lag),
+#          pct_shot_match_lag=lag(pct_shot_match),
+#          pct_shot_match_lag=if_else(is.na(pct_shot_match_lag),0.45,pct_shot_match_lag)) %>%
+#   select(game_date, nb_shot_tot_match_lag, nb_shot_ok_match_lag, pct_shot_match_lag)
+# 
+# kb_shots <- kb_shots %>% inner_join(pct_shot_kb_match, by="game_date")
 
 
 # Ajout du nombre total, réussi et ratio de shots  au moment ou KB prend le shot depuis le début du QT
 stats_shot_kb_debut_qt <- kb_shots %>%
   arrange(game_date, period, temps_period, game_event_id) %>%
-  select(game_date, period, temps_period, game_event_id, shot_made_flag) %>%
-  filter(!is.na(shot_made_flag)) %>%
+  select(game_date, period, temps_period, game_event_id, real_shot_made_flag) %>%
+  filter(!is.na(real_shot_made_flag)) %>%
   group_by(game_date, period) %>%
   mutate(
     constante=1,
-    nb_shot_qt=cumsum(constante), # Shot pris par KB depuis le début du QT
-    nb_shot_ok_qt=cumsum(shot_made_flag), # Shot réussi par KB depuis le début du QT
-    pct_shot_ok_qt=cummean(shot_made_flag) # Pourcentage shot réussi par KB depuis le début du QT
+    nb_shot_deb_qt=cumsum(constante), # Shot pris par KB depuis le début du QT
+    nb_shot_ok_deb_qt=cumsum(real_shot_made_flag), # Shot réussi par KB depuis le début du QT
+    pct_shot_ok_deb_qt=round(cummean(real_shot_made_flag),2) # Pourcentage shot réussi par KB depuis le début du QT
     # Note : équivalent de nb_shot_ok_qt/nb_shot_qt
         ) %>%
   ungroup() %>%
@@ -222,21 +258,57 @@ stats_shot_kb_debut_qt <- kb_shots %>%
   arrange(game_date, period, temps_period, game_event_id) %>%
   mutate(
     # On calcul le lag pour ne pas prendre en compte le résultat du shot courant
-    nb_shot_qt_lag=if_else(game_date==lag(game_date) & period==lag(period),lag(nb_shot_qt),0),
-    nb_shot_ok_qt_lag=if_else(game_date==lag(game_date) & period==lag(period),lag(nb_shot_ok_qt),0L),
-    pct_shot_ok_qt_lag=if_else(game_date==lag(game_date) & period==lag(period),lag(pct_shot_ok_qt),999)
-        )
+    nb_shot_deb_qt_lag=if_else(game_date==lag(game_date) & period==lag(period),lag(nb_shot_deb_qt),0),
+    nb_shot_deb_qt_lag=if_else(is.na(nb_shot_deb_qt_lag),0,nb_shot_deb_qt_lag),
+    nb_shot_ok_deb_qt_lag=if_else(game_date==lag(game_date) & period==lag(period),lag(nb_shot_ok_deb_qt),0L),
+    nb_shot_ok_deb_qt_lag=if_else(is.na(nb_shot_ok_deb_qt_lag),0L,nb_shot_ok_deb_qt_lag),
+    pct_shot_ok_deb_qt_lag=if_else(game_date==lag(game_date) & period==lag(period),
+                               lag(pct_shot_ok_deb_qt), 0.45), # Note : quand on est au premier shot du QT 45%
+    pct_shot_ok_deb_qt_lag=if_else(is.na(pct_shot_ok_deb_qt_lag),0.45,pct_shot_ok_deb_qt_lag)
+   ) %>%
+  select(-real_shot_made_flag)
+
+kb_shots <- kb_shots %>% inner_join(stats_shot_kb_debut_qt,
+                                    by=c("game_date", "period", "temps_period", "game_event_id"))
 
 
-        
-test2 <- test %>% filter(avg_shot_ok_qt==ratio_shot_ok_qt)
+# Ajout du nombre total, réussi et ratio de shots  au moment ou KB prend le shot depuis le début du match
+stats_shot_kb_debut_match <- kb_shots %>%
+  arrange(game_date, temps_total, game_event_id) %>%
+  select(game_date, temps_total, game_event_id, real_shot_made_flag) %>%
+  filter(!is.na(real_shot_made_flag)) %>%
+  group_by(game_date) %>%
+  mutate(
+    constante=1,
+    nb_shot_deb_match=cumsum(constante), # Shot pris par KB depuis le début du match
+    nb_shot_ok_deb_match=cumsum(real_shot_made_flag), # Shot réussi par KB depuis le début du match
+    pct_shot_ok_deb_match=round(cummean(real_shot_made_flag),2) # Pourcentage shot réussi par KB depuis le début du match
+    # Note : équivalent de nb_shot_ok_match/nb_shot_match
+  ) %>%
+  ungroup() %>%
+  select(-constante) %>%
+  arrange(game_date, temps_total, game_event_id) %>%
+  mutate(
+    # On calcul le lag pour ne pas prendre en compte le résultat du shot courant
+    nb_shot_deb_match_lag=if_else(game_date==lag(game_date),lag(nb_shot_deb_match),0),
+    nb_shot_deb_match_lag=if_else(is.na(nb_shot_deb_match_lag),0,nb_shot_deb_match_lag),
+    nb_shot_ok_deb_match_lag=if_else(game_date==lag(game_date),lag(nb_shot_ok_deb_match),0L),
+    nb_shot_ok_deb_match_lag=if_else(is.na(nb_shot_ok_deb_match_lag),0L,nb_shot_ok_deb_match_lag),
+    pct_shot_ok_deb_match_lag=if_else(game_date==lag(game_date),
+                               lag(pct_shot_ok_deb_match), 0.45), # Note : quand on est au premier shot du match 45%
+    pct_shot_ok_deb_match_lag=if_else(is.na(pct_shot_ok_deb_match_lag),0.45,pct_shot_ok_deb_match_lag)
+  ) %>%
+  select(-real_shot_made_flag)
+
+kb_shots <- kb_shots %>% inner_join(stats_shot_kb_debut_match,
+                                    by=c("game_date", "temps_total", "game_event_id"))
 
 
 
 # Ajout de la qualité des derniers shots (jusqu'à -5) et des prochains (jusqu'à +5)
 kb_shots <- kb_shots %>%
   arrange(game_date, period, temps_period, game_event_id) %>%
-  mutate(score_shot_made=if_else(is.na(shot_made_flag),0,if_else(shot_made_flag==1,1,-1)),
+  mutate(score_shot_made=if_else(is.na(real_shot_made_flag),0,if_else(real_shot_made_flag==1,1,-1)),
          
          score_shot_m1=if_else(lag(game_date)==game_date,
                                lag(score_shot_made),
@@ -348,8 +420,6 @@ kb_shots <- kb_shots %>%
   select(-score_shot_made)
 
 
-
-
 # Sélection des variables et mise en forme de la table
 kb_shots <- kb_shots %>%
   select(shot_id, game_date, game_day, game_month, game_year,
@@ -359,6 +429,11 @@ kb_shots <- kb_shots %>%
          game_event_id, temps_total, period, temps_period, temps_remaining_period,
          temps_dernier_shot, temps_prochain_shot,
          boo_premier_shot_qt,boo_dernier_shot_qt,boo_premier_shot_match,boo_dernier_shot_match,
+         nb_shot_qt, intensite_shot_qt, nb_shot_match, intensite_shot_match,
+         nb_shot_deb_qt, nb_shot_ok_deb_qt, pct_shot_ok_deb_qt,
+         nb_shot_deb_qt_lag, nb_shot_ok_deb_qt_lag, pct_shot_ok_deb_qt_lag,
+         nb_shot_deb_match, nb_shot_ok_deb_match, pct_shot_ok_deb_match,
+         nb_shot_deb_match_lag, nb_shot_ok_deb_match_lag, pct_shot_ok_deb_match_lag,
          score_shot_m1,score_shot_m2,score_shot_m3,score_shot_m4,score_shot_m5,
          score_shot_p1,score_shot_p2,score_shot_p3,score_shot_p4,score_shot_p5,
          score_shot_type_m1,score_shot_type_m2,score_shot_type_m3,score_shot_type_m4,score_shot_type_m5,
@@ -366,7 +441,7 @@ kb_shots <- kb_shots %>%
          shot_type, combined_shot_type, action_type,
          loc_x, loc_y, shot_distance, shot_zone_range,
          shot_zone_area, shot_zone_basic,
-         shot_made_flag
+         shot_made_flag, real_shot_made_flag
         ) %>%
   arrange(game_date, period, temps_period, game_event_id)
 
@@ -374,7 +449,7 @@ kb_shots <- kb_shots %>%
 
 
 ###########################################################################
-# B1. Ajout de données suppkémentaires (stats KB sur l'ensemble du match) #
+# B1. Ajout de données supplémentaires (stats KB sur l'ensemble du match) #
 ###########################################################################
 
 kb_regseason <- source_kb_regseason %>% mutate(source='kb_regseason')
@@ -468,43 +543,62 @@ kb_stats <- bind_rows(kb_regseason,kb_playoffs) %>%
         PF_lag=if_else(is.na(PF_lag),0L,PF_lag)
         
   ) %>%
-  select(-Date, -Rk, -G, -Age, -Tm, -source, -Opp, -Home_Away)
+  select(game_date, GS, Win_Loss, boo_win, boo_win_lag,
+         MP, second_played, second_played_lag, ratio_played, ratio_played_lag,
+         FG, FGA, FGpct, FG_lag, FGA_lag, FGpct_lag,
+         X2P, X2PA, X2Ppct, X2P_lag, X2PA_lag, X2Ppct_lag,
+         X3P, X3PA, X3Ppct, X3P_lag, X3PA_lag, X3Ppct_lag,
+         FT, FTA, FTpct, FT_lag, FTA_lag, FTpct_lag,
+         ORB, DRB, TRB, ORB_lag, DRB_lag, TRB_lag,
+         AST, AST_lag,
+         STL, STL_lag,
+         BLK, BLK_lag,
+         TOV, TOV_lag,
+         PF, PF_lag,
+         PTS, PTS_lag,
+         GmSc, GmSc_lag,
+         EFF, EFF_lag,
+         plus_moins, plus_moins_corr)
 
-
+kb_analyse <- kb_shots %>% inner_join(kb_stats, by="game_date")
+  
 
 #########################################################################
 # B2. Ajout de données suppkémentaires (résulats des matchs des Lakers) #
 #########################################################################
 lakers_1995_2015 <- bind_rows(source_Lakers_Saison1995_2015,source_Lakers_Playoffs1995_2015) %>%
   mutate(game_date=as.Date(Date, format="%d/%m/%Y"),
-         streak=if_else(substr(Streak,1,1)=='W',as.numeric(substr(Streak,3,4)),-as.numeric(substr(Streak,3,4))),
-         ecart_pts=Tm-Opp
-  ) %>%
+         streak_win_lose=if_else(substr(Streak,1,1)=='W',as.numeric(substr(Streak,3,4)),-as.numeric(substr(Streak,3,4))),
+         ecart_pts=Tm-Opp) %>%
   arrange(game_date) %>%
-  select(-Date, -G, -Notes)
+  mutate(streak_win_lose_lag=lag(streak_win_lose),
+         ecart_pts_lag=lag(ecart_pts)) %>%
+  select(game_date, streak_win_lose, streak_win_lose_lag, ecart_pts, ecart_pts_lag)
+  
+kb_analyse <- kb_analyse %>% inner_join(lakers_1995_2015, by="game_date")
 
 
+#######################################
+# Sauvegarde de la table pour analyse #
+#######################################
+
+write.csv(kb_analyse, file='data/kb_analyse.csv')
+
+# Chargement du CSV kb_analyse
+kb_analyse <- read.csv(file='data/kb_analyse.csv') %>%
+  select(-X) %>%
+  mutate(game_date=as.Date(game_date)) %>%
+  arrange(game_date, period, temps_period, game_event_id)
+  
+# Export en CSV de la liste des variables de kb_analyse
+as.data.frame(colnames(kb_analyse)) %>% write.csv(file='data/nom_var.csv')
 
 
-##########################
-# Assemblages des tables #
-##########################
-
-stats_kb_lakers <- inner_join(kb_stats, lakers_1995_2015, by='game_date')
-
-# Autres variables à créer :
-
-  # * Variable Équipe adverse (fusion de franchise ?)
-  # * Variable qualité shoot au début du match (Q1/Q2 pour prédirer Q3/Q4 par exemple)
-  # * Variable 1/2/3 derniers shoots
-  # * Variable clunch moment
-  # * Variable qualité de la saison A et A-1 (score saison régulière et tour élimination playoffs)
-
-
-
-
-
-
-         
-
-
+###
+# Idées autres variables à créer ? :
+#
+# * Variable Équipe adverse (fusion de franchise ?)
+# * Variable qualité shoot au début du match (Q1/Q2 pour prédire Q3/Q4 par exemple)
+# * Variable clunch moment
+# * Variable qualité de la saison A et A-1 (score saison régulière et tour élimination playoffs)
+###
