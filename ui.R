@@ -15,7 +15,10 @@ library(plotly)
 
 # Define UI for application that draws a histogram
 
-sh <- read.csv( "./data/source_kb_shots.csv", header=T)
+#sh <- read.csv( "./data/source_kb_shots.csv", header=T)
+#lectutre à partir du RDs
+sh <- readRDS("./data/kb.rds")
+
 valsais<-unique(as.character(sh$season))
 valadv<-unique(as.character(sh$opponent))
 if(is.null(sh)) return (NULL)
