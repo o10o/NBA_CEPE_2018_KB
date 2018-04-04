@@ -9,7 +9,7 @@ library(dplyr)
 library(stringr)
 library(radarchart)
 library(devtools)
-
+library(dplyr)
 
 options(shiny.maxRequestSize=30*1024^2) 
 server <- function(input, output) {
@@ -26,8 +26,14 @@ server <- function(input, output) {
     #    }
     #   else  #read.csv(infile$datapath)
      #shr<-read.csv( "./data/source_kb_shots.csv", header=T)
+     shr<-read.csv( "./data/kb_analyse.csv", header=T)  %>%
+       select(-X) %>%
+       mutate(game_date=as.Date(game_date)) %>%
+       arrange(game_date, period, temps_period, game_event_id)
+     #ne garde que les colonnes utiles pour chargement plus rapide
+     shr<-shr[,c(1:8,10,11,12,15,62,63,64,65,66,71,72)]
     #lecture à partir du RDS 
-    shr <- readRDS("./data/kb.rds")
+    #shr <- readRDS("./data/kb.rds")
     #chargement du terrain
     court<-readPNG("./www/Lakers2.PNG")
     gcourt<- rasterGrob(court, width=unit(1,"npc"), height=unit(1,"npc"),interpolate=TRUE)
@@ -46,7 +52,9 @@ server <- function(input, output) {
         # Return a list containing the filename
         list(src = outfile  , contentType = 'image/jpeg', width = 180,  height = 150,alt = "This is alternate text" )
     }, deleteFile = F)
-     
+
+#******************************************************************************************************************************************************     
+#onglet de visu des shoots
   observeEvent(input$action,{
     
     #recuperer les filtrages selectionnés dans shrr
@@ -62,7 +70,7 @@ server <- function(input, output) {
        reussi<-input$reussi
      #Chaine récupérant les différents filtres
      #sh_filtre<-shr()[shr()$combined_shot_type %in% input$type_shoot & shr()$opponent %in% input$adversaire & shr()$season %in% input$saison & shr()$shot_made_flag %in% reussi & str_locate(shr()$matchup,dx),]
-     sh_filtre<-shr[shr$combined_shot_type %in% input$type_shoot & shr$opponent %in% input$adversaire & shr$season %in% input$saison & shr$real_shot_made_flag %in% reussi & shr$boo_dom %in% dx,]
+     sh_filtre<-shr[shr$combined_shot_type %in% input$type_shoot & shr$opponent %in% input$adversaire & shr$season %in% input$saison & shr$real_shot_made_flag %in% reussi & shr$boo_dom %in% dx & shr$shot_type %in% input$zone_shoot,]
     })
      
      
@@ -148,8 +156,54 @@ server <- function(input, output) {
       g
     }, height = 300) 
     
-    #affichage du profil en carrière de réussite par typ de shoot
-    output$profil<-renderChartJSRadar({
+    
+    
+  }) #fin du obserEvent    
+    # Generate a summary of the data ----
+    output$summary <- renderPrint({ summary(shr)})
+#******************************************************************************************************************************************************    
+    # Visu du fichier complet ----
+    output$table <- renderDataTable({shr})
+
+  
+  #******************************************************************************************************************************************************  
+    
+    #Genere l'onglet avec l'ensemble des statistiques du joueur sur sa carrière
+      #  Lecture du fichier infogenerale sur KB
+      ig<-read.csv( "./data/player.table.csv", header=T)
+      #ne garde que les colonnes pertinentes
+      ig<-ig[,c(1:3,7:9,11:15,18,23,24,27:29)]
+      
+      #Lecture du fichier des stats en carrière
+      stcarriere<-read.csv( "./data/kb.statsCarriere.csv", header=T)
+      
+      output$InfoGene<-renderUI({
+        
+       HTML(paste("<font color=\"blue\"><b>",h4("informations générales"),"</b></font>","ID joueur en NBA: ","<font color=\"purple\"><b>",ig[1,1],"</b></font>",br(),
+              "Nom : ","<font color=\"purple\"><b>",ig[1,2],"</b></font>"," ","<font color=\"purple\"><b>", ig[1,3],"</b></font>","&emsp;", "né le : ","<font color=\"purple\"><b>",strftime(as.Date(substring(ig[1,4],1,10),"%Y-%m-%d"),"%d/%m/%Y"),"</b></font>","&emsp;","nationalité : ","<font color=\"purple\"><b>",ig[1,6],"</b></font>",br(),
+              "taille: ","<font color=\"purple\"><b>",ig[1,7],"</b></font>"," pieds","&emsp;", "poids: ","<font color=\"purple\"><b>",ig[1,8]/2,"</b></font>"," kg",br(),
+              "Numéro: ","<font color=\"purple\"><b>",ig[1,10],"</b></font>","&emsp;", "poste de jeu: ","<font color=\"purple\"><b>",ig[1,11],"</b></font>",br(),
+              " Equipe: ","<font color=\"purple\"><b>",ig[1,12],"</b></font>","&emsp;","nombre de saisons NBA: ","<font color=\"purple\"><b>",ig[1,9],"</b></font>","&emsp;","de ","<font color=\"purple\"><b>",ig[1,13],"</b></font>"," à ","<font color=\"purple\"><b>",ig[1,14],"</b></font>",br(),
+              "Ecole: :","<font color=\"purple\"><b>",ig[1,5],"</b></font>","&emsp;","drafté en ","<font color=\"purple\"><b>",ig[1,13],"</b></font>"," en ","<font color=\"purple\"><b>",ig[1,17],"</b></font>"," ème position au ",ig[1,16],"</b></font>","er tour",br())
+        )
+      })
+      
+      output$InfoStats<-renderUI({
+        
+        HTML(paste(br(),"<font color=\"blue\"><b>",h4("Statistiques en carrière"),"</b></font>",
+                   "<font color=\"purple\"><b>", stcarriere[1,7],"</b></font>"," fois all star (sélectionné pour le all star game)",br(),
+                   "Moyenne de points marqués par matchs: ","<font color=\"purple\"><b>",stcarriere[1,4],"</b></font>" ,"&emsp;", "passes décisives: ","<font color=\"purple\"><b>",stcarriere[1,5],"</b></font>","&emsp;", "Rebonds: ","<font color=\"purple\"><b>",stcarriere[1,6],"</b></font>","</b></font>")
+        )
+      })
+      
+      output$TitreProfil<-renderUI({
+        
+        HTML(paste(br(),"<font color=\"blue\"><b>",h4("Profil de réussite aux tirs par type de tir"),"</b></font>"))
+      })
+      
+      
+      #affichage du profil en carrière de réussite par typ de shoot
+      output$profil<-renderChartJSRadar({
         shr<-shr[shr$real_shot_made_flag %in% c(0,1),]
         vshotmq<-shr%>%select(combined_shot_type,real_shot_made_flag)%>%group_by(combined_shot_type)%>%filter(real_shot_made_flag==0)%>%summarise(nb=n())
         vshotmis<-shr%>%select(combined_shot_type,real_shot_made_flag)%>%group_by(combined_shot_type)%>%filter(real_shot_made_flag==1)%>%summarise(nb=n())
@@ -162,18 +216,40 @@ server <- function(input, output) {
         manque<-as.vector(vshotmq[,2])
         ratio<-reussi/(reussi+manque)
         lst<-list("% aux tirs"=ratio)
-       c<-chartJSRadar(labs = titres,scores=lst, height = '120',width = '120', labelSize = 14, addDots = T,showLegend = T,main = "Profil de réussite aux tirs par type de tir")
-       c
-       
-    }
-    )
-  }) #fin du obserEvent    
-    # Generate a summary of the data ----
-    output$summary <- renderPrint({ summary(shr())})
-    
-    # Generate an HTML table view of the data ----
-    output$table <- renderDataTable({shr()})
-    
+        c<-chartJSRadar(labs = titres,scores=lst, height = '120',width = '120', labelSize = 14, addDots = T,showLegend = T )
+        c
+        
+      })
+      
+      
+      
+      
+      #Prepare les données statisitiques
+      #Moyenne de points en carrière, min et max
+      #% de réussite au tir en carrière
+      #% de réussite par type de shoot
+      #% de réussite à 3pts
+      #% de réussite à 2pts
+#      
+      #% de victoire en carrière
+      #Moyenne de points par saison, min et max
+      #% de victoire par saison
+      #% de réussite par saison
+      #% de réussite par saison et par type de tir
+      #% de réussite par saison à 3pts
+      
+      resum_tir_carriere<-shr%>% select (season,shot_type,real_shot_made_flag,combined_shot_type )%>%
+        group_by(season, real_shot_made_flag,combined_shot_type, shot_type)%>% summarise(nb=n())%>%
+        arrange(season,combined_shot_type,real_shot_made_flag)
+        tir_mq<-sum(resum_tir_carriere[resum_tir_carriere$real_shot_made_flag==0,]$nb)
+        tir_reussis<-sum(resum_tir_carriere[resum_tir_carriere$real_shot_made_flag==1,]$nb)
+      #% reussite carriere
+          ratio_carriere<-tir_reussis/(tir_mq+tir_reussis)*100
+      
+      pts_match_saison<-shr%>%select(season, game_date,opponent,shot_made_flag)%>%
+        group_by(season,opponent,game_date,shot_made_flag) %>% filter(shot_made_flag==1) %>%summarise(nbpts=n())
+      
+      
 
 
 }
