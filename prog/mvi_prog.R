@@ -12,7 +12,13 @@
 # 0. Import des données et chargement des librairies #
 ######################################################
 
+
+# install.packages('dplyr')
+# update.packages()
+
 library(dplyr)
+library(caret)
+
 
 source_kb_shots <- read.csv("data/source_kb_shots.csv")
 source_kb_shots_JSON <- read.csv("data/source_kbshots_JSON.csv")
@@ -581,10 +587,12 @@ kb_analyse <- kb_analyse %>% inner_join(lakers_1995_2015, by="game_date")
 #######################################
 # Sauvegarde de la table pour analyse #
 #######################################
-
 write.csv(kb_analyse, file='data/kb_analyse.csv')
 
-# Chargement du CSV kb_analyse
+
+################################
+# Chargement du CSV kb_analyse #
+################################
 kb_analyse <- read.csv(file='data/kb_analyse.csv') %>%
   select(-X) %>%
   mutate(game_date=as.Date(game_date)) %>%
@@ -602,3 +610,456 @@ as.data.frame(colnames(kb_analyse)) %>% write.csv(file='data/nom_var.csv')
 # * Variable clunch moment
 # * Variable qualité de la saison A et A-1 (score saison régulière et tour élimination playoffs)
 ###
+
+
+####################################
+# Tests et contructions de modèles #
+#################################### 
+
+
+# Sélection des et choix du type des variables
+kb_model <- kb_analyse %>%
+  select(shot_made_flag,
+         real_shot_made_flag,
+         action_type,
+         combined_shot_type,
+         loc_x,
+         loc_y,
+         period,
+         playoffs,
+         season,
+         shot_distance,
+         shot_made_flag,
+         shot_type,
+         shot_zone_area,
+         shot_zone_basic,
+         shot_zone_range,
+         boo_dom,
+         opponent,
+         temps_total,
+         temps_period
+        ) %>%
+  mutate(real_shot_made_flag=as.factor(if_else(real_shot_made_flag==1,'Réussi','Raté')),
+         period=as.factor(period),
+         playoffs=as.factor(playoffs),
+         boo_dom=as.factor(boo_dom),
+         alea=runif(nrow(kb_analyse)) # Ajout d'une variable aléatoire
+        ) %>%
+  mutate(
+    action_type=as.character(action_type),
+    action_type=ifelse(action_type %in% c('Reverse Slam Dunk Shot','Running Slam Dunk Shot','Driving Slam Dunk Shot','Putback Slam Dunk Shot'),
+                       'Slam Dunk Shot',action_type),
+    action_type=as.factor(action_type)
+        )
+
+
+# On fixe la référence à 'Réussi'
+kb_model$real_shot_made_flag <- relevel(kb_model$real_shot_made_flag, ref = 'Réussi')
+
+# Échantillon train / test / validation
+kb_model_train_test <- kb_model %>% filter(!(is.na(shot_made_flag))) %>% select(-shot_made_flag)
+kb_model_validation <- kb_model %>% filter(is.na(shot_made_flag)) %>% select(-shot_made_flag)
+
+set.seed(75)
+splitIndex <- createDataPartition(y = kb_model_train_test$real_shot_made_flag, p=0.8, list=FALSE, times=1)
+kb_model_train <- data.frame(kb_model_train_test[ splitIndex,])
+kb_model_test  <- data.frame(kb_model_train_test[-splitIndex,])
+  
+# Proportion de Y=1 dans les différents échantillons
+table(kb_model_train$real_shot_made_flag)/sum(table(kb_model_train$real_shot_made_flag))
+table(kb_model_test$real_shot_made_flag)/sum(table(kb_model_test$real_shot_made_flag))
+table(kb_model_validation$real_shot_made_flag)/sum(table(kb_model_validation$real_shot_made_flag))
+# --> OK : les proportions sont très proches
+
+
+###########
+# XGBoost #
+###########
+
+# install.packages('xgboost')
+# install.packages('DiagrammeR')
+# install.packages('mlr')
+library(xgboost)
+library(Matrix)
+library(DiagrammeR)
+library(data.table)
+library(mlr)
+
+
+# Passage en data table
+setDT(kb_model_train) 
+setDT(kb_model_test)
+setDT(kb_model_validation)
+
+# Vérification des valeurs manquantes
+table(is.na(kb_model_train))
+sapply(kb_model_train, function(x) sum(is.na(x))/length(x))*100
+
+table(is.na(kb_model_test))
+sapply(kb_model_test, function(x) sum(is.na(x))/length(x))*100
+
+table(is.na(kb_model_validation))
+sapply(kb_model_validation, function(x) sum(is.na(x))/length(x))*100
+
+
+# Gestion de la variable cible (extraction, passage en numérique et passage de 'Raté' à la valeur 0 ('Réussi' valeur 1))
+train_labels <- kb_model_train$real_shot_made_flag %>% relevel(ref = 'Raté') %>% as.numeric()-1
+test_labels <- kb_model_test$real_shot_made_flag %>% relevel(ref = 'Raté') %>% as.numeric()-1
+validation_labels <- kb_model_validation$real_shot_made_flag %>% relevel(ref = 'Raté') %>% as.numeric()-1
+
+
+# Passage en en matrice one hot encoding (une modalité devient une variable binaire)
+train_matrix <- model.matrix(~.+0, data=kb_model_train[,-c("real_shot_made_flag"), with=F])
+test_matrix <- model.matrix(~.+0, data=kb_model_test[,-c("real_shot_made_flag"), with=F])
+validation_matrix <- model.matrix(~.+0, data=kb_model_validation[,-c("real_shot_made_flag"), with=F])
+
+
+# Passage en xgb.DMatrix
+train_xgb_matrix <- xgb.DMatrix(data=train_matrix, label=train_labels)
+test_xgb_matrix <- xgb.DMatrix(data=test_matrix, label=test_labels)
+validation_xgb_matrix <- xgb.DMatrix(data=validation_matrix, label=validation_labels)
+
+
+# Paramètres par défauts (et choix de la logloss pour la métrique)
+params <- list(booster="gbtree", objective="binary:logistic", eval_metric="logloss",
+               eta=0.3, gamma=0, max_depth=6, min_child_weight=1, subsample=1, colsample_bytree=1)
+
+xgb_m1_cv <- xgb.cv(params=params, data=train_xgb_matrix, nrounds=100, nfold=10, showsd=T, stratified=T,
+                 print_every_n=1, early_stopping_rounds=20, maximize=F)
+# --> Meilleure iteration = 15 (attention si on ne fixe pas le seed !)
+
+
+# On entraine le 1er modèle
+xgb_m1_train <- xgb.train(params=params, data=train_xgb_matrix, nrounds=100, print_every_n=1, early_stopping_rounds=20, maximize=F,
+                          watchlist=list(train=train_xgb_matrix, test=test_xgb_matrix, validation=validation_xgb_matrix))
+
+# Prédictions
+train_preds <- predict(xgb_m1_train, train_xgb_matrix) 
+train_preds <- if_else(train_preds>0.5,1,0)
+test_preds <- predict(xgb_m1_train, test_xgb_matrix) 
+test_preds <- if_else(test_preds>0.5,1,0)
+validation_preds <- predict(xgb_m1_train, validation_xgb_matrix)
+validation_preds <- if_else(validation_preds>0.5,1,0)
+
+
+# Matrice de confusion
+confusionMatrix (train_preds, train_labels) # Accuracy : 68,99 %
+confusionMatrix (test_preds, test_labels) # Accuracy :  68,46 %
+confusionMatrix (validation_preds, validation_labels) # Accuracy : 64,94 %
+
+# Importance des variables
+imp_mat_train <- xgb.importance(feature_names=colnames(train_matrix), model=xgb_m1_train)
+xgb.plot.importance (importance_matrix=imp_mat_train[1:20])
+
+
+
+
+
+
+
+
+
+kb_model_train <- kb_model_train %>% select(-alea) # Est-ce qu'on garde l'aléa ?
+kb_model_train_matrix <- sparse.model.matrix(real_shot_made_flag~.-1, data=kb_model_train)
+kb_model_test_matrix <- sparse.model.matrix(real_shot_made_flag~.-1, data=kb_model_test)
+kb_model_validation_matrix <- sparse.model.matrix(real_shot_made_flag~.-1, data=kb_model_validation)
+output_vector_train = kb_model_train[,'real_shot_made_flag'] == "Réussi"
+
+
+tune_XGB <- xgboost(data=kb_model_train_matrix, label=output_vector_train, nrounds=25, max_depth=5, min_child_weight=50,
+                    objective="binary:logistic", eval_metric="logloss")
+
+importance_matrix <- xgb.importance(kb_model_train_matrix@Dimnames[[2]], model=tune_XGB)
+importance_matrix_var_imp <- importance_matrix %>% filter(Gain>=0.01) %>% as.data.table()
+xgb.plot.importance(importance_matrix_var_imp)
+xgb.ggplot.deepness(model=tune_XGB)
+
+
+# Graphe pour voir des modèles avec nrounds petit et max_depth petit
+# xgb.plot.tree(feature_names=kb_model_train_matrix@Dimnames[[2]], model=tune_XGB)
+
+
+tune_XGB_cv1 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=1,
+                       objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv2 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=2,
+                       objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv3 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=3,
+                       objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv4 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=4,
+                       objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv5 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=5,
+                       objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv6 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=6,
+                       objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv7 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=7,
+                       objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv8 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=8,
+                       objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv9 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=9,
+                       objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv10 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=10,
+                        objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv11 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=11,
+                        objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+tune_XGB_cv12 <- xgb.cv(data=kb_model_train_matrix, label=output_vector_train, nfold=10, nrounds=50, early_stopping_rounds=10, max_depth=12,
+                        objective = "binary:logistic", eval_metric="logloss", maximize=FALSE)
+
+tune_XGB_cv1$evaluation_log[tune_XGB_cv1$best_iteration,]
+tune_XGB_cv2$evaluation_log[tune_XGB_cv2$best_iteration,]
+tune_XGB_cv3$evaluation_log[tune_XGB_cv3$best_iteration,]
+tune_XGB_cv4$evaluation_log[tune_XGB_cv4$best_iteration,]
+tune_XGB_cv5$evaluation_log[tune_XGB_cv5$best_iteration,]
+tune_XGB_cv6$evaluation_log[tune_XGB_cv6$best_iteration,]
+tune_XGB_cv7$evaluation_log[tune_XGB_cv7$best_iteration,]
+tune_XGB_cv8$evaluation_log[tune_XGB_cv8$best_iteration,]
+tune_XGB_cv9$evaluation_log[tune_XGB_cv9$best_iteration,]
+tune_XGB_cv10$evaluation_log[tune_XGB_cv10$best_iteration,]
+tune_XGB_cv11$evaluation_log[tune_XGB_cv11$best_iteration,]
+tune_XGB_cv12$evaluation_log[tune_XGB_cv12$best_iteration,]
+
+
+kb_train <- kb_model_train
+kb_train$prediction <- predict(tune_XGB, kb_model_train_matrix)
+kb_train <- kb_train %>% mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0))
+kb_train <- kb_train %>% mutate(logLoss=if_else(boo_shot_ok==1,-log(prediction),-log(1-prediction)))
+mean(kb_train$logLoss)
+
+kb_test <- kb_model_test
+kb_test$prediction <- predict(tune_XGB, kb_model_test_matrix)
+kb_test <- kb_test %>% mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0))
+kb_test <- kb_test %>% mutate(logLoss=if_else(boo_shot_ok==1,-log(prediction),-log(1-prediction)))
+mean(kb_test$logLoss)
+
+kb_validation <- kb_model_validation
+kb_validation$prediction <- predict(tune_XGB, kb_model_validation_matrix)
+kb_validation <- kb_validation %>% mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0))
+kb_validation <- kb_validation %>% mutate(logLoss=if_else(boo_shot_ok==1,-log(prediction),-log(1-prediction)))
+mean(kb_validation$logLoss)
+
+
+
+data(agaricus.train, package='xgboost')
+data(agaricus.test, package='xgboost')
+train <- agaricus.train
+test <- agaricus.test
+
+a<-as.matrix(train$data)
+
+test <- as.matrix(kb_model_train)[,-real_shot_made_flag]
+
+
+
+
+
+
+
+# Calcul en parallèle
+library(parallel)
+library(doParallel)
+
+detectCores()
+
+cluster <- makeCluster(detectCores() - 1) # par convention on laisse un coeur pour l'OS
+registerDoParallel(cluster)
+
+
+# Sélection des variables en entrée du modèle
+kb_train <- kb_model_train # %>% select(real_shot_made_flag, combined_shot_type, boo_dom, temps_total)
+ 
+kb_test <- kb_model_test
+kb_validation <- kb_model_validation
+
+# Paramètres du train pour la LogLoss
+objControl <- trainControl(method="cv", number=5, classProbs=TRUE, summaryFunction=mnLogLoss, allowParallel=TRUE)
+
+# Modèle Logistique avec choix de alpha et lambda
+gridsearch <- expand.grid(alpha=c(seq(0,1,0.5)), lambda=c(0,0.1,1,10))
+
+# Avec logLoss
+tune_log <- train(real_shot_made_flag ~ .,
+                  data=kb_train,
+                  method="glmnet",
+                  family="binomial",
+                  metric="logLoss",
+                  tuneGrid=gridsearch,
+                  trControl=objControl)
+
+
+
+tune_log
+
+plot(tune_log)
+tune_log$bestTune
+
+summary(tune_log)
+remove(tune_log)
+
+tune_log$predictors
+
+
+# Ajout de la variable prediction
+kb_train$prediction <- predict(object=tune_log, kb_train, type="prob")$Réussi
+kb_test$prediction <- predict(object=tune_log, kb_test, type="prob")$Réussi
+kb_validation$prediction <- predict(object=tune_log, kb_validation, type="prob")$Réussi
+
+# Ajout de la variables boo_shot_ok qui vaut 1 si le shot est OK, 0 sinon
+kb_train <- kb_train %>% mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0))
+kb_test <- kb_test %>% mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0))
+kb_validation <- kb_validation %>% mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0))
+
+# Calcul de la logLoss
+kb_train <- kb_train %>% mutate(logLoss=if_else(boo_shot_ok==1,-log(prediction),-log(1-prediction)))
+kb_test <- kb_test %>% mutate(logLoss=if_else(boo_shot_ok==1,-log(prediction),-log(1-prediction)))
+kb_validation <- kb_validation %>% mutate(logLoss=if_else(boo_shot_ok==1,-log(prediction),-log(1-prediction)))
+
+# Affichage de la logLoss
+mean(kb_train$logLoss)
+mean(kb_test$logLoss)
+mean(kb_validation$logLoss)
+
+
+kb_train %>% filter(combined_shot_type=='Dunk') %>%
+  summarise(min=min(prediction), moy=mean(prediction), med=median(prediction), max=max(prediction),
+            avg_logLoss=mean(logLoss), avg_boo_shot_ok=mean(boo_shot_ok))
+
+
+stats <- kb_model_train_test %>%
+  mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0)) %>%
+  group_by(combined_shot_type, action_type) %>%
+  summarise(nb_shot=n(),
+            nb_shot_ok=sum(boo_shot_ok),
+            ratio_shot_ok=nb_shot_ok/nb_shot) %>%
+  arrange(desc(ratio_shot_ok))
+
+
+test <- kb_train %>% filter(combined_shot_type=='Dunk')
+
+
+
+roc_imp <- filterVarImp(x=kb_train[,2:18], y=kb_train$real_shot_made_flag)
+head(roc_imp)
+
+imp <- abs(coef(tune_log$finalModel,tune_log$bestTune$lambda))
+imp2 <- abs(coef(tune_log$finalModel))
+
+impdf <- data.frame(names = row.names(imp), imp = imp[,1])
+impdf2 <- data.frame(names = row.names(imp2), imp2 = imp2[,1])
+
+impdf <- impdf[order(impdf$imp, decreasing = TRUE),]
+impdf[1:30,]
+
+
+
+
+
+library(e1071)
+library(reshape2)
+
+conf.mat <- confusionMatrix(pred, test$real_shot_made_flag)
+cm.plot(conf.mat$table)
+
+test$prediction <- pred
+
+mat_conf <- test %>% group_by(real_shot_made_flag, prediction) %>% summarise(nb=n())
+
+cm.plot <- function(table_cm){
+  tablecm <- round(t(t(table_cm) / colSums(as.matrix(table_cm))*100))
+  tablemelt <- melt(tablecm)
+  ggplot(tablemelt, aes(Reference, Prediction)) +
+    geom_point(aes(size = value, color=value), alpha=0.8, show_guide=FALSE) +
+    geom_text(aes(label = value), color="white") +
+    scale_size(range = c(5,25)) +
+    scale_y_discrete(limits = rev(levels(tablemelt$Prediction)))+
+    theme_bw()
+}
+
+
+
+# Avec Accuracy
+tune_log <- train(as.matrix(app_X), app$real_shot_made_flag, method="glmnet",
+                  tuneGrid=gridsearch, family='binomial', trControl=objControl, metric='Accuracy')
+
+# Avec ROC
+tune_log <- train(real_shot_made_flag ~ .,
+                  data=app,
+                  method="glmnet",
+                  family="binomial",
+                  metric="ROC",
+                  tuneGrid=gridsearch,
+                  trControl = objControl)
+
+
+# Random forest
+gridsearch <- expand.grid(ntree = seq(30,200,50))
+tune_RF <- train(real_shot_made_flag ~ ., data=kb_train, method="rf", mtretrControl=objControl, metric='LogLoss')
+
+
+set.seed(75)
+library(randomForest)
+kb_model_train <- kb_model_train %>% select(-alea)
+tune_RF <- randomForest(real_shot_made_flag ~ ., data=kb_model_train, ntree=500, mtry=4, nodesize=50)
+print(tune_RF)
+varImpPlot(tune_RF)
+tune_RF$importance
+tune_RF$importance[order(tune_RF$importance[, 1], decreasing = TRUE), ]
+
+plot(tune_RF$err.rate[, 1], type = "l", xlab = "nombre d'arbres", ylab = "erreur OOB")
+
+
+# Ajout de la variable prediction
+kb_train$prediction <- predict(object=tune_RF, kb_model_train, type="prob")[,1]
+kb_test$prediction <- predict(object=tune_RF, kb_model_test, type="prob")[,1]
+kb_validation$prediction <- predict(object=tune_RF, kb_model_validation, type="prob")[,1]
+
+# Ajout de la variables boo_shot_ok qui vaut 1 si le shot est OK, 0 sinon
+kb_train <- kb_train %>% mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0))
+kb_test <- kb_test %>% mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0))
+kb_validation <- kb_validation %>% mutate(boo_shot_ok=if_else(real_shot_made_flag=='Réussi',1,0))
+
+# Calcul de la logLoss
+kb_train <- kb_train %>% mutate(prediction=if_else(prediction==1,0.999,if_else(prediction==0,0.001,prediction)))
+kb_test <- kb_test %>% mutate(prediction=if_else(prediction==1,0.999,if_else(prediction==0,0.001,prediction)))
+kb_validation <- kb_validation %>% mutate(prediction=if_else(prediction==1,0.999,if_else(prediction==0,0.001,prediction)))
+
+kb_train <- kb_train %>% mutate(logLoss=if_else(boo_shot_ok==1,-log(prediction),-log(1-prediction)))
+kb_test <- kb_test %>% mutate(logLoss=if_else(boo_shot_ok==1,-log(prediction),-log(1-prediction)))
+kb_validation <- kb_validation %>% mutate(logLoss=if_else(boo_shot_ok==1,-log(prediction),-log(1-prediction)))
+
+
+a<- kb_validation %>%
+  mutate(alea2=runif(nrow(kb_validation)),
+         logLoss2=if_else(boo_shot_ok==1,-log(alea2),-log(1-alea2)))
+                        
+
+# Affichage de la logLoss
+mean(kb_train$logLoss)
+mean(kb_test$logLoss)
+mean(kb_validation$logLoss)
+
+
+
+
+
+
+# Modèle CART
+gridsearch <- expand.grid(cp=seq(0, 0.1, 0.025))
+tune_CART <- train(app_X, app$real_shot_made_flag, method="rpart", tuneGrid=gridsearch, trControl=objControl, metric='ROC')
+tune_CART
+createFolds
+
+
+
+
+# Autres Paramètres du train
+objControl <- trainControl(method='cv',
+                           number=10,
+                           returnResamp='none',
+                           classProbs=TRUE,
+                           summaryFunction=twoClassSummary,
+                           allowParallel=TRUE,
+                           seeds=NA)
+
+LogLossBinary = function(actual, predicted, eps = 1e-15) {
+  predicted = pmin(pmax(predicted, eps), 1-eps)
+  - (sum(actual * log(predicted) + (1 - actual) * log(1 - predicted))) / length(actual)
+}
