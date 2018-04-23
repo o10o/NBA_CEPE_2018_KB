@@ -70,7 +70,7 @@ server <- function(input, output) {
        reussi<-input$reussi
      #Chaine récupérant les différents filtres
      #sh_filtre<-shr()[shr()$combined_shot_type %in% input$type_shoot & shr()$opponent %in% input$adversaire & shr()$season %in% input$saison & shr()$shot_made_flag %in% reussi & str_locate(shr()$matchup,dx),]
-     sh_filtre<-shr[shr$combined_shot_type %in% input$type_shoot & shr$opponent %in% input$adversaire & shr$season %in% input$saison & shr$real_shot_made_flag %in% reussi & shr$boo_dom %in% dx & shr$shot_type %in% input$zone_shoot,]
+     sh_filtre<-shr[shr$combined_shot_type %in% input$type_shoot & shr$opponent %in% input$adversaire & shr$season %in% input$saison & shr$real_shot_made_flag %in% reussi & shr$boo_dom %in% dx & shr$shot_type %in% input$zone_shoot & shr$action_type %in% input$action_type,]
     })
      
      

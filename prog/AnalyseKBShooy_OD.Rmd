@@ -1,0 +1,78 @@
+---
+title: "AnalyseKBShoot_OD"
+author: "O Dissaux"
+date: "9 avril 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+```{r}
+
+```
+
+
+```{r}
+
+```
+```{r}
+
+```
+
+
+```{r}
+
+```
+```{r}
+
+```
+
+
+```{r}
+
+```
+```{r}
+
+```
+
+
+```{r}
+
+```
+```{r}
+
+```
+
+
+```{r}
+
+```
+```{r}
+
+```
+
+
+```{r}
+
+```
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

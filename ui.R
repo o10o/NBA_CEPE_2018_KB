@@ -29,7 +29,7 @@ valadv<-unique(as.character(sh$opponent))
 if(is.null(sh)) return (NULL)
 dist_typsh<-sh%>%distinct(combined_shot_type)
 z_sh<-sh%>%distinct(shot_type)
-
+action<-unique(as.character(sh$action_type))
 
 #theme="bootstrap.css"
 ui <- fluidPage(
@@ -66,6 +66,7 @@ ui <- fluidPage(
             
             selectInput(inputId = "type_shoot",label="Type de shoot",choices = dist_typsh,multiple=T),
             selectInput(inputId = "zone_shoot",label="Zone de shoot",choices = z_sh,multiple=T),
+            selectInput("action_type","Type de shoot(précis)",action, multiple=TRUE, selectize=FALSE),
             #radio bouton pour shoots reussis ou pas
             radioButtons("reussi", label = h4("Tirs réussis"),
                          choices = list("Oui" = 1, "Non" = 0,"Les deux" = 2), 
@@ -74,10 +75,12 @@ ui <- fluidPage(
             
             #selection de la saison
             
-            selectInput("saison", "saison:", valsais,multiple = T,selected = valsais),
-            #selection de l'adversaire
-            selectInput("adversaire", "adversaire:", valadv,multiple=T,selected=valadv),
+            #selectInput("saison", "saison:", valsais,multiple = T,selected = valsais),
+            selectInput("saison", "Saison(s):", valsais,multiple=TRUE, selectize=FALSE),
             
+            #selection de l'adversaire
+            #selectInput("adversaire", "adversaire:", valadv,multiple=T,selected=valadv),
+            selectInput("adversaire", "Adversaire(s):", valadv,multiple=TRUE, selectize=FALSE),
         
             #radio bouton pour choix domicile exterieur les deux
             radioButtons("dom_ext", label = h4("Domicile/Extérieur"),
@@ -87,7 +90,7 @@ ui <- fluidPage(
             #radio bouton pour affichage tir heat les deux
             radioButtons("typ_affich", label = h4("Affichage"),
                          choices = list("Les deux"=0,"tirs" = 1, " hexagones " = 2), 
-                         selected = 0)
+                         selected = 2)
  
         ),
         
