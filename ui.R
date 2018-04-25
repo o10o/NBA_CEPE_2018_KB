@@ -62,7 +62,7 @@ ui <- fluidPage(
             #fileInput('datafile', label='Sel. Fichier',buttonLabel = 'Sel. Fichier',
             #          accept=c('text/csv', 'text/comma-separated-values,text/plain')),
     
-            actionButton("action", label = "Actualisation"),
+            actionButton("actionB", label = "Actualisation"),
             
             selectInput(inputId = "type_shoot",label="Type de shoot",choices = dist_typsh,multiple=T),
             selectInput(inputId = "zone_shoot",label="Zone de shoot",choices = z_sh,multiple=T),

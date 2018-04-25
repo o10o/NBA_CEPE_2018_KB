@@ -55,13 +55,15 @@ server <- function(input, output) {
 
 #******************************************************************************************************************************************************     
 #onglet de visu des shoots
-  observeEvent(input$action,{
-    
+observeEvent(input$actionB,{
+     
     #recuperer les filtrages selectionnés dans shrr
-     shrr<-reactive({
+     #shrr<-reactive({
+       
+        
       if (input$dom_ext==0) dx<-c(0,1)
-     else if(input$dom_ext==1) dx<-c(1,1)
-     else dx<-c(0,0)
+      else if(input$dom_ext==1) dx<-c(1,1)
+      else dx<-c(0,0)
      
      #prepare l'affichae des shoots reussis ou pas ou les deux
      if (input$reussi==2) 
@@ -71,9 +73,10 @@ server <- function(input, output) {
      #Chaine récupérant les différents filtres
      #sh_filtre<-shr()[shr()$combined_shot_type %in% input$type_shoot & shr()$opponent %in% input$adversaire & shr()$season %in% input$saison & shr()$shot_made_flag %in% reussi & str_locate(shr()$matchup,dx),]
      sh_filtre<-shr[shr$combined_shot_type %in% input$type_shoot & shr$opponent %in% input$adversaire & shr$season %in% input$saison & shr$real_shot_made_flag %in% reussi & shr$boo_dom %in% dx & shr$shot_type %in% input$zone_shoot & shr$action_type %in% input$action_type,]
-    })
-     
-     
+      
+    # })#fin du reactive
+     shrr<-sh_filtre
+
     #Affichage du terrain des tirs et heatmap
     output$plot <- renderPlot({
             decoup<-c(0, 100, 250, 500, 1000, 1500, 2000, 2500, Inf)
@@ -83,12 +86,12 @@ server <- function(input, output) {
         if (input$typ_affich==0)
         {
           
-            p<-ggplot(data=shrr()) + 
+            p<-ggplot(data=shrr) + 
                 #theme_void()+
                 annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
                 stat_binhex(aes(x=loc_x,y=loc_y, alpha=..count..),binwidth = 25)+
                 scale_fill_gradientn(colours=c("blue","light green","green", "dark green"),name = "Frequency",na.value=NA)+
-                geom_point(mapping = aes(x=loc_x,y=loc_y,color=shrr()$real_shot_made_flag,shape=shrr()$combined_shot_type))+
+                geom_point(mapping = aes(x=loc_x,y=loc_y,color=shrr$real_shot_made_flag,shape=shrr$combined_shot_type))+
                 scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
                 scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
               #plot.background = element_rect(fill = "black"),
@@ -100,11 +103,11 @@ server <- function(input, output) {
               #affiche uniquement les tirs sous forme de points, couleur fonction de reussi ou non
             if (input$typ_affich==1)
             {
-              p<-ggplot(data=shrr()) + 
+              p<-ggplot(data=shrr) + 
                 #theme_void()+
                 annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
                   
-                geom_point(mapping = aes(x=loc_x,y=loc_y,color=shrr()$real_shot_made_flag,shape=shrr()$combined_shot_type))+
+                geom_point(mapping = aes(x=loc_x,y=loc_y,color=shrr$real_shot_made_flag,shape=shrr$combined_shot_type))+
                 scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
                 scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
                 #plot.background = element_rect(fill = "black"),
@@ -113,7 +116,7 @@ server <- function(input, output) {
             }
             else  #affiche uniquement les hex
             {
-              p<-ggplot(data=shrr()) + 
+              p<-ggplot(data=shrr) + 
                 #theme_void()+
                 annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
                 stat_binhex(aes(x=loc_x,y=loc_y, alpha=..count..),binwidth = 25)+
@@ -134,9 +137,9 @@ server <- function(input, output) {
     #Affichage des ratio aux tirs par saisons
     output$graph <- renderPlot({
   #calcul du nombre de tirs et du ratio pour alim du graphique
-      gg<-shrr() %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs=n())
-      gg_manq<-shrr() %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mq=n())%>%filter(real_shot_made_flag==0)
-      gg_mis<-shrr() %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mis=n())%>%filter(real_shot_made_flag==1)
+      gg<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs=n())
+      gg_manq<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mq=n())%>%filter(real_shot_made_flag==0)
+      gg_mis<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mis=n())%>%filter(real_shot_made_flag==1)
       gg_rat<-gg_mis%>% select(season, nbs_mis)%>%inner_join(gg_manq, by="season")%>%
                   select(season,nbs_mis, nbs_mq)%>% summarise(ratio=nbs_mis/(nbs_mis+nbs_mq))
       na.omit(gg_rat)
@@ -156,8 +159,7 @@ server <- function(input, output) {
       g
     }, height = 300) 
     
-    
-    
+     
   }) #fin du obserEvent    
     # Generate a summary of the data ----
     output$summary <- renderPrint({ summary(shr)})
