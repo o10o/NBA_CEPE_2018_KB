@@ -12,6 +12,7 @@ library(png)
 library(grid)
 library(ggplot2)
 library(plotly)
+library(radarchart)
 
 # Define UI for application that draws a histogram
 #sh <- read.csv( "./data/source_kb_shots.csv", header=T)
@@ -20,7 +21,7 @@ shr<-read.csv( "./data/kb_analyse.csv", header=T)  %>%
   mutate(game_date=as.Date(game_date)) %>%
   arrange(game_date, period, temps_period, game_event_id)
 #ne garde que les colonnes utiles pour chargement plus rapide
-sh<-shr[,c(1:8,10,11,12,15,62,63,64,65,66,71,72)]
+sh<-shr[,c(1:12,15,62,63,64,65,66,71,72)]
 #lectutre à partir du RDs
 #sh <- readRDS("./data/kb.rds")
 
@@ -77,6 +78,10 @@ ui <- fluidPage(
             
             #selectInput("saison", "saison:", valsais,multiple = T,selected = valsais),
             selectInput("saison", "Saison(s):", valsais,multiple=TRUE, selectize=FALSE),
+            #radio bouton pour choix domicile exterieur les deux
+            radioButtons("playoffs", label = h4("Saison régulière/playoff"),
+                         choices = list("Saison Régulière"=0,"Playoffs" = 1, "Saison rég.+playoff" = 2), 
+                         selected = 0),
             
             #selection de l'adversaire
             #selectInput("adversaire", "adversaire:", valadv,multiple=T,selected=valadv),
@@ -100,7 +105,7 @@ ui <- fluidPage(
             # Output: Tabset w/ plot, summary, et table ----
             tabsetPanel(type = "tabs",
                         tabPanel( class="my_style_1",id="IG","Le joueur en carrière",htmlOutput("InfoGene"),htmlOutput("InfoStats"), htmlOutput("TitreProfil"),chartJSRadarOutput (outputId = "profil", height="140%")),
-                        tabPanel(id="tab","Visualisation des tirs", plotOutput("plot",height = "800"),plotOutput("graph")),
+                        tabPanel(id="tab","Visualisation des tirs", plotOutput("plot",height = "800"), DT::dataTableOutput("tirs"),plotOutput("graph")),
                        # tabPanel("Stats", verbatimTextOutput("summary")),
                         tabPanel("données", dataTableOutput("table"))
                         

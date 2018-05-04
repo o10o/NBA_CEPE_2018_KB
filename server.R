@@ -1,3 +1,4 @@
+#Chargement des library
 library(plotly)
 library(shiny)
 library(ggplot2)
@@ -14,38 +15,27 @@ library(dplyr)
 options(shiny.maxRequestSize=30*1024^2) 
 server <- function(input, output) {
     
-    # Reactive expression to generate the requested distribution ----
-    # This is called whenever the inputs change. The output functions
-    # defined below then use the value computed from this expression
-    
-   # shr <- reactive({
-    #    infile <- input$datafile
-    #    if (is.null(infile)) {
-           
-    #        return(NULL)
-    #    }
-    #   else  #read.csv(infile$datapath)
-     #shr<-read.csv( "./data/source_kb_shots.csv", header=T)
-     shr<-read.csv( "./data/kb_analyse.csv", header=T)  %>%
+    #Lecture du fichier
+    shr<-read.csv( "./data/kb_analyse.csv", header=T)  %>%
        select(-X) %>%
        mutate(game_date=as.Date(game_date)) %>%
        arrange(game_date, period, temps_period, game_event_id)
-     #ne garde que les colonnes utiles pour chargement plus rapide
-     shr<-shr[,c(1:8,10,11,12,15,62,63,64,65,66,71,72)]
-    #lecture à partir du RDS 
-    #shr <- readRDS("./data/kb.rds")
+    #ne garde que les colonnes utiles pour chargement plus rapide
+    shr<-shr[,c(1:12,15,62,63,64,65,66,71,72)]
+    
+    
     #chargement du terrain
     court<-readPNG("./www/Lakers2.PNG")
     gcourt<- rasterGrob(court, width=unit(1,"npc"), height=unit(1,"npc"),interpolate=TRUE)
+
     #chargement des lignes    
-    
-    
     gcourt2<-rasterGrob(readPNG("./www/Lakers3.PNG"), width=unit(1,"npc"), height=unit(1,"npc"),interpolate=TRUE)
+    
     #force la transparence pour les pixels non noirs
     gcourt2$raster[gcourt2$raster=="#FFFFFFFF"]="#FFFFFF00" 
       
-    # })
-  
+    
+    #Chargement photo de KB
      output$player_photo <- renderImage({
         #Photo de Kobe
         outfile <- normalizePath('./www/KobeBryant.jpg')
@@ -60,19 +50,24 @@ observeEvent(input$actionB,{
     #recuperer les filtrages selectionnés dans shrr
      #shrr<-reactive({
        
-        
+    #geston de la variable dom_ext    
       if (input$dom_ext==0) dx<-c(0,1)
       else if(input$dom_ext==1) dx<-c(1,1)
       else dx<-c(0,0)
      
-     #prepare l'affichae des shoots reussis ou pas ou les deux
+     #prepare l'affichage des shoots reussis ou pas ou les deux
      if (input$reussi==2) 
        reussi<-c(0,1)
      else
        reussi<-input$reussi
+     
+     #gestion variable playoffs
+     if (input$playoffs==2)
+        playoffs<-c(0,1)
+     else
+        playoffs<-input$playoffs
      #Chaine récupérant les différents filtres
-     #sh_filtre<-shr()[shr()$combined_shot_type %in% input$type_shoot & shr()$opponent %in% input$adversaire & shr()$season %in% input$saison & shr()$shot_made_flag %in% reussi & str_locate(shr()$matchup,dx),]
-     sh_filtre<-shr[shr$combined_shot_type %in% input$type_shoot & shr$opponent %in% input$adversaire & shr$season %in% input$saison & shr$real_shot_made_flag %in% reussi & shr$boo_dom %in% dx & shr$shot_type %in% input$zone_shoot & shr$action_type %in% input$action_type,]
+     sh_filtre<-shr[shr$combined_shot_type %in% input$type_shoot & shr$opponent %in% input$adversaire & shr$season %in% input$saison & shr$real_shot_made_flag %in% reussi & shr$boo_dom %in% dx & shr$shot_type %in% input$zone_shoot & shr$action_type %in% input$action_type & shr$playoffs %in% playoffs,]
       
     # })#fin du reactive
      shrr<-sh_filtre
@@ -134,9 +129,32 @@ observeEvent(input$actionB,{
         
     })
     
+    #Affichage d'un tableau avec les Tirs réussis et ratés, en nombre et en %
+    res<-NULL
+    colsum<-NULL
+    pourcent_reussite<-NULL
+    Total_tirs<-NULL
+    total_ts_shoot<-NULL
+    res<-table(shrr$real_shot_made_flag,shrr$combined_shot_type)
+    total_ts_shoot<-rowSums(res)
+    res<-cbind(res,total_ts_shoot)
+    Total_tirs<-colSums(res)
+    for (ii in 1:dim(res)[2])
+    {
+      
+      if_else (Total_tirs[ii] >0, pourcent_reussite[ii]<-(res[2,ii]/Total_tirs[ii])*100,NULL)
+    }
+    fin<-rbind(round(res),Total_tirs,pourcent_reussite)
+
+    row.names(fin)[1]<-"Tirs manqués"
+    row.names(fin)[2]<-"Tirs réussis"
+    output$tirs <-  DT::renderDataTable({
+      DT::datatable(fin)
+    })
+    
     #Affichage des ratio aux tirs par saisons
     output$graph <- renderPlot({
-  #calcul du nombre de tirs et du ratio pour alim du graphique
+    #calcul du nombre de tirs et du ratio pour alim du graphique
       gg<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs=n())
       gg_manq<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mq=n())%>%filter(real_shot_made_flag==0)
       gg_mis<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mis=n())%>%filter(real_shot_made_flag==1)
@@ -145,17 +163,13 @@ observeEvent(input$actionB,{
       na.omit(gg_rat)
      
       gg_rat<-as.data.frame(gg_rat)
-      #tirs<-factor(x=gg$shot_made_flag,levels=c("1","0"), labels = c("tirs réussis","tirs manqués"))
-           g<-ggplot(data=gg_rat)+
+      g<-ggplot(data=gg_rat)+
             #geom_point(aes(x=gg$season,y=gg$nbs,color=tirs))+
              geom_bar(mapping=aes(x=season,y=ratio,fill=ratio),stat="identity")+
             ylim (0,0.6)+ 
            #expand_limits(y = c(0, gg$nbs+20))+
             theme(axis.text.x = element_text(angle = 90, hjust = 1))+
             labs(title=" Pourcentage de réussite de Kobe au tir sur les périodes sélectionnées", col="orange")
-         #theme x &axis rotate)=90
-        # ajouter des labels pour les 0 1
-           
       g
     }, height = 300) 
     
@@ -168,7 +182,7 @@ observeEvent(input$actionB,{
     output$table <- renderDataTable({shr})
 
   
-  #******************************************************************************************************************************************************  
+#******************************************************************************************************************************************************  
     
     #Genere l'onglet avec l'ensemble des statistiques du joueur sur sa carrière
       #  Lecture du fichier infogenerale sur KB
