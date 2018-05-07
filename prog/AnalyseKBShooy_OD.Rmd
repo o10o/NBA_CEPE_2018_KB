@@ -11,43 +11,334 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r}
+kba<-read.csv("../data/kb_analyse.csv",header=T,sep=",")
 
 ```
 
 
 ```{r}
 
-```
-```{r}
+#Factorisation des donnees
+kba$game_date<-as.Date(kba$game_date)
 
-```
+#garde les colonnes qui m'intressent pour le modele
+kb<-kba[,c(1:13,15,17,18,19,20,21,40,41,63:75,77,78,79,80,81,82,104,105,110,111,112,114,116,118,132,132,134)]
 
-
-```{r}
-
-```
-```{r}
-
-```
-
-
-```{r}
-
-```
-```{r}
-
+kb$playoffs<- as.logical( kb$playoffs)
+kb$boo_noel<- as.logical( kb$boo_noel)
+kb$boo_dom<-as.logical(kb$boo_dom)
+#kb$shot_made_flag<-as.logical(kb$shot_made_flag)
 ```
 
+```{r}
+#trier les shoots connus des shoots non connus
+kb_inc<-kb[which(is.na(kb$shot_made_flag)),]
+kb_con<-kb[-which(is.na(kb$shot_made_flag)),]
+#factorise car classification
+kb_inc$shot_made_flag<-as.factor(kb_inc$shot_made_flag)
+kb_con$shot_made_flag<-as.factor(kb_con$shot_made_flag)
+
+#Memorise les vrais resultats de shoots
+kb_con_res<-as.factor(kb_con$real_shot_made_flag)
+kb_inc_res<-as.factor(kb_inc$real_shot_made_flag)
+
+#les retire des echantillons
+kb_con<-kb_con[,-32]
+kb_inc<-kb_inc[,-32]
+
+#defactorisation de winloss car plus de 53 classes pose probleme
+kb_con$Win_Loss<-as.character(kb_con$Win_Loss)
+kb_inc$Win_Loss<-as.character(kb_inc$Win_Loss)
+
+#retire le action type qui pose souci  winloss et le MP
+kb_con<-kb_con[,-c(24,33,35)]
+kb_inc<-kb_inc[,-c(24,33,35)]
+
+dim(kb_inc)
+dim(kb_con)
+```
 
 ```{r}
+library(reshape)
+# ecriture de la fonction qui sera eutiliser plusieurs fois
+cm.plot <- function(table_cm){
+tablecm <- round(t(t(table_cm) / colSums(as.matrix(table_cm))*100))
+tablemelt <- melt(tablecm)
+ggplot(tablemelt, aes(Reference, Prediction)) +
+geom_point(aes(size = value, color=value), alpha=0.8, show_guide=FALSE) +
+geom_text(aes(label = value), color="white") +
+scale_size(range = c(5,25)) +
+scale_y_discrete(limits = rev(levels(tablemelt$Prediction)))+
+theme_bw()
+}
+```
+
+```{r}
+library(corrplot)
+#analyse de la coorelation entre les variables
+#create correlation matrix
+corm=cor(kb_con[,c(1,2,4,5,6,8,9,10,11,13:21,24:25,31,34,36:48)])    #selectionner les var numeriques de data 
+#plot cor matrix
+corrplot(corm, order="AOE", method="square", tl.pos="lt", type="upper",        
+tl.col="black", tl.cex=0.6, tl.srt=45, 
+         addCoef.col="black", addCoefasPercent = T,
+         p.mat = 1-abs(corm), sig.level=0.50, insig = "blank")  
 
 ```
 ```{r}
+library(FactoMineR)
+kb_acp<-PCA(kb_con,quali.sup=c(3,7,12,22:24,28:30,34,36))
+
+
+summary(kb_acp)
+plot(kb_acp)
+```
+
+
+```{r}
+library(caret)
+#Splitter les shoots connus en ech de train et test
+indtrain<-sample(1:nrow(kb_con),nrow(kb_con)*.8)
+data.train<-kb_con[indtrain,]
+data.test<-kb_con[-indtrain,]
+
+ytrain<-data.train$shot_made_flag
+ytest<-data.test$shot_made_flag
+
+
+reglog<-glm(shot_made_flag ~ .,data=data.train, family=binomial)
+pred_reglog<-predict(reglog,newdata = data.test[,-30],type="response")
+boxplot(pred_reglog)
+pred_lab_kb<-as.numeric(pred_reglog>0.5)
+ytest=as.numeric(ytest)
+ytest=ytest-1
+library(caret)
+mconf<-caret::confusionMatrix(pred_lab_kb,ytest)
+glm_accur<-mconf$overall["Accuracy"]
+
+
+#application du modele sur les valeurs inconnues
+reglog_inc<-predict(reglog,kb_inc, type = "response")
+
+
+confglm<-caret::confusionMatrix(as.numeric(reglog_inc>0.5), as.numeric(as.character(kb_inc_res)))
+confglm
+confglm$overall["Accuracy"]
+#  Accuracy : 0.6048  
+
+```
+```{r}
+library(parallel)
+library(doParallel)
+detectCores() 
+cluster <- makeCluster(detectCores() - 1) # on retire un coeur pour l'OS
+registerDoParallel(cluster)
+```
+```{r}
+library(caret)
+objControl <- trainControl(method='cv', number=5)
+#returnResamp='none', classProbs = T, summaryFunction=twoClassSummary
+gridsearch <- expand.grid(mtry =seq(7,10,28) )#•seq(30,200,50))  #ici test mtry =30 80 130 180
+
+#la valeur `mtry` recommand?e par la litt?rature (racine du nombre de variables)
+
+#Lancement apprentissage
+
+tune <- train(shot_made_flag  ~ .,  data = data.train,method = "rf",ntree =10,tuneGrid = gridsearch, trControl =objControl,metric='Accuracy',allowParallel=TRUE)
+tune
+
+#plot(tune)
+
+tune$finalModel#meilleur modele
+#lancement prediction sur ech de test
+predrf10 <- predict(object=tune, data.test,type='raw')
+prob<-predict(object=tune, data.test,type='prob')
+library(dplyr)
+ycalc_logloss<-data.test%>%
+mutate(prob=if_else(prob==1,0.99,if_else(prob==0,0.01,prob)),
+       logLoss=if_else(shot_made_flag==1,-log(prob),-log(1-prob)),
+       prob2=runif(nrow(data.test)),
+          logLoss2=if_else(shot_made_flag==1,-log(prob2),-log(1-prob2))
+       )%>%
+  select(shot_made_flag,prob,logLoss,prob2,logLoss2)
+
+
+data.test$prob<-prob[,2]
+
+
+#matricure de confusion
+conf.mat <- caret::confusionMatrix(predrf10, ytest)
+conf.mat
+#representation mat conf
+cm.plot(conf.mat$table)
+
+rocCurve.rf <- roc(response = ytest, predictor =pred )
+rocCurve.rf$auc
+library(InformationValue)
+InformationValue::plotROC(ytest, predrf10)
+InformationValue::AUROC(ytest, predrf10)
+
+#resultats detaillés
+conf.mat$overall
+conf.mat$byClass
+
+#prediction sur les inconnus
+predic<-predict(object = tune$finalModel,kb_inc, type="class")
+
+matconfinc_rf10<-caret::confusionMatrix(kb_inc_res,predic)
+matconfinc_rf10
+```
+
+```{r}
+#Random Forest avec 100 arbres
+library(caret)
+objControl <- trainControl(method='cv', number=5)
+#returnResamp='none', classProbs = T, summaryFunction=twoClassSummary
+gridsearch <- expand.grid(mtry =seq(7,10,28) )#•seq(30,200,50))  #ici test mtry =30 80 130 180
+
+#la valeur `mtry` recommand?e par la litt?rature (racine du nombre de variables)
+
+#Lancement apprentissage
+
+tune <- train(shot_made_flag  ~ .,  data = data.train,method = "rf",ntree =100,tuneGrid = gridsearch, trControl =objControl,metric='Accuracy',allowParallel=TRUE)
+tune
+
+#plot(tune)
+
+tune$finalModel#meilleur modele
+#lancement prediction sur ech de test
+predrf100 <- predict(object=tune, data.test,type='raw')
+#matricure de confusion
+conf.mat <- caret::confusionMatrix(predrf100, ytest)
+conf.mat100
+#representation mat conf
+cm.plot(conf.mat$table)
+
+rocCurve.rf <- roc(response = ytest, predictor =pred )
+rocCurve.rf$auc
+library(InformationValue)
+InformationValue::plotROC(ytest, predrf100)
+InformationValue::AUROC(ytest, predrf100)
+
+#resultats detaillés
+conf.mat$overall
+conf.mat$byClass
+
+#prediction sur les inconnus
+predic<-predict(object = tune$finalModel,kb_inc, type="class")
+
+matconfinc_rf100<-caret::confusionMatrix(kb_inc_res,predic)
+matconfinc_rf100
+
+```
+
+```{r}
+#Random Forest avec 500 arbres
+library(caret)
+objControl <- trainControl(method='cv', number=5)
+#returnResamp='none', classProbs = T, summaryFunction=twoClassSummary
+gridsearch <- expand.grid(mtry =seq(7,10,28) )#•seq(30,200,50))  #ici test mtry =30 80 130 180
+
+#la valeur `mtry` recommand?e par la litt?rature (racine du nombre de variables)
+
+#Lancement apprentissage
+
+tune <- train(shot_made_flag  ~ .,  data = data.train,method = "rf",ntree =500,tuneGrid = gridsearch, trControl =objControl,metric='Accuracy',allowParallel=TRUE)
+tune
+
+#plot(tune)
+
+tune$finalModel#meilleur modele
+#lancement prediction sur ech de test
+predrf500 <- predict(object=tune, data.test,type='raw')
+#matricure de confusion
+conf.mat <- caret::confusionMatrix(predrf500, ytest)
+conf.mat
+#representation mat conf
+cm.plot(conf.mat$table)
+
+rocCurve.rf <- roc(response = ytest, predictor =predrf500 )
+rocCurve.rf$auc
+library(InformationValue)
+InformationValue::plotROC(ytest, predrf500)
+InformationValue::AUROC(ytest, predrf500)
+
+#resultats detaillés
+conf.mat$overall
+conf.mat$byClass
+
+#prediction sur les inconnus
+predic<-predict(object = tune,kb_inc, type="raw")
+
+matconfinc_rf500<-caret::confusionMatrix(kb_inc_res,predic)
+matconfinc_rf500
+
+```
+
+```{r}
+#Random Forest avec 2000 arbres
+library(caret)
+objControl <- trainControl(method='cv', number=5)
+#returnResamp='none', classProbs = T, summaryFunction=twoClassSummary
+gridsearch <- expand.grid(mtry =seq(7,10,28) )#•seq(30,200,50))  #ici test mtry =30 80 130 180
+
+#la valeur `mtry` recommand?e par la litt?rature (racine du nombre de variables)
+
+#Lancement apprentissage
+
+tune <- train(shot_made_flag  ~ .,  data = data.train,method = "rf",ntree =2000,tuneGrid = gridsearch, trControl =objControl,metric='Accuracy',allowParallel=TRUE)
+tune
+
+#plot(tune)
+
+tune$finalModel#meilleur modele
+#lancement prediction sur ech de test
+predrf2000 <- predict(object=tune, data.test,type='raw')
+#matricure de confusion
+conf.mat <- caret::confusionMatrix(predrf2000, ytest)
+conf.mat
+#representation mat conf
+cm.plot(conf.mat$table)
+
+rocCurve.rf <- roc(response = ytest, predictor =predrf2000 )
+rocCurve.rf$auc
+library(InformationValue)
+InformationValue::plotROC(ytest, predrf2000)
+InformationValue::AUROC(ytest, predrf2000)
+
+#resultats detaillés
+conf.mat$overall
+conf.mat$byClass
+
+#prediction sur les inconnus
+predic<-predict(object = tune,kb_inc, type="raw")
+
+matconfinc_rf2000<-caret::confusionMatrix(kb_inc_res,predic)
+matconfinc_rf2000
+
+```
+
+
+
+#Stop de la parallélisation
+```{r}
+stopCluster(cluster)
+registerDoSEQ()
+gc()
+```
+
+```{r}
+#Affichage des param de la regression
+library(GGally)
+ggcoef(reglog, exponentiate = TRUE)
 
 ```
 
 
 ```{r}
+#représentation des effets
+library(effects)
+plot(allEffects(reglog))
 
 ```
 ```{r}
