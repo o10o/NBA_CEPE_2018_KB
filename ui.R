@@ -104,7 +104,36 @@ ui <- fluidPage(
             
             # Output: Tabset w/ plot, summary, et table ----
             tabsetPanel(type = "tabs",
-                        tabPanel( class="my_style_1",id="IG","Le joueur en carrière",htmlOutput("InfoGene"),htmlOutput("InfoStats"), htmlOutput("TitreProfil"),chartJSRadarOutput (outputId = "profil", height="140%")),
+                        tabPanel( class="my_style_1",id="IG","Le joueur en carrière",htmlOutput("InfoGene"),htmlOutput("InfoStats"), htmlOutput("TitreProfil"),
+                                                                                    chartJSRadarOutput (outputId = "profil", height="140%"),
+                                                                                    HTML(paste(br(),"<font color=\"blue\"><b>",h4("Adresse par types de shoots détaillés"),"</b></font>")),
+                                                                                    plotOutput("shoot_adresse"),
+                                                                                    fluidRow(column(width=6,
+                                                                                                    HTML(paste(br(),"<font color=\"blue\"><b>",h4("Répartitions en vol. de shoots sur la largeur"),"</b></font>")),
+                                                                                                    plotOutput("repartX")
+                                                                                                    ),
+                                                                                             column(width=6,  
+                                                                                                    HTML(paste(br(),"<font color=\"blue\"><b>",h4("Répartitions en vol. de shoots sur la longueur"),"</b></font>")),
+                                                                                                    plotOutput("repartY")
+                                                                                                    )
+                                                                                            ),
+                                                                                    
+                                                                                    fluidRow(column(width=12,
+                                                                                                    HTML(paste("<font color=\"blue\"><b>",h4("Mais de où Kobe prend il ses shoots?"),"</b></font>"))
+                                                                                                    ),
+                                                                                             fluidRow(
+                                                                                                      column(width=4,
+                                                                                                              plotOutput("shoot_zone_area")
+                                                                                                              ),
+                                                                                                      column(width=4,
+                                                                                                             plotOutput("shoot_zone_basic")
+                                                                                                              ),
+                                                                                                      column(width=4,
+                                                                                                             plotOutput("shoot_zone_range")
+                                                                                                              )
+                                                                                                       )
+                                                                                             )
+                                  ),
                         tabPanel(id="tab","Visualisation des tirs", plotOutput("plot",height = "800"), DT::dataTableOutput("tirs"),plotOutput("graph")),
                        # tabPanel("Stats", verbatimTextOutput("summary")),
                         tabPanel("données", dataTableOutput("table"))

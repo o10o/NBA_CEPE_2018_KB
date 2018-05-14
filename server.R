@@ -21,7 +21,7 @@ server <- function(input, output) {
        mutate(game_date=as.Date(game_date)) %>%
        arrange(game_date, period, temps_period, game_event_id)
     #ne garde que les colonnes utiles pour chargement plus rapide
-    shr<-shr[,c(1:12,15,62,63,64,65,66,71,72)]
+    shr<-shr[,c(1:12,15,62,63,64,65,66,68:72)]
     
     
     #chargement du terrain
@@ -238,21 +238,7 @@ observeEvent(input$actionB,{
       
       
       
-      #Prepare les données statisitiques
-      #Moyenne de points en carrière, min et max
-      #% de réussite au tir en carrière
-      #% de réussite par type de shoot
-      #% de réussite à 3pts
-      #% de réussite à 2pts
-#      
-      #% de victoire en carrière
-      #Moyenne de points par saison, min et max
-      #% de victoire par saison
-      #% de réussite par saison
-      #% de réussite par saison et par type de tir
-      #% de réussite par saison à 3pts
-      
-      resum_tir_carriere<-shr%>% select (season,shot_type,real_shot_made_flag,combined_shot_type )%>%
+        resum_tir_carriere<-shr%>% select (season,shot_type,real_shot_made_flag,combined_shot_type )%>%
         group_by(season, real_shot_made_flag,combined_shot_type, shot_type)%>% summarise(nb=n())%>%
         arrange(season,combined_shot_type,real_shot_made_flag)
         tir_mq<-sum(resum_tir_carriere[resum_tir_carriere$real_shot_made_flag==0,]$nb)
@@ -264,8 +250,95 @@ observeEvent(input$actionB,{
         group_by(season,opponent,game_date,shot_made_flag) %>% filter(shot_made_flag==1) %>%summarise(nbpts=n())
       
       
+     
+      #Graphique adresse par type de shoots détaillés
+      #regroupe les shoots peu nombreux dans la catégorie autres
+      f<-shr
+      f %>% count(action_type) %>%
+        arrange(desc(n)) %>% filter(n < 20) -> actions
+      f$action_type[f$action_type %in% actions$action_type] <- "Autres shoots"
+     
+      output$shoot_adresse<-renderPlot({
+       prop.table(table(f$action_type, f$real_shot_made_flag),1) -> temp
+        temp<-na.omit(temp)
+      as.data.frame.matrix(temp) -> temp
 
-
+      
+      temp$shot <- rownames(temp)
+      
+      ggplot(temp, aes(x = reorder(shot, `1`), y = 1)) +
+        geom_bar(aes(y = `1`,width=0.2), size = 1, color = " orange", stat = "identity") +
+        coord_flip() +
+        labs(y = "Adresse en %", x = "")
+      }) 
+      
+      
+      #Répartition des shoots selon abscisses et ordonnés
+        f$x_abs <- cut(f$loc_x, breaks = 25)
+        f$y_ord <- cut(f$loc_y, breaks = 25)
+        
+        output$repartX<-renderPlot({
+          ggplot(f ,aes(x=f$x_abs,fill=as.factor(f$real_shot_made_flag)))+ 
+          geom_bar(colour="blue" ) +
+            scale_fill_discrete(name ="Réussite") +
+            theme(axis.text.x=element_text(angle=-90,hjust=1),legend.position = c(0.8, 0.8),legend.title = element_text(colour="purple"))
+          
+          
+      }, height = 400) 
+      
+      
+      output$repartY<-renderPlot({
+          ggplot(f ,aes(x=f$y_ord,fill=as.factor(f$real_shot_made_flag)))+ 
+          geom_bar(colour="blue") +
+          scale_fill_discrete(name ="Zones de shoot") +
+          theme(axis.text.x=element_text(angle=-90,hjust=1),legend.position = c(0.8, 0.8),legend.title = element_text(colour="purple"))
+        
+          
+      }, height = 400) 
+      
+      #répartition des shoots selon la zone area
+      output$shoot_zone_area<-renderPlot({
+          ggplot(f,aes(x = f$loc_x, y = f$loc_y)) +
+          annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
+          geom_point(aes_q(color = f$shot_zone_area), alpha = 0.7, size = 1) +
+          scale_color_brewer("zones de shoots", palette="Set2")+
+          scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
+          scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
+          #plot.background = element_rect(fill = "black"),
+          coord_equal()+
+          annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) +
+          theme(legend.title = element_text(colour="purple")) +
+          ggtitle(ggtitle("critère shot zone area"))
+      })
+      #répartition des shoots selon la zone 
+      output$shoot_zone_basic<-renderPlot({
+        ggplot(f,aes(x = f$loc_x, y = f$loc_y)) +
+          annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
+          geom_point(aes_q(color = f$shot_zone_basic), alpha = 0.7, size = 1) +
+          scale_color_brewer("zones de shoots", palette="Set2")+
+          scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
+          scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
+          #plot.background = element_rect(fill = "black"),
+          coord_equal()+
+          annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) +
+          theme(legend.title = element_text(colour="purple")) +
+          ggtitle("critère :shot zone basic")
+      })
+      
+      #répartition des shoots selon la zone 
+      output$shoot_zone_range<-renderPlot({
+        ggplot(f,aes(x = f$loc_x, y = f$loc_y)) +
+          annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
+          geom_point(aes_q(color = f$shot_zone_range), alpha = 0.7, size = 1) +
+          scale_color_brewer("zones de shoots", palette="Set2")+
+          scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
+          scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
+          #plot.background = element_rect(fill = "black"),
+          coord_equal()+
+          annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) +
+          theme(legend.title = element_text(colour="purple")) +
+          ggtitle("critère :shot zone range")
+      })
 }
 
 # Run the application 
