@@ -297,6 +297,8 @@ observeEvent(input$actionB,{
       }, height = 400) 
       
       #répartition des shoots selon la zone area
+      #agrege les shoot par zone pour les afficher
+      res<-f%>%select(loc_x,loc_y,shot_zone_area)%>%group_by(shot_zone_area)%>%summarise(nb=n(), x_moy=mean(loc_x),y_moy=mean(loc_y))
       output$shoot_zone_area<-renderPlot({
           ggplot(f,aes(x = f$loc_x, y = f$loc_y)) +
           annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
@@ -304,13 +306,25 @@ observeEvent(input$actionB,{
           scale_color_brewer("zones de shoots", palette="Set2")+
           scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
           scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
-          #plot.background = element_rect(fill = "black"),
           coord_equal()+
           annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) +
           theme(legend.title = element_text(colour="purple")) +
-          ggtitle(ggtitle("critère shot zone area"))
+          ggtitle(ggtitle("critère shot zone area"))+
+          geom_text(data =res,  col="blue",fontface="bold",aes(label=res$nb),x=round(res$x_moy),y=round(res$y_moy))
       })
+      
       #répartition des shoots selon la zone 
+      #agrege les shoot par zone pour les afficher
+      #si zone à 3 pts on remonte ordonne pour affichage correct
+      res2<-f%>%select(loc_x,loc_y,shot_zone_basic) %>%
+        group_by(shot_zone_basic) %>%summarise(nb=n(), x_moy=mean(loc_x),y_moy=mean(loc_y))
+      
+      for (ii in  1: nrow(res2))
+      {
+        if(res2[ii,1]=="Above the Break 3") res2[ii,]$y_moy<-res2[ii,]$y_moy+50
+        if (res2[ii,1]=="Mid-Range") res2[ii,]$y_moy<-res2[ii,]$y_moy+80
+        if (res2[ii,1]=="Restricted Area" ) res2[ii,]$y_moy<-res2[ii,]$y_moy+5
+      }
       output$shoot_zone_basic<-renderPlot({
         ggplot(f,aes(x = f$loc_x, y = f$loc_y)) +
           annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
@@ -318,14 +332,21 @@ observeEvent(input$actionB,{
           scale_color_brewer("zones de shoots", palette="Set2")+
           scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
           scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
-          #plot.background = element_rect(fill = "black"),
           coord_equal()+
           annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) +
           theme(legend.title = element_text(colour="purple")) +
-          ggtitle("critère :shot zone basic")
+          ggtitle("critère :shot zone basic")+
+          geom_text(data =res2, col="blue",fontface="bold", aes(label=res2$nb),x=round(res2$x_moy),y=round(res2$y_moy))
       })
       
       #répartition des shoots selon la zone 
+      #agrege les shoot par zone pour les afficher
+      res3<-f%>%select(loc_x,loc_y,shot_zone_range)%>%group_by(shot_zone_range)%>%summarise(nb=n(), x_moy=mean(loc_x),y_moy=mean(loc_y)+45)
+      for (ii in  1: nrow(res3))
+      {
+        if(res3[ii,1]=="24+ ft.") res3[ii,]$y_moy<-res3[ii,]$y_moy+65
+       
+      }
       output$shoot_zone_range<-renderPlot({
         ggplot(f,aes(x = f$loc_x, y = f$loc_y)) +
           annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
@@ -333,11 +354,11 @@ observeEvent(input$actionB,{
           scale_color_brewer("zones de shoots", palette="Set2")+
           scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
           scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
-          #plot.background = element_rect(fill = "black"),
           coord_equal()+
           annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) +
           theme(legend.title = element_text(colour="purple")) +
-          ggtitle("critère :shot zone range")
+          ggtitle("critère :shot zone range")+
+          geom_text(data =res3, col="blue",fontface="bold",aes(label=res3$nb ),x=round(res3$x_moy),y=round(res3$y_moy))
       })
 }
 
