@@ -290,7 +290,7 @@ observeEvent(input$actionB,{
       output$repartY<-renderPlot({
           ggplot(f ,aes(x=f$y_ord,fill=as.factor(f$real_shot_made_flag)))+ 
           geom_bar(colour="blue") +
-          scale_fill_discrete(name ="Zones de shoot") +
+          scale_fill_discrete(name ="Réussite") +
           theme(axis.text.x=element_text(angle=-90,hjust=1),legend.position = c(0.8, 0.8),legend.title = element_text(colour="purple"))
         
           
@@ -298,7 +298,8 @@ observeEvent(input$actionB,{
       
       #répartition des shoots selon la zone area
       #agrege les shoot par zone pour les afficher
-      res<-f%>%select(loc_x,loc_y,shot_zone_area)%>%group_by(shot_zone_area)%>%summarise(nb=n(), x_moy=mean(loc_x),y_moy=mean(loc_y))
+      res<-f%>%select(loc_x,loc_y,shot_zone_area, real_shot_made_flag)%>%
+          group_by(shot_zone_area)%>%summarise(nb=n(), x_moy=mean(loc_x),y_moy=mean(loc_y),reussite=100*sum(real_shot_made_flag)/nb)
       output$shoot_zone_area<-renderPlot({
           ggplot(f,aes(x = f$loc_x, y = f$loc_y)) +
           annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
@@ -310,20 +311,28 @@ observeEvent(input$actionB,{
           annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) +
           theme(legend.title = element_text(colour="purple")) +
           ggtitle(ggtitle("critère shot zone area"))+
-          geom_text(data =res,  col="blue",fontface="bold",aes(label=res$nb),x=round(res$x_moy),y=round(res$y_moy))
+          geom_label(data =res, size=3, col="blue",fontface="bold",aes(label=paste(res$nb,"\n à ",round(res$reussite,1),"%")),x=round(res$x_moy),y=round(res$y_moy),alpha=0.2)
       })
       
       #répartition des shoots selon la zone 
       #agrege les shoot par zone pour les afficher
       #si zone à 3 pts on remonte ordonne pour affichage correct
-      res2<-f%>%select(loc_x,loc_y,shot_zone_basic) %>%
-        group_by(shot_zone_basic) %>%summarise(nb=n(), x_moy=mean(loc_x),y_moy=mean(loc_y))
-      
+      res2<-f%>%select(loc_x,loc_y,shot_zone_basic, real_shot_made_flag) %>%
+        group_by(shot_zone_basic) %>%summarise(nb=n(), x_moy=mean(loc_x),y_moy=mean(loc_y),reussite=100*sum(real_shot_made_flag)/nb)
+      #init colonne de libelle
+      res2$lib<-""
       for (ii in  1: nrow(res2))
-      {
+      { 
+        res2[ii,"lib"]<-paste(res2[ii,"nb"]," à ",round(res2[ii,"reussite"],1),"%")
         if(res2[ii,1]=="Above the Break 3") res2[ii,]$y_moy<-res2[ii,]$y_moy+50
         if (res2[ii,1]=="Mid-Range") res2[ii,]$y_moy<-res2[ii,]$y_moy+80
-        if (res2[ii,1]=="Restricted Area" ) res2[ii,]$y_moy<-res2[ii,]$y_moy+5
+        if (res2[ii,1]=="Restricted Area" ) res2[ii,]$y_moy<-res2[ii,]$y_moy+10
+        if (res2[ii,1]=="Left Corner 3" ) {                res2[ii,]$x_moy<-res2[ii,]$x_moy+15
+                res2[ii,"lib"]<-paste(res2[ii,"nb"],"\nà\n",round(res2[ii,"reussite"],1),"%")
+        }
+        if (res2[ii,1]=="Right Corner 3" ) {  res2[ii,]$x_moy<-res2[ii,]$x_moy-30
+            res2[ii,"lib"]<-paste(res2[ii,"nb"],"\nà\n",round(res2[ii,"reussite"],1),"%")
+        }
       }
       output$shoot_zone_basic<-renderPlot({
         ggplot(f,aes(x = f$loc_x, y = f$loc_y)) +
@@ -336,12 +345,13 @@ observeEvent(input$actionB,{
           annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) +
           theme(legend.title = element_text(colour="purple")) +
           ggtitle("critère :shot zone basic")+
-          geom_text(data =res2, col="blue",fontface="bold", aes(label=res2$nb),x=round(res2$x_moy),y=round(res2$y_moy))
+          geom_label(data =res2, size=3,col="blue",fontface="bold", aes(label=res2$lib),x=round(res2$x_moy),y=round(res2$y_moy),alpha=0.2)
       })
       
       #répartition des shoots selon la zone 
       #agrege les shoot par zone pour les afficher
-      res3<-f%>%select(loc_x,loc_y,shot_zone_range)%>%group_by(shot_zone_range)%>%summarise(nb=n(), x_moy=mean(loc_x),y_moy=mean(loc_y)+45)
+      res3<-f%>%select(loc_x,loc_y,shot_zone_range, real_shot_made_flag)%>%group_by(shot_zone_range)%>%
+        summarise(nb=n(), x_moy=mean(loc_x),y_moy=mean(loc_y)+45,reussite=100*sum(real_shot_made_flag)/nb)
       for (ii in  1: nrow(res3))
       {
         if(res3[ii,1]=="24+ ft.") res3[ii,]$y_moy<-res3[ii,]$y_moy+65
@@ -358,7 +368,7 @@ observeEvent(input$actionB,{
           annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) +
           theme(legend.title = element_text(colour="purple")) +
           ggtitle("critère :shot zone range")+
-          geom_text(data =res3, col="blue",fontface="bold",aes(label=res3$nb ),x=round(res3$x_moy),y=round(res3$y_moy))
+          geom_label(data =res3, size=3,col="blue",fontface="bold",aes(label=paste(res3$nb,"à ",round(res3$reussite,1),"%") ),x=round(res3$x_moy),y=round(res3$y_moy),alpha=0.2)
       })
 }
 
