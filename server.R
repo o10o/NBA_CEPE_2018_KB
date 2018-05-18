@@ -20,8 +20,13 @@ server <- function(input, output) {
        select(-X) %>%
        mutate(game_date=as.Date(game_date)) %>%
        arrange(game_date, period, temps_period, game_event_id)
+   
+     shr <- shr%>%mutate(dom_ext = ifelse(shr$boo_dom==1,"DOM","EXT"))%>%
+      mutate(periode = ifelse(shr$playoffs==1,"Playoffs","Saison Reguliere"))%>%
+      mutate(reussite = ifelse(shr$real_shot_made_flag==1,"reussi","rate"))
+    
     #ne garde que les colonnes utiles pour chargement plus rapide
-    shr<-shr[,c(1:12,15,62,63,64,65,66,68:72)]
+    shr<-shr[,c(1:12,15,62,63,64,65,66,68:72,134,135,136)]
     
     
     #chargement du terrain
@@ -47,27 +52,15 @@ server <- function(input, output) {
 #onglet de visu des shoots
 observeEvent(input$actionB,{
      
-      #geston de la variable dom_ext    
-      if (input$dom_ext==0) dx<-c(0,1)
-      else if(input$dom_ext==1) dx<-c(1,1)
-      else dx<-c(0,0)
+      
      
-     #prepare l'affichage des shoots reussis ou pas ou les deux
-     if (input$reussi==2) 
-       reussi<-c(0,1)
-     else
-       reussi<-input$reussi
-     
-     #gestion variable playoffs
-     if (input$playoffs==2)
-        playoffs<-c(0,1)
-     else
-        playoffs<-input$playoffs
      #Chaine récupérant les différents filtres
-     sh_filtre<-shr[shr$combined_shot_type %in% input$type_shoot & shr$opponent %in% input$adversaire & shr$season %in% input$saison & shr$real_shot_made_flag %in% reussi & shr$boo_dom %in% dx & shr$shot_type %in% input$zone_shoot & shr$action_type %in% input$action_type & shr$playoffs %in% playoffs,]
+     sh_filtre<-shr[shr$combined_shot_type %in% input$type_shoot & shr$opponent %in% input$adversaire &
+                      shr$season %in% input$saison & shr$reussite %in% input$reussite &
+                      shr$dom_ext %in% input$dom_ext & shr$shot_type %in% input$zone_shoot & shr$periode %in% input$playoffs,]
       
      shrr<-sh_filtre
-
+   
     #Affichage du terrain des tirs et heatmap
     output$plot <- renderPlot({
             decoup<-c(0, 100, 250, 500, 1000, 1500, 2000, 2500, Inf)
@@ -126,30 +119,40 @@ observeEvent(input$actionB,{
     })
     
     #Affichage d'un tableau avec les Tirs réussis et ratés, en nombre et en %
-    res<-NULL
-    colsum<-NULL
-    pourcent_reussite<-NULL
-    Total_tirs<-NULL
-    total_ts_shoot<-NULL
-    res<-table(sh_filtre$real_shot_made_flag,sh_filtre$combined_shot_type)
-    print(res)
-    print(sh_filtre)
-    total_ts_shoot<-rowSums(res)
-    res<-cbind(res,total_ts_shoot)
-    Total_tirs<-colSums(res)
-    for (ii in 1:dim(res)[2])
-    {
-      
-      if_else (Total_tirs[ii] >0, pourcent_reussite[ii]<-round((res[2,ii]/Total_tirs[ii])*100,2),NULL)
-    }
-    fin<-rbind(round(res),Total_tirs,pourcent_reussite)
-
-    row.names(fin)[1]<-"Tirs manqués"
-    row.names(fin)[2]<-"Tirs réussis"
-    output$tirs <-  DT::renderDataTable({
-      DT::datatable(fin)
-    })
     
+    res<-NULL
+    Pourcentage<-NULL
+    Tirs_reussis<-NULL
+    Tirs_tentes<-NULL
+    res<-table(shrr$shot_zone_basic,shrr$real_shot_made_flag)
+    
+    if (!is.null(res)){
+      if (dim(res)[2]==2){
+        Tirs_reussis<-res[,2]
+        Tirs_tentes<-res[,1]+res[,2]
+      }
+      else{
+        if (input$reussite=="reussi")
+          Tirs_reussis<-res[,1]
+        
+      
+      Tirs_tentes<-res[,1]
+        
+      }
+       res<-cbind(Tirs_reussis,Tirs_tentes)
+       print(Tirs_reussis)
+       for (ii in 1:dim(res)[1])
+       {
+         
+         if (!is.null(Tirs_reussis[ii])) Pourcentage[ii]<-Tirs_reussis[ii]/Tirs_tentes[ii]
+         else Pourcentage[ii]<-0
+       }
+       Pourcentage = scales::percent(Pourcentage)
+       fin<-cbind(round(res),Pourcentage)
+       output$tirs <-  DT::renderDataTable({
+         DT::datatable(fin)
+       })
+    }
     #Affichage des ratio aux tirs par saisons
     output$graph <- renderPlot({
     #calcul du nombre de tirs et du ratio pour alim du graphique
