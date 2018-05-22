@@ -278,8 +278,9 @@ observeEvent(input$actionB,{
         f$y_ord <- cut(f$loc_y, breaks = 25)
         
         output$repartX<-renderPlot({
-          ggplot(f ,aes(x=f$x_abs,fill=as.factor(f$real_shot_made_flag)))+ 
+          ggplot(f ,aes(x=f$x_abs,fill=as.factor(f$real_shot_made_flag),label=..prop..))+ 
           geom_bar(colour="blue" ) +
+            geom_text(aes(label=(..prop..)),size = 3, position = position_stack(vjust = 0.5))+
             scale_fill_discrete(name ="Réussite") +
             theme(axis.text.x=element_text(angle=-90,hjust=1),legend.position = c(0.8, 0.8),legend.title = element_text(colour="purple"))
           
