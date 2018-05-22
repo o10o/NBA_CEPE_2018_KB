@@ -118,8 +118,8 @@ generate_hex_chart = function(hex_data, alpha_range = c(0.85, 0.98)) {
                  aes_string(x = "adj_x", y = "adj_y", group = "hexbin_id",
                             fill = "bounded_fg_pct", alpha = "hex_attempts"),
                  size = 0) +
-    scale_fill_gradientn(paste0(fill_label, "   "),
-                         colors = topo.colors(7),
+    scale_fill_distiller(type="qual",paste0(fill_label, "   "),
+                         palette = "Set3",
                          limit = fill_limit,
                          labels = label_formatter,
                          guide = guide_colorbar(barwidth = 2)) +

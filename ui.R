@@ -20,16 +20,24 @@ shr<-read.csv( "./data/kb_analyse.csv", header=T)  %>%
   select(-X) %>%
   mutate(game_date=as.Date(game_date)) %>%
   arrange(game_date, period, temps_period, game_event_id)
+shr <- shr%>%mutate(dom_ext = ifelse(shr$boo_dom==1,"DOM","EXT"))%>%
+  mutate(periode = ifelse(shr$playoffs==1,"Playoffs","Saison Reguliere"))%>%
+  mutate(reussite = ifelse(shr$real_shot_made_flag==1,"reussi","rate"))
+
 #ne garde que les colonnes utiles pour chargement plus rapide
-sh<-shr[,c(1:12,15,62,63,64,65,66,71,72)]
+sh<-shr[,c(1:12,15,62,63,64,65,66,71,72,134,135,136)]
 #lectutre à partir du RDs
 #sh <- readRDS("./data/kb.rds")
-
+print(names(sh))
+valperiod<-unique(as.character(sh$periode))
+valdom<-unique(as.character(sh$dom_ext))
 valsais<-unique(as.character(sh$season))
+valreussite<-unique(as.character(sh$reussite))
 valadv<-unique(as.character(sh$opponent))
+
 if(is.null(sh)) return (NULL)
-dist_typsh<-sh%>%distinct(combined_shot_type)
-z_sh<-sh%>%distinct(shot_type)
+dist_typsh<-unique(as.character(sh$combined_shot_type))
+z_sh<-unique(as.character(sh$shot_type))
 action<-unique(as.character(sh$action_type))
 
 #theme="bootstrap.css"
@@ -65,36 +73,30 @@ ui <- fluidPage(
     
             actionButton("actionB", label = "Actualisation"),
             
-            selectInput(inputId = "type_shoot",label="Type de shoot",choices = dist_typsh,multiple=T),
-            selectInput(inputId = "zone_shoot",label="Zone de shoot",choices = z_sh,multiple=T),
-            selectInput("action_type","Type de shoot(précis)",action, multiple=TRUE, selectize=FALSE),
+            selectInput(inputId = "type_shoot",label="Type de shoot",choices = dist_typsh,multiple=TRUE, selectize=FALSE),
+            selectInput(inputId = "zone_shoot",label="Zone de shoot",choices = z_sh,multiple=TRUE, selectize=FALSE,selected=z_sh),
+           
             #radio bouton pour shoots reussis ou pas
-            radioButtons("reussi", label = h4("Tirs réussis"),
-                         choices = list("Oui" = 1, "Non" = 0,"Les deux" = 2), 
-                         selected = 2),
-  
+            selectInput("reussite", "Tirs", valreussite,multiple=TRUE, selectize=FALSE,selected=valreussite),
+            
             
             #selection de la saison
             
             #selectInput("saison", "saison:", valsais,multiple = T,selected = valsais),
             selectInput("saison", "Saison(s):", valsais,multiple=TRUE, selectize=FALSE),
             #radio bouton pour choix domicile exterieur les deux
-            radioButtons("playoffs", label = h4("Saison régulière/playoff"),
-                         choices = list("Saison Régulière"=0,"Playoffs" = 1, "Saison rég.+playoff" = 2), 
-                         selected = 0),
+            selectInput("playoffs", "Periode", valperiod,multiple=TRUE, selectize=FALSE, selected = valperiod),
             
             #selection de l'adversaire
             #selectInput("adversaire", "adversaire:", valadv,multiple=T,selected=valadv),
             selectInput("adversaire", "Adversaire(s):", valadv,multiple=TRUE, selectize=FALSE),
         
             #radio bouton pour choix domicile exterieur les deux
-            radioButtons("dom_ext", label = h4("Domicile/Extérieur"),
-                         choices = list("Les deux"=0,"Domicile" = 1, "Extérieur" = 2), 
-                         selected = 1),
+            selectInput("dom_ext", "DOM/EXT", valdom,multiple=TRUE, selectize=FALSE,selected=valdom),
             
             #radio bouton pour affichage tir heat les deux
             radioButtons("typ_affich", label = h4("Affichage"),
-                         choices = list("Les deux"=0,"tirs" = 1, " hexagones " = 2), 
+                         choices = list("tirs" = 1, " hexagones " = 2), 
                          selected = 2)
  
         ),
@@ -135,7 +137,7 @@ ui <- fluidPage(
                                                                                              )
                                   ),
                         tabPanel(id="tab","Visualisation des tirs", plotOutput("plot",height = "800"), DT::dataTableOutput("tirs"),plotOutput("graph")),
-                       # tabPanel("Stats", verbatimTextOutput("summary")),
+                        #tabPanel(id="tab2","Visualisation des tirs 2", plotOutput("plot2", height="800") ),
                         tabPanel("données", dataTableOutput("table"))
                         
             )
