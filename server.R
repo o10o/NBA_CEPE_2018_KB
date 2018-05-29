@@ -1,3 +1,33 @@
+#######################################################################################
+
+#PRogramme de visualisation des statisitiques descriptives de  Kobe Bryant sur l'ensemble de sa carrière
+
+ #Partie Server.R
+#######################################################################################
+#3 onglets sont fournis
+#onglet "Le joueur en carrière"
+#       Fournit 1-les informations générales sur le joeurs récupérée sur le site de la NBA via un fichier JSON et stockées dans player.table.csv
+#               2-Radar de performance au tir par macro typs de shoots
+#               3-performance par type de shoot détaillés ordonnées du meilleur % au moins bon
+#               4- profil de volume de shoots reussis et manqués en fonction de l'éloignement en largeur par rappor au cercle
+#               5-profil de volume de shoots reussis et manqués en fonction de l'éloignement en profondeur par rappor au cercle
+#               6-Affcihage selon les trois catégorisation de zones de shoots des volumes de shoots pris et des pourcentages sur l'ensemble de la carrière
+#                        Shot_zone_area (geographique)
+#                        shot zone basic (par rapport aux règles du jeu)
+#                        shot_zone_range (par rapport à l'éloignement au cercle)
+#***************
+#Onglet "Visualisation des tirs"
+#             Representation dynamique des shoots, type de shoots, adresse et volume combiné par rapport à la position sur le terrain
+#             sélection des ceritères en amont (types de shoot, adversaires , saisons, dom/ext , en sasion, en playoff...)
+#             Tableau récapitulatif par type de shoot des % de réussite
+#**************
+#onglet "données, qui ne fait qu'aficher le contenu du fichier conteant ls informations sur les shoots
+#**************
+#Olivier Dissaux, Karim Hammour, Matthias Villaverde
+
+#Projet de datascience pour la session Datascientist Ensae CEPE 2017-2018
+
+#######################################################################################
 #Chargement des library
 library(plotly)
 library(shiny)
@@ -48,8 +78,9 @@ server <- function(input, output) {
         list(src = outfile  , contentType = 'image/jpeg', width = 180,  height = 150,alt = "This is alternate text" )
     }, deleteFile = F)
 
-#******************************************************************************************************************************************************     
+#*************************************************************************************************************************************************     
 #onglet de visu des shoots
+#*************************************************************************************************************************************************    
 observeEvent(input$actionB,{
      
       
@@ -153,6 +184,7 @@ observeEvent(input$actionB,{
          DT::datatable(fin)
        })
     }
+    
     #Affichage des ratio aux tirs par saisons
     output$graph <- renderPlot({
     #calcul du nombre de tirs et du ratio pour alim du graphique
@@ -181,11 +213,12 @@ observeEvent(input$actionB,{
 #******************************************************************************************************************************************************    
     # Visu du fichier complet ----
     output$table <- renderDataTable({shr})
-
-  
 #******************************************************************************************************************************************************  
     
-    #Genere l'onglet avec l'ensemble des statistiques du joueur sur sa carrière
+
+
+#onglet avec l'ensemble des statistiques du joueur sur sa carrière
+
       #  Lecture du fichier infogenerale sur KB
       ig<-read.csv( "./data/player.table.csv", header=T)
       #ne garde que les colonnes pertinentes
@@ -195,7 +228,7 @@ observeEvent(input$actionB,{
       stcarriere<-read.csv( "./data/kb.statsCarriere.csv", header=T)
       
       output$InfoGene<-renderUI({
-        
+       #Mise en forme HTML de la présentation du joueur 
        HTML(paste("<font color=\"blue\"><b>",h4("informations générales"),"</b></font>","ID joueur en NBA: ","<font color=\"purple\"><b>",ig[1,1],"</b></font>",br(),
               "Nom : ","<font color=\"purple\"><b>",ig[1,2],"</b></font>"," ","<font color=\"purple\"><b>", ig[1,3],"</b></font>","&emsp;", "né le : ","<font color=\"purple\"><b>",strftime(as.Date(substring(ig[1,4],1,10),"%Y-%m-%d"),"%d/%m/%Y"),"</b></font>","&emsp;","nationalité : ","<font color=\"purple\"><b>",ig[1,6],"</b></font>",br(),
               "taille: ","<font color=\"purple\"><b>",ig[1,7],"</b></font>"," pieds","&emsp;", "poids: ","<font color=\"purple\"><b>",ig[1,8]/2,"</b></font>"," kg",br(),
@@ -219,7 +252,7 @@ observeEvent(input$actionB,{
       })
       
       
-      #affichage du profil en carrière de réussite par typ de shoot
+      #affichage du profil en carrière de réussite par type de shoot
       output$profil<-renderChartJSRadar({
         shr<-shr[shr$real_shot_made_flag %in% c(0,1),]
         vshotmq<-shr%>%select(combined_shot_type,real_shot_made_flag)%>%group_by(combined_shot_type)%>%filter(real_shot_made_flag==0)%>%summarise(nb=n())
@@ -246,6 +279,7 @@ observeEvent(input$actionB,{
         arrange(season,combined_shot_type,real_shot_made_flag)
         tir_mq<-sum(resum_tir_carriere[resum_tir_carriere$real_shot_made_flag==0,]$nb)
         tir_reussis<-sum(resum_tir_carriere[resum_tir_carriere$real_shot_made_flag==1,]$nb)
+        
       #% reussite carriere
           ratio_carriere<-tir_reussis/(tir_mq+tir_reussis)*100
       
@@ -270,7 +304,7 @@ observeEvent(input$actionB,{
       temp$shot <- rownames(temp)
       
       ggplot(temp, aes(x = reorder(shot, `1`), y = 1)) +
-        geom_bar(aes(y = `1`,width=0.2), size = 1, color = " orange", stat = "identity") +
+        geom_bar(aes(y = `1`), size = 1, color = " orange", stat = "identity") +
         coord_flip() +
         labs(y = "Adresse en %", x = "")
       }) 
@@ -281,9 +315,8 @@ observeEvent(input$actionB,{
         f$y_ord <- cut(f$loc_y, breaks = 25)
         
         output$repartX<-renderPlot({
-          ggplot(f ,aes(x=f$x_abs,fill=as.factor(f$real_shot_made_flag),label=..prop..))+ 
+          ggplot(f ,aes(x=f$x_abs,fill=as.factor(f$real_shot_made_flag)))+ 
           geom_bar(colour="blue" ) +
-            geom_text(aes(label=(..prop..)),size = 3, position = position_stack(vjust = 0.5))+
             scale_fill_discrete(name ="Réussite") +
             theme(axis.text.x=element_text(angle=-90,hjust=1),legend.position = c(0.8, 0.8),legend.title = element_text(colour="purple"))
           

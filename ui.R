@@ -1,12 +1,33 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+#######################################################################################
 
+#PRogramme de visualisation des statisitiques descriptives de  Kobe Bryant sur l'ensemble de sa carrière
+
+#Partie ui.R
+#######################################################################################
+#3 onglets sont fournis
+#onglet "Le joueur en carrière"
+#       Fournit 1-les informations générales sur le joeurs récupérée sur le site de la NBA via un fichier JSON et stockées danssplayer.table.rda
+#               2-Radar de performance au tir par macro typs de shoots
+#               3-performance par type de shoot détaillés ordonnées du meilleur % au moins bon
+#               4- profil de volume de shoots reussis et manqués en fonction de l'éloignement en largeur par rappor au cercle
+#               5-profil de volume de shoots reussis et manqués en fonction de l'éloignement en profondeur par rappor au cercle
+#               6-Affcihage selon les trois catégorisation de zones de shoots des volumes de shoots pris et des pourcentages sur l'ensemble de la carrière
+#                        Shot_zone_area (geographique)
+#                        shot zone basic (par rapport aux règles du jeu)
+#                        shot_zone_range (par rapport à l'éloignement au cercle)
+#***************
+#Onglet "Visualisation des tirs"
+#             Representation dynamique des shoots, type de shoots, adresse et volume combiné par rapport à la position sur le terrain
+#             sélection des ceritères en amont (types de shoot, adversaires , saisons, dom/ext , en sasion, en playoff...)
+#             Tableau récapitulatif par type de shoot des % de réussite
+#**************
+#onglet "données, qui ne fait qu'aficher le contenu du fichier conteant ls informations sur les shoots
+#**************
+#Olivier Dissaux, Karim Hammour, Matthias Villaverde
+
+#Projet de datascience pour la session Datascientist Ensae CEPE 2017-2018 (exam le 5 juin)
+
+#######################################################################################
 library(shiny)
 library(png)
 library(grid)
@@ -14,8 +35,7 @@ library(ggplot2)
 library(plotly)
 library(radarchart)
 
-# Define UI for application that draws a histogram
-#sh <- read.csv( "./data/source_kb_shots.csv", header=T)
+
 shr<-read.csv( "./data/kb_analyse.csv", header=T)  %>%
   select(-X) %>%
   mutate(game_date=as.Date(game_date)) %>%
@@ -26,9 +46,8 @@ shr <- shr%>%mutate(dom_ext = ifelse(shr$boo_dom==1,"DOM","EXT"))%>%
 
 #ne garde que les colonnes utiles pour chargement plus rapide
 sh<-shr[,c(1:12,15,62,63,64,65,66,71,72,134,135,136)]
-#lectutre à partir du RDs
-#sh <- readRDS("./data/kb.rds")
-print(names(sh))
+
+
 valperiod<-unique(as.character(sh$periode))
 valdom<-unique(as.character(sh$dom_ext))
 valsais<-unique(as.character(sh$season))
@@ -101,10 +120,10 @@ ui <- fluidPage(
  
         ),
         
-        # Main panel for displaying outputs ----
+        #Panneau principal ----
         mainPanel(id="main",
             
-            # Output: Tabset w/ plot, summary, et table ----
+            
             tabsetPanel(type = "tabs",
                         tabPanel( class="my_style_1",id="IG","Le joueur en carrière",htmlOutput("InfoGene"),htmlOutput("InfoStats"), htmlOutput("TitreProfil"),
                                                                                     chartJSRadarOutput (outputId = "profil", height="140%"),
