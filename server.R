@@ -41,6 +41,9 @@ library(stringr)
 library(radarchart)
 library(devtools)
 library(dplyr)
+#lecturer de la fonction pour gestion hexagones volumes/reussites
+source("./prog/hexagones.R")
+
 
 options(shiny.maxRequestSize=30*1024^2) 
 server <- function(input, output) {
@@ -98,57 +101,100 @@ observeEvent(input$actionB,{
 
 
         #affiche tir et hexbin  #affiche uniquement les tirs sous forme de points, couleur fonction de reussi ou non
-        if (input$typ_affich==0)
-        {
+        #if (input$typ_affich==0)
+        #{
           
-            p<-ggplot(data=shrr) + 
-                #theme_void()+
-                annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
-                stat_binhex(aes(x=loc_x,y=loc_y, alpha=..count..),binwidth = 25)+
-                scale_fill_gradientn(colours=c("blue","light green","green", "dark green"),name = "Frequency",na.value=NA)+
-                geom_point(mapping = aes(x=loc_x,y=loc_y,color=shrr$real_shot_made_flag,shape=shrr$combined_shot_type))+
-                scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
-                scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
-              #plot.background = element_rect(fill = "black"),
-                coord_equal()+theme(plot.margin=margin(0,0,0,0),legend.position="none")+
-              annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) 
-          }      
-          else
-          {
-              #affiche uniquement les tirs sous forme de points, couleur fonction de reussi ou non
-            if (input$typ_affich==1)
-            {
+        #    p<-ggplot(data=shrr) + 
+        #        #theme_void()+
+        #        annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
+        #        stat_binhex(aes(x=loc_x,y=loc_y, alpha=..count..),binwidth = 25)+
+        #        scale_fill_gradientn(colours=c("blue","light green","green", "dark green"),name = "Frequency",na.value=NA)+
+        #        geom_point(mapping = aes(x=loc_x,y=loc_y,color=shrr$real_shot_made_flag,shape=shrr$combined_shot_type))+
+        #        scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
+        #        scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
+        #      #plot.background = element_rect(fill = "black"),
+        #        coord_equal()+theme(plot.margin=margin(0,0,0,0),legend.position="none")+
+        #      annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) 
+          #}      
+          #else
+        #  {
+        #      #affiche uniquement les tirs sous forme de points, couleur fonction de reussi ou non
+        #    if (input$typ_affich==1)
+        #    {
+              legend_title <- "Réussite"
               p<-ggplot(data=shrr) + 
-                #theme_void()+
                 annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
-                  
-                geom_point(mapping = aes(x=loc_x,y=loc_y,color=shrr$real_shot_made_flag,shape=shrr$combined_shot_type))+
+                geom_point(aes(x=loc_x,y=loc_y,color=factor(shrr$real_shot_made_flag),shape=shrr$combined_shot_type))+
                 scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
                 scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
-                #plot.background = element_rect(fill = "black"),
-                coord_equal()+theme(plot.margin=margin(0,0,0,0),legend.position="none")+
+                scale_shape_discrete("Type des shoots")+
+                scale_color_discrete("Shoots réussis ou non")+
+                
+                #scale_fill_continuous(guide = guide_legend(title = NULL))+
+                coord_equal()+theme(axis.title = element_blank(),
+                                    axis.text = element_blank(),plot.margin=margin(0,0,0,0),legend.title = element_text("purple"))+
+                
                 annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) 
-            }
-            else  #affiche uniquement les hex
-            {
-              p<-ggplot(data=shrr) + 
-                #theme_void()+
-                annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
-                stat_binhex(aes(x=loc_x,y=loc_y, alpha=..count..),binwidth = 25)+
-                scale_fill_gradientn(colours=c("blue","light green","green", "dark green"),name = "Frequency",na.value=NA)+
-                scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
-                scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
-                #plot.background = element_rect(fill = "black"),
-                coord_equal()+theme(plot.margin=margin(0,0,0,0),legend.position="none")+
-                annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) 
-              
-            }
-          }
+          #  }
+          #  else  #affiche uniquement les hex
+          #  {
+          #    p<-ggplot(data=shrr) + 
+          #      #theme_void()+
+          #      annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
+          #      stat_binhex(aes(x=loc_x,y=loc_y, alpha=..count..),binwidth = 25)+
+          #      scale_fill_gradientn(colours=c("blue","light green","green", "dark green"),name = "Frequency",na.value=NA)+
+          #      scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
+          #      scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
+          #      #plot.background = element_rect(fill = "black"),
+          #      coord_equal()+theme(plot.margin=margin(0,0,0,0),legend.position="none")+
+          #      annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) 
+          #    
+          #  }
+          #}
 
         p
         
     })
     
+    #plot2
+    ###
+    #Affichage du terrain des tirs et heatmap
+    output$plot2 <- renderPlot({
+      decoup<-c(0, 100, 250, 500, 1000, 1500, 2000, 2500, Inf)
+      
+      
+      #affiche uniquement les tirs sous forme de points, couleur fonction de reussi ou non
+      #if (input$typ_affich==1)
+      {
+      #  p<-ggplot(data=shrr) + 
+      #    #theme_void()+
+      #    annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
+      #    
+      #    geom_point(mapping = aes(x=loc_x, y=loc_y, colour=reussite))+  
+      #    scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
+      #    scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
+      #    #plot.background = element_rect(fill = "black"),
+      #    coord_equal()+
+      #    theme(axis.title = element_blank(),
+      #          axis.text = element_blank(),
+      #          plot.margin=margin(0,0,0,0),
+      #          legend.position="right")+
+      #    annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) 
+      }
+      #else  #affiche uniquement les hex
+    #  {
+        hex_data <- calculate_hexbins_from_shots(shrr, binwidths = c(50, 50),
+                                                 min_radius_factor = 0.01, fg_pct_limits = c(0.2, 0.7))
+        p<-generate_hex_chart(hex_data,alpha_range = c(0.85, 0.98))
+        
+    #  }
+      
+      p
+      
+    })
+    ####
+    
+
     #Affichage d'un tableau avec les Tirs réussis et ratés, en nombre et en %
     
     res<-NULL
@@ -166,23 +212,23 @@ observeEvent(input$actionB,{
         if (input$reussite=="reussi")
           Tirs_reussis<-res[,1]
         
-      
-      Tirs_tentes<-res[,1]
+        
+        Tirs_tentes<-res[,1]
         
       }
-       res<-cbind(Tirs_reussis,Tirs_tentes)
-       print(Tirs_reussis)
-       for (ii in 1:dim(res)[1])
-       {
-         
-         if (!is.null(Tirs_reussis[ii])) Pourcentage[ii]<-Tirs_reussis[ii]/Tirs_tentes[ii]
-         else Pourcentage[ii]<-0
-       }
-       Pourcentage = scales::percent(Pourcentage)
-       fin<-cbind(round(res),Pourcentage)
-       output$tirs <-  DT::renderDataTable({
-         DT::datatable(fin)
-       })
+      res<-cbind(Tirs_reussis,Tirs_tentes)
+      
+      for (ii in 1:dim(res)[1])
+      {
+        
+        if (!is.null(Tirs_reussis[ii])) Pourcentage[ii]<-Tirs_reussis[ii]/Tirs_tentes[ii]
+        else Pourcentage[ii]<-0
+      }
+      Pourcentage = scales::percent(Pourcentage)
+      fin<-cbind(round(res),Pourcentage)
+      output$tirs <-  DT::renderDataTable({
+        DT::datatable(fin)
+      })
     }
     
     #Affichage des ratio aux tirs par saisons
