@@ -81,6 +81,10 @@ server <- function(input, output) {
         list(src = outfile  , contentType = 'image/jpeg', width = 180,  height = 150,alt = "This is alternate text" )
     }, deleteFile = F)
 
+     
+     
+     
+     
 #*************************************************************************************************************************************************     
 #onglet de visu des shoots
 #*************************************************************************************************************************************************    
@@ -124,7 +128,9 @@ observeEvent(input$actionB,{
               legend_title <- "Réussite"
               p<-ggplot(data=shrr) + 
                 annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
+                
                 geom_point(aes(x=loc_x,y=loc_y,color=factor(shrr$real_shot_made_flag),shape=shrr$combined_shot_type))+
+                scale_shape_manual(values=c(0:3, 5,8))+
                 scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
                 scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
                 scale_shape_discrete("Type des shoots")+
@@ -232,25 +238,25 @@ observeEvent(input$actionB,{
     }
     
     #Affichage des ratio aux tirs par saisons
-    output$graph <- renderPlot({
-    #calcul du nombre de tirs et du ratio pour alim du graphique
-      gg<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs=n())
-      gg_manq<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mq=n())%>%filter(real_shot_made_flag==0)
-      gg_mis<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mis=n())%>%filter(real_shot_made_flag==1)
-      gg_rat<-gg_mis%>% select(season, nbs_mis)%>%inner_join(gg_manq, by="season")%>%
-                  select(season,nbs_mis, nbs_mq)%>% summarise(ratio=nbs_mis/(nbs_mis+nbs_mq))
-      na.omit(gg_rat)
+    #output$graph <- renderPlot({
+    ##calcul du nombre de tirs et du ratio pour alim du graphique
+      #gg<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs=n())
+      #gg_manq<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mq=n())%>%filter(real_shot_made_flag==0)
+      #gg_mis<-shrr %>% select(season,real_shot_made_flag) %>% group_by(season,real_shot_made_flag) %>% summarise( nbs_mis=n())%>%filter(real_shot_made_flag==1)
+      #gg_rat<-gg_mis%>% select(season, nbs_mis)%>%inner_join(gg_manq, by="season")%>%
+      #            select(season,nbs_mis, nbs_mq)%>% summarise(ratio=nbs_mis/(nbs_mis+nbs_mq))
+      #na.omit(gg_rat)
      
-      gg_rat<-as.data.frame(gg_rat)
-      g<-ggplot(data=gg_rat)+
-            #geom_point(aes(x=gg$season,y=gg$nbs,color=tirs))+
-             geom_bar(mapping=aes(x=season,y=ratio,fill=ratio),stat="identity")+
-            ylim (0,0.6)+ 
-           #expand_limits(y = c(0, gg$nbs+20))+
-            theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-            labs(title=" Pourcentage de réussite de Kobe au tir sur les périodes sélectionnées", col="orange")
-      g
-    }, height = 300) 
+      #gg_rat<-as.data.frame(gg_rat)
+      #g<-ggplot(data=gg_rat)+
+            ##geom_point(aes(x=gg$season,y=gg$nbs,color=tirs))+
+             #geom_bar(mapping=aes(x=season,y=ratio,fill=ratio),stat="identity")+
+            #ylim (0,0.6)+ 
+           ##expand_limits(y = c(0, gg$nbs+20))+
+            #theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+            #labs(title=" Pourcentage de réussite de Kobe au tir sur les périodes sélectionnées", col="orange")
+    #  g
+    #}, height = 300) 
     
      
   }) #fin du obserEvent    

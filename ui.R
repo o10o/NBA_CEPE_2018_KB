@@ -167,8 +167,8 @@ ui <- fluidPage(
                                        ),
                                        
                                        fluidRow(column(width=12,
-                                                       DT::dataTableOutput("tirs"),
-                                                       plotOutput("graph")
+                                                       DT::dataTableOutput("tirs")#,
+                                                       #plotOutput("graph")
                                        )
                                        )
                                        
