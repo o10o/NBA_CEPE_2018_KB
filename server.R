@@ -16,6 +16,10 @@
 #                        shot zone basic (par rapport aux règles du jeu)
 #                        shot_zone_range (par rapport à l'éloignement au cercle)
 #***************
+#Onglet "Analyse"
+#             Représentation de la réussite au tir en fonction de variables a priori impactante
+#             pour la modélisation
+#***************
 #Onglet "Visualisation des tirs"
 #             Representation dynamique des shoots, type de shoots, adresse et volume combiné par rapport à la position sur le terrain
 #             sélection des ceritères en amont (types de shoot, adversaires , saisons, dom/ext , en sasion, en playoff...)
@@ -81,10 +85,6 @@ server <- function(input, output) {
         list(src = outfile  , contentType = 'image/jpeg', width = 180,  height = 150,alt = "This is alternate text" )
     }, deleteFile = F)
 
-     
-     
-     
-     
 #*************************************************************************************************************************************************     
 #onglet de visu des shoots
 #*************************************************************************************************************************************************    
@@ -98,6 +98,7 @@ observeEvent(input$actionB,{
                       shr$dom_ext %in% input$dom_ext & shr$shot_type %in% input$zone_shoot & shr$periode %in% input$playoffs,]
       
      shrr<-sh_filtre
+     shrr<-shrr%>%mutate(shot_result=ifelse(real_shot_made_flag==0,'raté','réuussi'))
    
     #Affichage du terrain des tirs et heatmap
     output$plot <- renderPlot({
@@ -168,33 +169,10 @@ observeEvent(input$actionB,{
     output$plot2 <- renderPlot({
       decoup<-c(0, 100, 250, 500, 1000, 1500, 2000, 2500, Inf)
       
-      
-      #affiche uniquement les tirs sous forme de points, couleur fonction de reussi ou non
-      #if (input$typ_affich==1)
-      {
-      #  p<-ggplot(data=shrr) + 
-      #    #theme_void()+
-      #    annotation_custom(gcourt, -Inf, Inf, -Inf, Inf) +
-      #    
-      #    geom_point(mapping = aes(x=loc_x, y=loc_y, colour=reussite))+  
-      #    scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
-      #    scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
-      #    #plot.background = element_rect(fill = "black"),
-      #    coord_equal()+
-      #    theme(axis.title = element_blank(),
-      #          axis.text = element_blank(),
-      #          plot.margin=margin(0,0,0,0),
-      #          legend.position="right")+
-      #    annotation_custom(gcourt2, -Inf, Inf, -Inf, Inf) 
-      }
-      #else  #affiche uniquement les hex
-    #  {
         hex_data <- calculate_hexbins_from_shots(shrr, binwidths = c(50, 50),
                                                  min_radius_factor = 0.01, fg_pct_limits = c(0.2, 0.7))
         p<-generate_hex_chart(hex_data,alpha_range = c(0.85, 0.98))
-        
-    #  }
-      
+    
       p
       
     })
@@ -459,6 +437,116 @@ observeEvent(input$actionB,{
           ggtitle("critère :shot zone range")+
           geom_label(data =res3, size=3,col="blue",fontface="bold",aes(label=paste(res3$nb,"à ",round(res3$reussite,1),"%") ),x=round(res3$x_moy),y=round(res3$y_moy),alpha=0.2)
       })
+      #******************************************************************************************************************************************************        
+      #onglet analyse
+      kb_analyse <- read.csv( "./data/kb_analyse.csv", header=T)
+      
+      # % par saison 2 et 3 pts
+      output$PctEvol<-renderPlot({
+        
+        FGDeuxTrois <- kb_analyse %>%
+          group_by(season=as.integer(substr(season,1,4)), shot_type) %>%
+          summarise(FGpct = mean(real_shot_made_flag))
+        
+        plot_FGDeuxTrois <- ggplot(data=FGDeuxTrois, aes(x=season,y=FGpct, 
+                                                         colour=shot_type)) +
+          geom_line(size=1) + geom_point(size=2)+
+          ggtitle("Evolution du % au tir à 2 et 3 points")+
+          xlab("saison") + ylab("FG%") +
+          scale_x_continuous(breaks = seq(1996,2015,1)) + 
+          scale_y_continuous(labels = scales::percent, breaks = seq(0,0.7,0.05)) + 
+          theme(plot.background = element_rect(fill="black"),
+                panel.background = element_rect(fill = "white",colour = "black"),
+                #panel.grid.major = element_line(colour="purple",linetype = "solid"),
+                #panel.grid.minor = element_line(colour="purple",linetype = "solid"),
+                axis.text = element_text(color = "grey",size = 15),
+                axis.text.x = element_text(angle = 25),
+                axis.title = element_text(color = "grey",size = 15),
+                plot.title = element_text(face = "bold", color = "grey",size = 15)
+          )
+        plot_FGDeuxTrois
+      }
+      )
+      
+      # evolution du % entre saison reguliere et playoffs
+      output$PctRegPlayoffs<-renderPlot({
+        
+        FGRegPlayoffs <- kb_analyse %>%
+          group_by(season=as.integer(substr(season,1,4)),playoffs) %>%
+          summarise(FGpct = mean(real_shot_made_flag))%>%
+          mutate(playoffs=ifelse(playoffs==0,"Saison Régulière","Playoffs"))
+        
+        plot_FGRegPlayoffs <- ggplot(data=FGRegPlayoffs, aes(x=season,y=FGpct, colour=playoffs)) +
+          geom_line(size=1) + geom_point(size=2)+
+          ggtitle("Evolution du % au tir")+
+          xlab("saison") + ylab("FG%") +
+          scale_x_continuous(breaks = seq(1996,2015,1)) +
+          scale_y_continuous(labels = scales::percent, breaks = seq(0,0.7,0.05)) + 
+          theme(plot.background = element_rect(fill="black"),
+                panel.background = element_rect(fill = "white",colour = "black"),
+                panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank(),
+                axis.text = element_text(color = "grey",size = 15),
+                axis.text.x = element_text(angle = 25),
+                axis.title = element_text(color = "grey",size = 15),
+                plot.title = element_text(face = "bold", color = "grey",size = 15)
+          )
+        plot_FGRegPlayoffs
+      }
+      )
+      
+      
+      # % en fonction de la distance du tir
+      output$PctDistance<-renderPlot({
+        
+        FGpct_distance <- kb_analyse %>%
+          filter(shot_distance<30) %>%
+          group_by(shot_distance) %>%
+          summarise(FGpct = mean(real_shot_made_flag))
+        
+        plot_FG_distance <- ggplot(data=FGpct_distance, aes(x=shot_distance,y=FGpct)) +
+          geom_line(colour="blue",size=1) + geom_point(size=2)+
+          ggtitle("Evolution du % au tir en fonction \n de la distance au panier")+
+          xlab("distance (ft.)") + ylab("FG%") +
+          scale_x_continuous(breaks = seq(0,30,2)) +
+          scale_y_continuous(labels = scales::percent, breaks = seq(0,0.7,0.05)) + 
+          theme(plot.background = element_rect(fill="black"),
+                panel.background = element_rect(fill = "white",colour = "black"),
+                panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank(),
+                axis.text = element_text(color = "grey",size = 15),
+                axis.title = element_text(color = "grey",size = 15),
+                plot.title = element_text(face = "bold", color = "grey",size = 15)
+          )
+        plot_FG_distance
+      }
+      )
+      
+      #% en fonction du moment du tir
+      output$PctMoment<-renderPlot({
+        
+        FGpct_time <- kb_analyse %>%
+          filter(period<5) %>%
+          group_by(shot_time=round((temps_total/60),0)) %>%
+          summarise(FGpct = mean(as.integer(real_shot_made_flag), na.rm=TRUE))
+        
+        plot_FG_time <- ggplot(data=FGpct_time, aes(x=shot_time,y=FGpct)) +
+          geom_line(colour="blue",size=1) + geom_point(size=2)+
+          ggtitle("Evolution du % au tir dans le match")+
+          xlab("moment du tir (min)") + ylab("FG%") +
+          scale_x_continuous(breaks = seq(0,48,2)) +
+          scale_y_continuous(labels = scales::percent, breaks = seq(0,0.7,0.05)) + 
+          theme(plot.background = element_rect(fill="black"),
+                panel.background = element_rect(fill = "white",colour = "black"),
+                panel.grid.major = element_blank(),
+                panel.grid.minor = element_blank(),
+                axis.text = element_text(color = "grey",size = 15),
+                axis.title = element_text(color = "grey",size = 15),
+                plot.title = element_text(face = "bold", color = "grey",size = 15)
+          )
+        plot_FG_time
+      }
+      )
 }
 
 # Run the application 

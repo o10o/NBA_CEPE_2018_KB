@@ -11,14 +11,18 @@
 #               3-performance par type de shoot détaillés ordonnées du meilleur % au moins bon
 #               4- profil de volume de shoots reussis et manqués en fonction de l'éloignement en largeur par rappor au cercle
 #               5-profil de volume de shoots reussis et manqués en fonction de l'éloignement en profondeur par rappor au cercle
-#               6-Affcihage selon les trois catégorisation de zones de shoots des volumes de shoots pris et des pourcentages sur l'ensemble de la carrière
+#               6-Affichage selon les trois catégorisation de zones de shoots des volumes de shoots pris et des pourcentages sur l'ensemble de la carrière
 #                        Shot_zone_area (geographique)
 #                        shot zone basic (par rapport aux règles du jeu)
 #                        shot_zone_range (par rapport à l'éloignement au cercle)
 #***************
+#Onglet "Analyse"
+#             Représentation de la réussite au tir en fonction de variables a priori impactante
+#             pour la modélisation
+#***************
 #Onglet "Visualisation des tirs"
 #             Representation dynamique des shoots, type de shoots, adresse et volume combiné par rapport à la position sur le terrain
-#             sélection des ceritères en amont (types de shoot, adversaires , saisons, dom/ext , en sasion, en playoff...)
+#             sélection des critères en amont (types de shoot, adversaires , saisons, dom/ext , en sasion, en playoff...)
 #             Tableau récapitulatif par type de shoot des % de réussite
 #**************
 #onglet "données, qui ne fait qu'aficher le contenu du fichier conteant ls informations sur les shoots
@@ -111,7 +115,10 @@ ui <- fluidPage(
             selectInput("adversaire", "Adversaire(s):", valadv,multiple=TRUE, selectize=FALSE),
         
             #radio bouton pour choix domicile exterieur les deux
-            selectInput("dom_ext", "DOM/EXT", valdom,multiple=TRUE, selectize=FALSE,selected=valdom)
+            selectInput("dom_ext", "DOM/EXT", valdom,multiple=TRUE, selectize=FALSE,selected=valdom),
+            
+            #gérer la taille des hexagones
+            sliderInput("bin","Taille des hexagones", value = 40, min=30, max = 60)
             
             #radio bouton pour affichage tir heat les deux
             #mis en commentaire du fait de l'affichage des deux terrains en parallèle
@@ -156,6 +163,18 @@ ui <- fluidPage(
                                         )
                                         )
                               ),
+                              tabPanel(id="tab","Analyse",
+                                       tabsetPanel(type = "tabs",
+                                                   tabPanel(id="tab","FG% / 2pts vs 3 pts",
+                                                            plotOutput("PctEvol")),
+                                                   tabPanel(id="tab","FG% / Saison Régulière vs Playoffs",
+                                                            plotOutput("PctRegPlayoffs")),
+                                                   tabPanel(id="tab","FG% / distance au panier",
+                                                            plotOutput("PctDistance")),
+                                                   tabPanel(id="tab","FG% / moment du tir",
+                                                            plotOutput("PctMoment"))
+                                       )
+                              ),
                               tabPanel(id="tab","Visualisation des tirs", 
                                        fluidRow(
                                          column(width=6,
@@ -174,7 +193,7 @@ ui <- fluidPage(
                                        
                                        
                               ),
-                              tabPanel("données", dataTableOutput("table"))
+                              tabPanel("Données", dataTableOutput("table"))
                               
                   )
             
