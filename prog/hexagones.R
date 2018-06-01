@@ -1,3 +1,6 @@
+#install.packages('viridis')
+library(viridis)
+
 hex_bounds <- function(x, binwidth) {
   c(
     plyr::round_any(min(x), binwidth, floor) - 1e-6,
@@ -95,6 +98,7 @@ calculate_hexbins_from_shots = function(shots, binwidths = c(1, 1), min_radius_f
   list(hex_data = hex_data, fg_pct_limits = fg_pct_limits)
 }
 
+
 generate_hex_chart = function(hex_data, alpha_range = c(0.85, 0.98)) {
   
     fill_limit = hex_data$fg_pct_limits
@@ -118,18 +122,19 @@ generate_hex_chart = function(hex_data, alpha_range = c(0.85, 0.98)) {
                  aes_string(x = "adj_x", y = "adj_y", group = "hexbin_id",
                             fill = "bounded_fg_pct", alpha = "hex_attempts"),
                  size = 0) +
-    scale_fill_distiller(type="qual",paste0(fill_label, "   "),
-                         palette = "Set3",
+    scale_fill_viridis(paste0(fill_label, "   "),
                          limit = fill_limit,
+                         breaks = seq(fill_limit[1],fill_limit[2],0.05),
                          labels = label_formatter,
-                         guide = guide_colorbar(barwidth = 2)) +
+                         option = "A",
+                         guide = guide_colorbar(barwidth = 2, barheight = 25, nbin = 50)) +
     scale_alpha_continuous(guide = FALSE, range = alpha_range, trans = "sqrt") +
     scale_x_continuous(limits=c(-250,250),expand = c(0,0))+
     scale_y_continuous(limits=c(-47.5,-47.5+940),expand = c(0,0))+
     coord_equal()+
-    theme(legend.text = element_text(size = rel(0.6)),
+    theme(legend.text = element_text(size = rel(1)),
           axis.title = element_blank(),
           axis.text = element_blank(),
-          plot.margin=margin(0,0,0,0),
+          plot.margin=ggplot2::margin(0,0,0,0),
           legend.position="right")
 }
