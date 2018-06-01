@@ -169,9 +169,9 @@ observeEvent(input$actionB,{
     output$plot2 <- renderPlot({
       decoup<-c(0, 100, 250, 500, 1000, 1500, 2000, 2500, Inf)
       
-        hex_data <- calculate_hexbins_from_shots(shrr, binwidths = c(50, 50),
-                                                 min_radius_factor = 0.01, fg_pct_limits = c(0.2, 0.7))
-        p<-generate_hex_chart(hex_data,alpha_range = c(0.85, 0.98))
+      hex_data <- calculate_hexbins_from_shots(shrr, binwidths = c(input$bin, input$bin),
+                                               min_radius_factor = 0.2, fg_pct_limits = c(0, 0.6))
+      p<-generate_hex_chart(hex_data,alpha_range = c(0.85, 0.98))
     
       p
       
